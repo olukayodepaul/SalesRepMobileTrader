@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="@string/menu_sales"
+        android:id="@+id/sales"
+        android:icon="@drawable/cart_icon"
+
+        />
+
+    <item android:title="@string/menu_details"
+        android:id="@+id/menu_details"
+        android:icon="@drawable/ic_payment_black_24dp"
+        />
+
+
+    <item android:title="@string/menu_commission"
+        android:id="@+id/menu_commission"
+        android:icon="@drawable/ic_payment_black_24dp"
+        />
+
+</menu>

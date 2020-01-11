@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/brys">
+
+    <TextView
+        android:id="@+id/tv_skus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="190dp"
+        android:layout_marginBottom="2dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="0"
+        android:textColor="@color/bg_black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tv_soq"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="162dp"
+        android:layout_marginBottom="2dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/roboto_bold"
+        android:singleLine="true"
+        android:text="0"
+        android:textAlignment="textEnd"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <LinearLayout
+        android:id="@+id/tv_inventory"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="108dp"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/edittext"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <EditText
+            android:id="@+id/mt_inventory"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ellipsize="end"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:fontFamily="@font/roboto_bold"
+            android:hint="0.0"
+            android:inputType="numberDecimal"
+            android:orientation="horizontal"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/tv_pricing"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="55dp"
+
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/edittext"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <EditText
+            android:id="@+id/mt_pricing"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ellipsize="end"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:fontFamily="@font/roboto_bold"
+            android:hint="0"
+            android:inputType="number"
+            android:orientation="horizontal"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/tv_order"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="2dp"
+
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/edittext"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <EditText
+            android:id="@+id/mt_order"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ellipsize="end"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:fontFamily="@font/roboto_bold"
+            android:hint="0.0"
+            android:inputType="numberDecimal"
+            android:orientation="horizontal"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

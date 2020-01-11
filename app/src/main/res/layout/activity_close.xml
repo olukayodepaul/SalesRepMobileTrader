@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mobbile.paul.ui.attendant.Close">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:theme="@style/ToolbarTheme"
+        tools:ignore="MissingConstraints"
+        android:elevation="4dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="40dp">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+                <ImageView
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    app:srcCompat="@drawable/arrow"
+                    tools:layout_editor_absoluteX="1dp"
+                    android:id="@+id/backbtn"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"/>
+
+                <TextView
+                    android:text="Stock Return"
+                    android:layout_width="match_parent"
+                    android:layout_height="29dp"
+                    android:id="@+id/titles"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="MissingConstraints"
+                    android:fontFamily="@font/roboto_bold"
+                    android:textSize="@dimen/fontSize"
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="65dp"
+                    android:layout_marginTop="4dp"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="60dp"
+        android:background="@color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/tv_sku_q"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="17dp"
+            android:layout_marginEnd="205dp"
+            android:layout_marginBottom="17dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="@string/tv_sku"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_aty_q"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="17dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="17dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Return"
+            android:textAlignment="textEnd"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/amt_tv_q"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="17dp"
+            android:layout_marginEnd="70dp"
+            android:layout_marginBottom="17dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Qty Sold"
+            android:textAlignment="textEnd"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/order_tv_q"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="17dp"
+            android:layout_marginEnd="140dp"
+            android:layout_marginBottom="17dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Basket"
+            android:textAlignment="textEnd"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/_r_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="5dp"
+        android:layout_marginBottom="87dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="90dp"
+        android:scrollbars="vertical"
+        android:background="@color/white">
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+
+    <!--here-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/white"
+        tools:ignore="MissingConstraints"
+        app:layout_constraintTop_toBottomOf="@+id/_r_view_pager"
+        android:layout_marginBottom="50dp"
+        >
+
+        <TextView
+            android:id="@+id/tv_sku_t"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="17dp"
+            android:layout_marginEnd="205dp"
+            android:layout_marginBottom="17dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Total ="
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_aty_t_t"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="17dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="17dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Com."
+            android:textAlignment="textEnd"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/amt_tv_t"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="17dp"
+            android:layout_marginEnd="70dp"
+            android:layout_marginBottom="17dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Amount"
+            android:textAlignment="textEnd"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/order_tv_t"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="17dp"
+            android:layout_marginEnd="140dp"
+            android:layout_marginBottom="17dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Order"
+            android:textAlignment="textEnd"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/navigations"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:itemTextColor="@drawable/item_selected"
+        app:itemIconTint="@drawable/item_selected">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteY="0dp"
+            android:id="@+id/resumebtn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toStartOf="@+id/clockoutbtn"
+            android:background="@color/blue_screen"
+            android:fontFamily="@font/roboto_regular"
+            android:textColor="@color/white"
+            >
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                app:srcCompat="@drawable/clock_in"
+                android:id="@+id/imageView5"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="48dp"
+                android:layout_marginEnd="131dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="14dp"/>
+            <TextView
+                android:text="Clockin"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:id="@+id/textView3"
+                android:textSize="19sp"
+                android:gravity="center"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="82dp"
+                android:layout_marginEnd="56dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="15dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:text="@string/ct"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteY="21dp"
+            android:id="@+id/clockoutbtn"
+            app:layout_constraintStart_toEndOf="@+id/resumebtn"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@color/bg_black"
+            android:fontFamily="@font/roboto_regular"
+            android:textSize="17sp"
+            android:gravity="center"
+            android:textColor="@color/white">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                app:srcCompat="@drawable/clock_out"
+                android:id="@+id/imageView6"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="14dp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="48dp"
+                android:layout_marginEnd="131dp"
+                app:layout_constraintEnd_toEndOf="parent"/>
+            <TextView
+                android:text="Close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView7"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="82dp"
+                android:layout_marginEnd="56dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textSize="19sp"
+                android:gravity="center"
+                android:textColor="@color/white"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

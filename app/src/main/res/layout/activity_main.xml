@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context="com.mobbile.paul.ui.login.MainActivity"
+android:background="@color/ballReleasegb"
+android:scrollbars="vertical"
+android:focusable="true"
+android:focusableInTouchMode="true">
+
+    <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/iv_user"
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
+    android:background="@color/blue_nblac"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
+        android:background="@color/primary_darker"
+        android:fontFamily="@font/roboto_thin"
+        android:padding="5dp"
+        android:text="OVM"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="120dp"
+        android:background="@color/green_status"
+        android:fontFamily="@font/roboto_thin"
+        android:padding="5dp"
+        android:text="Fuel Float"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="160dp"
+        android:background="@color/colorPrimary"
+        android:fontFamily="@font/roboto_thin"
+        android:padding="5dp"
+        android:text="Sales Commision"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="80dp"
+        android:background="@color/bg"
+        android:fontFamily="@font/roboto_thin"
+        android:padding="5dp"
+        android:text="MT Commission"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logoss" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+<EditText
+    android:id="@+id/et_email"
+    android:textColor="@color/bg_black"
+    android:background="@drawable/text_view_border"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/iv_user"
+    android:inputType="text"
+    android:layout_marginLeft="30dp"
+    android:layout_marginRight="30dp"
+    android:layout_marginTop="50dp"
+    android:padding="10dp"
+    android:textSize="16sp"
+    android:hint="Username"/>
+<EditText
+    android:id="@+id/et_password"
+    android:textColor="@color/bg_black"
+    android:background="@drawable/text_view_border"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="30dp"
+    android:layout_marginRight="30dp"
+    android:layout_below="@+id/et_email"
+    android:inputType="textPassword"
+    android:layout_marginTop="10dp"
+    android:padding="10dp"
+    android:textSize="15sp"
+    android:hint="Password"
+    />
+
+<Button
+    android:id="@+id/btn_login"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/design_login_btn"
+    android:textColor="#ffffff"
+    android:textSize="13sp"
+    android:layout_marginLeft="30dp"
+    android:layout_marginRight="30dp"
+    android:layout_below="@+id/et_password"
+    android:text="Login"
+    android:layout_marginTop="20dp"/>
+
+<TextView android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="30dp"
+    android:layout_marginRight="30dp"
+    android:layout_below="@+id/btn_login"
+    android:text="@string/copywrite"
+    android:textSize="11sp"
+    android:layout_marginTop="10dp"
+    android:textAlignment="center"
+    android:fontFamily="@font/roboto_italic"/>
+    </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mobbile.paul.salesrepmobiletrader">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:name="com.mobbile.paul.BaseApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name="com.mobbile.paul.ui.outletupdate.OutletUpdate"></activity>
+        <activity android:name="com.mobbile.paul.ui.details.Details" />
+        <activity android:name="com.mobbile.paul.ui.entryhistory.EntryHistory" />
+        <activity android:name="com.mobbile.paul.ui.entries.Entries" />
+        <activity android:name="com.mobbile.paul.ui.attendant.Banks" />
+        <activity android:name="com.mobbile.paul.ui.attendant.Close" />
+        <activity android:name="com.mobbile.paul.ui.attendant.Resumption" />
+        <activity android:name="com.mobbile.paul.Message" />
+        <activity android:name="com.mobbile.paul.ui.salesviewpagers.SalesViewPager" />
+        <activity android:name="com.mobbile.paul.ui.modules.Modules" />
+        <activity
+            android:name="com.mobbile.paul.ui.login.MainActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

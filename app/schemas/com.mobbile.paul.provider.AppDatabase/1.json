@@ -1,0 +1,396 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "f2b1c713a8f873f4deb65a6175a5a792",
+    "entities": [
+      {
+        "tableName": "modules",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`auto` INTEGER NOT NULL, `id` INTEGER NOT NULL, `nav` INTEGER NOT NULL, `name` TEXT NOT NULL, `imageurl` TEXT NOT NULL, PRIMARY KEY(`auto`))",
+        "fields": [
+          {
+            "fieldPath": "auto",
+            "columnName": "auto",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nav",
+            "columnName": "nav",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "imageurl",
+            "columnName": "imageurl",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "auto"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "spiners",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`auto` INTEGER NOT NULL, `id` INTEGER NOT NULL, `name` TEXT NOT NULL, `sep` INTEGER NOT NULL, PRIMARY KEY(`auto`))",
+        "fields": [
+          {
+            "fieldPath": "auto",
+            "columnName": "auto",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sep",
+            "columnName": "sep",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "auto"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "customers",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`auto` INTEGER NOT NULL, `rep_id` INTEGER NOT NULL, `urno` INTEGER NOT NULL, `customerno` TEXT NOT NULL, `outletclassid` INTEGER NOT NULL, `outletlanguageid` INTEGER NOT NULL, `outlettypeid` INTEGER NOT NULL, `outletname` TEXT NOT NULL, `outletaddress` TEXT NOT NULL, `contactname` TEXT NOT NULL, `contactphone` TEXT NOT NULL, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, `token` TEXT NOT NULL, `defaulttoken` TEXT NOT NULL, `sequenceno` INTEGER NOT NULL, `distance` TEXT NOT NULL, `duration` TEXT NOT NULL, `mode` TEXT NOT NULL, `dates` TEXT NOT NULL, `volumeclass` TEXT NOT NULL, `customer_code` TEXT NOT NULL, `sort` INTEGER NOT NULL, `notice` TEXT NOT NULL, `entry_time` TEXT NOT NULL, PRIMARY KEY(`auto`))",
+        "fields": [
+          {
+            "fieldPath": "auto",
+            "columnName": "auto",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rep_id",
+            "columnName": "rep_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "urno",
+            "columnName": "urno",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "customerno",
+            "columnName": "customerno",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "outletclassid",
+            "columnName": "outletclassid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "outletlanguageid",
+            "columnName": "outletlanguageid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "outlettypeid",
+            "columnName": "outlettypeid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "outletname",
+            "columnName": "outletname",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "outletaddress",
+            "columnName": "outletaddress",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "contactname",
+            "columnName": "contactname",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "contactphone",
+            "columnName": "contactphone",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "latitude",
+            "columnName": "latitude",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "longitude",
+            "columnName": "longitude",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "token",
+            "columnName": "token",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "defaulttoken",
+            "columnName": "defaulttoken",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sequenceno",
+            "columnName": "sequenceno",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "distance",
+            "columnName": "distance",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "duration",
+            "columnName": "duration",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mode",
+            "columnName": "mode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dates",
+            "columnName": "dates",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "volumeclass",
+            "columnName": "volumeclass",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "customer_code",
+            "columnName": "customer_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sort",
+            "columnName": "sort",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "notice",
+            "columnName": "notice",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "entry_time",
+            "columnName": "entry_time",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "auto"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "custometvisitsequence",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `nexts` INTEGER NOT NULL, `self` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nexts",
+            "columnName": "nexts",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "self",
+            "columnName": "self",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "salesentries",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `product_id` TEXT NOT NULL, `product_code` TEXT NOT NULL, `product_name` TEXT NOT NULL, `soq` TEXT NOT NULL, `seperator` TEXT NOT NULL, `seperatorname` TEXT NOT NULL, `pricing` TEXT NOT NULL, `inventory` TEXT NOT NULL, `orders` TEXT NOT NULL, `amount` REAL NOT NULL, `entry_time` TEXT NOT NULL, `controlpricing` TEXT NOT NULL, `controlinventory` TEXT NOT NULL, `controlorder` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "product_id",
+            "columnName": "product_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "product_code",
+            "columnName": "product_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "product_name",
+            "columnName": "product_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "soq",
+            "columnName": "soq",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "seperator",
+            "columnName": "seperator",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "seperatorname",
+            "columnName": "seperatorname",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pricing",
+            "columnName": "pricing",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "inventory",
+            "columnName": "inventory",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "orders",
+            "columnName": "orders",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "amount",
+            "columnName": "amount",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "entry_time",
+            "columnName": "entry_time",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "controlpricing",
+            "columnName": "controlpricing",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "controlinventory",
+            "columnName": "controlinventory",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "controlorder",
+            "columnName": "controlorder",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"f2b1c713a8f873f4deb65a6175a5a792\")"
+    ]
+  }
+}

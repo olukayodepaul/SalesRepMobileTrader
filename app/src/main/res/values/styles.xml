@@ -1,0 +1,22 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/jet</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="ToolbarTheme" parent="ThemeOverlay.MaterialComponents.ActionBar">
+        <item name="android:background">@color/blue_nblac</item>
+    </style>
+
+    <style name="ToolbarThemes" parent="ThemeOverlay.MaterialComponents.ActionBar">
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="AlertDialogDanger" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/blue_nblac</item>
+    </style>
+
+</resources>
