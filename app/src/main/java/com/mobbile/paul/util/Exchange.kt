@@ -94,6 +94,48 @@ object ParserModel {
         data.postValue(dataPasser)
     }
 
+    fun mSalesDetails(
+        data: MutableLiveData<mSalesDetailsParser>,
+        status: Int,
+        msg: String,
+        list: List<AllSalesDetails>
+
+    ) {
+        val dataPasser = mSalesDetailsParser()
+        dataPasser.status = status
+        dataPasser.msg = msg
+        dataPasser.list = list
+        data.postValue(dataPasser)
+    }
+
+    fun mBankDetails(
+        data: MutableLiveData<mBankDetailsParser>,
+        status: Int,
+        msg: String,
+        list: BankDetails
+
+    ) {
+        val dataPasser = mBankDetailsParser()
+        dataPasser.status = status
+        dataPasser.msg = msg
+        dataPasser.list = list
+        data.postValue(dataPasser)
+    }
+
+    fun mDetailsForEachSales(
+        data: MutableLiveData<mDetailsForEachSalesParser>,
+        status: Int,
+        msg: String,
+        list: DetailsForEachSales
+
+    ) {
+        val dataPasser = mDetailsForEachSalesParser()
+        dataPasser.status = status
+        dataPasser.msg = msg
+        dataPasser.list = list
+        data.postValue(dataPasser)
+    }
+
 
 
 

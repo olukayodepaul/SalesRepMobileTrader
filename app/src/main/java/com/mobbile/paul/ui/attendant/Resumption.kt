@@ -110,7 +110,7 @@ class Resumption : BaseActivity() {
             }
             else -> {
                 showProgressBar(false)
-                showMessageDialogWithoutIntent(this, "${it.msg} ${customer_code}", "Basket Error")
+                showMessageDialogWithoutIntent(this, "Basket Error","No basket is assign to you")
                 refresh_image.visibility = View.VISIBLE
             }
         }
@@ -172,24 +172,8 @@ class Resumption : BaseActivity() {
                 setGeoFencing(location.latitude, location.longitude, outletlat, outletlng, 1)
 
             if (!checkCustomerOutlet) {
-                //showProgressBar(false)
-                //showMessageDialogWithoutIntent(this,"Location Error","You are not at the DEPOT. Thanks!")
-
-                when (mode) {
-                    1 -> {
-                        vmodel.takeAttendant(
-                            1, repid, outletlat, outletlng, location.latitude, location.longitude,
-                            distance, duration, "${sequenceno}", getDate()
-                        )
-                    }
-                    2 -> {
-                        vmodel.takeAttendant(
-                            2, repid, outletlat, outletlng, location.latitude, location.longitude,
-                            distance, duration, "${sequenceno}", getDate()
-                        )
-                    }
-                }
-
+                showProgressBar(false)
+                showMessageDialogWithoutIntent(this,"Location Error","You are not at the DEPOT. Thanks!")
             } else {
                 when (mode) {
                     1 -> {

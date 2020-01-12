@@ -65,7 +65,8 @@ interface Api {
         @Query("visitsequence") visitsequence: Int,
         @Query("distance") distance: String,
         @Query("duration") duration: String,
-        @Query("urno") urno: Int
+        @Query("urno") urno: Int,
+        @Query("uiid") uiid: String
     ): Single<Response<Attendant>>
 
     @Headers("Connection:close")
@@ -73,5 +74,25 @@ interface Api {
     fun fetchPostSales(
         @Body datas: postToServer
     ): Single<Response<Attendant>>
+
+    @Headers("Connection:close")
+    @POST("/api/rep_sales_details")
+    fun getSalesDetails(
+        @Query("customer_code") customer_code: String
+    ): Single<Response<SalesDetails>>
+
+    @Headers("Connection:close")
+    @POST("/api/rep_sales_details")
+    fun getBankDetails(
+        @Query("customer_code") customer_code: String
+    ): Single<Response<BankDetails>>
+
+    @Headers("Connection:close")
+    @POST("/api/rep_sales_details_for_each_outlet")
+    fun getDetailsForEachSales(
+        @Query("rep_id") rep_id: Int,
+        @Query("urno") urno: Int
+    ): Single<Response<DetailsForEachSales>>
+
 
 }

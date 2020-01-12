@@ -234,7 +234,11 @@ data class getSalesEntry (
     var controlinventory: String = "",
     @SerializedName("controlorder")
     @Expose
-    var controlorder: String = ""
+    var controlorder: String = "",
+    @SerializedName("comision")
+    @Expose
+    var comision: Double = 0.0
+
 )
 
 data class Products(
@@ -301,12 +305,116 @@ data class postToServer(
     @SerializedName("token")
     @Expose
     var token: String = "",
+    @SerializedName("uiid")
+    @Expose
+    var uiid: String = "",
     @SerializedName("lists")
     @Expose
     var lists: List<getSalesEntry>? = null
 )
 
+data class SalesDetails(
+    @SerializedName("status")
+    @Expose
+    var status: Int = 0,
+    @SerializedName("notis")
+    @Expose
+    var notis: String = "",
+    @SerializedName("details")
+    @Expose
+    var details: List<AllSalesDetails> = emptyList()
+)
 
+data class AllSalesDetails(
+    @SerializedName("product_name")
+    @Expose
+    var product_name: String = "",
+    @SerializedName("product_code")
+    @Expose
+    var product_code: String = "",
+    @SerializedName("qty")
+    @Expose
+    var qty: Double = 0.0,
+    @SerializedName("ordered")
+    @Expose
+    var ordered: Double = 0.0
+)
 
+data class  BankDetails(
+    @SerializedName("status")
+    @Expose
+    var status: Int = 0,
+    @SerializedName("notis")
+    @Expose
+    var notis: String = "",
+    @SerializedName("sumdeposit")
+    @Expose
+    var sumdeposit: Double= 0.0,
+    @SerializedName("sumorder")
+    @Expose
+    var sumorder: Double= 0.0,
+    @SerializedName("sumcom")
+    @Expose
+    var sumcom: Double= 0.0,
+    @SerializedName("details")
+    @Expose
+    var details: List<AllBankDetails> = emptyList()
+)
 
+data class AllBankDetails(
+    @SerializedName("product_name")
+    @Expose
+    var product_name: String = "",
+    @SerializedName("product_code")
+    @Expose
+    var product_code: String = "",
+    @SerializedName("qty")
+    @Expose
+    var qty: Double = 0.0,
+    @SerializedName("ordered")
+    @Expose
+    var ordered: Double = 0.0,
+    @SerializedName("price")
+    @Expose
+    var price: Double = 0.0,
+    @SerializedName("com")
+    @Expose
+    var com: Double = 0.0,
+    @SerializedName("deposit")
+    @Expose
+    var deposit: Double = 0.0
+)
+
+data class  DetailsForEachSales(
+    @SerializedName("status")
+    @Expose
+    var status: Int = 0,
+    @SerializedName("notis")
+    @Expose
+    var notis: String = "",
+    @SerializedName("details")
+    @Expose
+    var details: List<AllDetailsForEachSales> = emptyList()
+)
+
+data class AllDetailsForEachSales(
+    @SerializedName("product_name")
+    @Expose
+    var product_name: String = "",
+    @SerializedName("product_code")
+    @Expose
+    var product_code: String = "",
+    @SerializedName("qty")
+    @Expose
+    var qty: Double = 0.0,
+    @SerializedName("pricing")
+    @Expose
+    var pricing: Double = 0.0,
+    @SerializedName("inventory")
+    @Expose
+    var inventory: Double = 0.0,
+    @SerializedName("product_category")
+    @Expose
+    var product_category: String = ""
+)
 

@@ -4,18 +4,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.mobbile.paul.model.AllBankDetails
+import com.mobbile.paul.model.AllSalesDetails
 import com.mobbile.paul.salesrepmobiletrader.R
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.bank_adapter.view.*
+import kotlinx.android.synthetic.main.activity_close.view.*
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 
-class BankAdapter(private var mItems: List<AllBankDetails>) :
-    RecyclerView.Adapter<BankAdapter.ViewHolder>() {
+class CloseAdapter(private var mItems: List<AllSalesDetails>) :
+    RecyclerView.Adapter<CloseAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
         val v = LayoutInflater.from(p0.context)
-            .inflate(R.layout.bank_adapter, p0, false)
+            .inflate(R.layout.depot_adapter, p0, false)
         return ViewHolder(v)
     }
 
@@ -35,11 +37,13 @@ class BankAdapter(private var mItems: List<AllBankDetails>) :
     inner class ViewHolder(override val containerView: View) :
         RecyclerView.ViewHolder(containerView),
         LayoutContainer {
-        fun bind(item: AllBankDetails) {
+        fun bind(item: AllSalesDetails) {
+            val df = DecimalFormat("#.#")
+            df.roundingMode = RoundingMode.FLOOR
             containerView.tv_sku_q.text = item.product_name
-            containerView.order_tv_q.text = item.ordered.toString()
-            containerView.amt_tv_q.text = "${item.deposit}"
-            containerView.tv_aty_q.text = "${item.com}"
+            containerView.order_tv_q.text = "${item.qty}"
+            containerView.amt_tv_q.text = "${item.ordered}"
+            containerView.tv_aty_q.text = "${item.qty-item.ordered}"
         }
     }
 }

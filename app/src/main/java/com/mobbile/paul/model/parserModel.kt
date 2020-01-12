@@ -47,3 +47,22 @@ data class AttendantParser (
     var status: Int = 0,
     var notis: String = ""
 )
+
+data class mSalesDetailsParser (
+    var status: Int = 0,
+    var msg: String = "",
+    var list: List<AllSalesDetails>? = null
+)
+
+data class mBankDetailsParser (
+    var status: Int = 0,
+    var msg: String = "",
+    var list: BankDetails? = null
+)
+
+data class mDetailsForEachSalesParser (
+    var status: Int = 0,
+    var msg: String = "",
+    var list: DetailsForEachSales? = null
+)
+

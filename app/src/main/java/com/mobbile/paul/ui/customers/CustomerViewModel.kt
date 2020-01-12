@@ -81,6 +81,8 @@ class CustomerViewModel @Inject constructor(private var repo: Repository) : View
         repo.validateOutletSequence(id)
             .subscribe(
                 {
+                    Log.d(TAG, it.toString())
+
                     val intArray = nexts in it.self.split(",").map { it.toInt() }
 
                     when {
@@ -95,15 +97,15 @@ class CustomerViewModel @Inject constructor(private var repo: Repository) : View
                         }
                     }
                 }, {
-                    outletSequenceParser(res,200,currentLat,currentLng) //change status t0 400
+                    outletSequenceParser(res,400,currentLat,currentLng)
                 }).isDisposed
         return res
     }
 
     //from here close outlet works
     fun closeOutlet(rep_id:Int, currentLat:String, currentLng:String, outletLat:String, outletLng:String, distance:String,
-                    duration:String, urno:Int, sequenceno:Int, auto:Int) {
-        repo.CloseOutlets(rep_id,  currentLat, currentLng, outletLat, outletLng, getTime(), sequenceno, distance, duration, urno)
+                    duration:String, urno:Int, sequenceno:Int, auto:Int, uiid:String) {
+        repo.CloseOutlets(rep_id,  currentLat, currentLng, outletLat, outletLng, getTime(), sequenceno, distance, duration, urno,uiid)
             .subscribe({
                 outletClose = it.body()!!
                 UpdateSeque(1, sequenceno,auto)
@@ -113,7 +115,7 @@ class CustomerViewModel @Inject constructor(private var repo: Repository) : View
     }
 
     private fun UpdateSeque(id: Int, sequenceno: Int, auto: Int) {
-        repo.UpdateSeque(id,sequenceno+1, ",$sequenceno").subscribe({
+        repo.UpdateSeque(id, sequenceno+1, ",$sequenceno").subscribe({
             setEntryTime(auto)
         }, {
             AttendanExchange(atresponse, 400, it.message.toString())

@@ -26,6 +26,8 @@ import com.mobbile.paul.ui.details.Details
 import com.mobbile.paul.ui.entries.Entries
 import com.mobbile.paul.ui.outletupdate.OutletUpdate
 import com.mobbile.paul.ui.salesviewpagers.SalesViewPager
+import com.mobbile.paul.util.Util.getDate
+import com.mobbile.paul.util.Util.getTime
 import com.mobbile.paul.util.Util.setGeoFencing
 import com.mobbile.paul.util.Util.sharePrefenceDataSave
 import com.mobbile.paul.util.Util.showMessageDialogWithIntent
@@ -34,6 +36,7 @@ import com.mobbile.paul.util.Util.showProgressBar
 import com.mobbile.paul.util.Util.startGoogleMapIntent
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_sales.*
+import java.util.*
 import javax.inject.Inject
 
 
@@ -161,6 +164,8 @@ class Customers : DaggerFragment() {
                 dataFromAdapter = partItem
                 val intent = Intent(this.requireContext(), Details::class.java)
                  intent.putExtra("urno", dataFromAdapter.urno)
+                 intent.putExtra("rep_id", dataFromAdapter.rep_id)
+                 intent.putExtra("outletname", dataFromAdapter.outletname)
                  startActivity(intent)
             }
         }
@@ -268,7 +273,8 @@ class Customers : DaggerFragment() {
                             dataFromAdapter.duration,
                             dataFromAdapter.urno,
                             dataFromAdapter.sequenceno,
-                            dataFromAdapter.auto
+                            dataFromAdapter.auto,
+                            getDate()+"${dataFromAdapter.rep_id}"+UUID.randomUUID().toString()
                         )
                     }
                 }

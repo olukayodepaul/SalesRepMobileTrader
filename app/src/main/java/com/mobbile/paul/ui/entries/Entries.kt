@@ -16,11 +16,13 @@ import com.mobbile.paul.model.SalesEntryExchage
 import com.mobbile.paul.model.setSalesEntry
 import com.mobbile.paul.salesrepmobiletrader.R
 import com.mobbile.paul.ui.entryhistory.EntryHistory
+import com.mobbile.paul.util.Util.getDate
 import com.mobbile.paul.util.Util.getTime
 import com.mobbile.paul.util.Util.sharePrefenceDataSave
 import com.mobbile.paul.util.Util.showMessageDialogWithoutIntent
 import kotlinx.android.synthetic.main.activity_entries.*
 import kotlinx.android.synthetic.main.sales_entry_adapter.view.*
+import java.util.*
 import javax.inject.Inject
 
 class Entries : BaseActivity() {
@@ -173,6 +175,7 @@ class Entries : BaseActivity() {
             intent.putExtra("auto", auto)
             intent.putExtra("customerno", customerno)
             intent.putExtra("customer_code", customer_code)
+            intent.putExtra("uiid",getDate()+"${repid}"+UUID.randomUUID().toString())
             startActivity(intent)
         }else {
             showProgressBar(false)

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="33dp"
+            android:background="@color/white"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints">
+
+        <TextView
+                android:id="@+id/tv_sku_q"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="17dp"
+                android:layout_marginEnd="205dp"
+                android:layout_marginBottom="17dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="@string/tv_sku"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textColor="@color/black"/>
+
+        <TextView
+                android:id="@+id/tv_aty_q"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="17dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="17dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="Com."
+                android:textAlignment="textEnd"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textColor="@color/black"/>
+
+        <TextView
+                android:id="@+id/amt_tv_q"
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="17dp"
+                android:layout_marginEnd="70dp"
+                android:layout_marginBottom="17dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="Amount"
+                android:textAlignment="textEnd"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textColor="@color/black"/>
+
+        <TextView
+                android:id="@+id/order_tv_q"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="17dp"
+                android:layout_marginEnd="140dp"
+                android:layout_marginBottom="17dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="Order"
+                android:textAlignment="textEnd"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textColor="@color/black"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

@@ -3,6 +3,8 @@ package com.mobbile.paul.di.module
 
 import com.mobbile.paul.di.subcomponent.attendant.AttendantModule
 import com.mobbile.paul.di.subcomponent.attendant.AttendantScope
+import com.mobbile.paul.di.subcomponent.details.DetailsModule
+import com.mobbile.paul.di.subcomponent.details.DetailsScope
 import com.mobbile.paul.di.subcomponent.enrtryhistory.EntryHistoryModule
 import com.mobbile.paul.di.subcomponent.enrtryhistory.EntryHistoryScope
 import com.mobbile.paul.di.subcomponent.entry.EntryModule
@@ -18,6 +20,7 @@ import com.mobbile.paul.di.subcomponent.salesfragment.customers.CustomerModules
 import com.mobbile.paul.ui.attendant.Banks
 import com.mobbile.paul.ui.attendant.Close
 import com.mobbile.paul.ui.attendant.Resumption
+import com.mobbile.paul.ui.details.Details
 import com.mobbile.paul.ui.entries.Entries
 import com.mobbile.paul.ui.entryhistory.EntryHistory
 import com.mobbile.paul.ui.login.MainActivity
@@ -96,5 +99,13 @@ abstract class ActivityBuilderModule {
         ]
     )
     abstract fun contributeResumptionAndroidInjector(): Resumption
+
+    @DetailsScope
+    @ContributesAndroidInjector(
+        modules = [
+            DetailsModule::class
+        ]
+    )
+    abstract fun contributeDetailsModuleAndroidInjector(): Details
 
 }

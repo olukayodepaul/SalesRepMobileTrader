@@ -79,7 +79,8 @@ data class EntityGetSalesEntry (
     var entry_time: String = "",
     var controlpricing: String = "",
     var controlinventory: String = "",
-    var controlorder: String = ""
+    var controlorder: String = "",
+    var comision: Double = 0.0
 )
 
 

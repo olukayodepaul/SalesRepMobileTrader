@@ -129,7 +129,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="5dp"
-        android:layout_marginBottom="87dp"
+        android:layout_marginBottom="55dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="90dp"
@@ -140,76 +140,6 @@
 
 
     <!--here-->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="@color/white"
-        tools:ignore="MissingConstraints"
-        app:layout_constraintTop_toBottomOf="@+id/_r_view_pager"
-        android:layout_marginBottom="50dp"
-        >
-
-        <TextView
-            android:id="@+id/tv_sku_t"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="17dp"
-            android:layout_marginEnd="205dp"
-            android:layout_marginBottom="17dp"
-            android:fontFamily="@font/roboto_bold"
-            android:text="Total ="
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_aty_t_t"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="17dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="17dp"
-            android:fontFamily="@font/roboto_bold"
-            android:text="Com."
-            android:textAlignment="textEnd"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/amt_tv_t"
-            android:layout_width="65dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="17dp"
-            android:layout_marginEnd="70dp"
-            android:layout_marginBottom="17dp"
-            android:fontFamily="@font/roboto_bold"
-            android:text="Amount"
-            android:textAlignment="textEnd"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/order_tv_t"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="17dp"
-            android:layout_marginEnd="140dp"
-            android:layout_marginBottom="17dp"
-            android:fontFamily="@font/roboto_bold"
-            android:text="Order"
-            android:textAlignment="textEnd"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout

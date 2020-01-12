@@ -103,8 +103,15 @@ class CustomersAdapter(
                     }
                     3->{
                         val intent = Intent(context, Banks::class.java)
-                        intent.putExtra("customer_code",item.customer_code)
                         intent.putExtra("repid", item.rep_id)
+                        intent.putExtra("outletlat", item.latitude)
+                        intent.putExtra("outletlng", item.longitude)
+                        intent.putExtra("sequenceno", item.sequenceno)
+                        intent.putExtra("distance",item.distance)
+                        intent.putExtra("duration",item.duration)
+                        intent.putExtra("customer_code",item.customer_code)
+                        intent.putExtra("sort",item.sort)
+                        intent.putExtra("auto",item.auto)
                         context.startActivity(intent)
                     }
                     4->{
@@ -117,6 +124,7 @@ class CustomersAdapter(
                         intent.putExtra("duration",item.duration)
                         intent.putExtra("customer_code",item.customer_code)
                         intent.putExtra("sort",item.sort)
+                        intent.putExtra("auto",item.auto)
                         context.startActivity(intent)
                     }
                 }

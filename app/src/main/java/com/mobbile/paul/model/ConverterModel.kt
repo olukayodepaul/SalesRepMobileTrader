@@ -23,13 +23,13 @@ fun ApplicationCustomers.toEntityAllOutletsList(): customersEntity {
 fun getSalesEntry.toEntityGetSalesEntry(): EntityGetSalesEntry {
     return EntityGetSalesEntry(
         id,product_id, product_code,product_name, soq, seperator,seperatorname, pricing, inventory,orders,amount,
-        entry_time,controlpricing,controlinventory,controlorder
+        entry_time,controlpricing,controlinventory,controlorder,comision
     )
 }
 
 fun EntityGetSalesEntry.toAllOutletsList(): getSalesEntry {
     return getSalesEntry(
         id,product_id,product_code,product_name,soq,seperator,seperatorname,pricing,inventory,orders,amount,
-        entry_time,controlpricing,controlinventory,controlorder
+        entry_time,controlpricing,controlinventory,controlorder,comision
     )
 }

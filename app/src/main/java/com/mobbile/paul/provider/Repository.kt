@@ -161,8 +161,8 @@ constructor(private val appDao: AppDao, private val api: Api) {
 
     fun CloseOutlets(repid: Int,  currentlat: String, currentlng: String,
                      outletlat: String, outletlng: String, arrivaltime: String,
-                     visitsequence: Int, distance: String, duration: String, urno: Int): Single<Response<Attendant>> =
-        api.CloseOutlets(repid,currentlat,currentlng,outletlat, outletlng,arrivaltime, visitsequence,distance,duration,urno)
+                     visitsequence: Int, distance: String, duration: String, urno: Int,uiid:String): Single<Response<Attendant>> =
+        api.CloseOutlets(repid,currentlat,currentlng,outletlat, outletlng,arrivaltime, visitsequence,distance,duration,urno, uiid)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .map{it}
@@ -190,5 +190,26 @@ constructor(private val appDao: AppDao, private val api: Api) {
             appDao.pullAllSalesEntry()
         }.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+
+    fun getSalesDetails(customer_code: String): Single<Response<SalesDetails>> =
+        api.getSalesDetails(customer_code)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map{it}
+
+    fun getBankDetails(customer_code: String): Single<Response<BankDetails>> =
+        api.getBankDetails(customer_code)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map{it}
+
+    fun getDetailsForEachSales(rep_id: Int, urno:Int): Single<Response<DetailsForEachSales>> =
+        api.getDetailsForEachSales(rep_id,urno)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map{it}
+
+
+
 
 }

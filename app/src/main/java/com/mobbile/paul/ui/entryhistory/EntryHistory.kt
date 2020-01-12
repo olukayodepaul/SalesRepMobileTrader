@@ -11,10 +11,13 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mobbile.paul.BaseActivity
+import com.mobbile.paul.model.AttendantParser
 import com.mobbile.paul.model.EntityGetSalesEntry
 import com.mobbile.paul.model.SumSales
 import com.mobbile.paul.salesrepmobiletrader.R
+import com.mobbile.paul.ui.salesviewpagers.SalesViewPager
 import com.mobbile.paul.util.Util.sharePrefenceDataSave
+import com.mobbile.paul.util.Util.showMessageDialogWithIntent
 import com.mobbile.paul.util.Util.showMessageDialogWithoutIntent
 import kotlinx.android.synthetic.main.activity_entry_history.*
 import java.math.RoundingMode
@@ -38,6 +41,7 @@ class EntryHistory : BaseActivity() {
     var customerno: String = ""
     var customer_code: String = ""
     var auto: Int = 0
+    var uiid:String = ""
 
     @Inject
     internal lateinit var modelFactory: ViewModelProvider.Factory
@@ -72,6 +76,7 @@ class EntryHistory : BaseActivity() {
         customerno = intent.getStringExtra("customerno")!!
         customer_code = intent.getStringExtra("customer_code")!!
         auto = intent.getIntExtra("auto", 0)
+        uiid = intent.getStringExtra("uiid")!!
         tv_outlet_name.text = outletname
 
         back_btn.setOnClickListener {
@@ -84,12 +89,12 @@ class EntryHistory : BaseActivity() {
                 token.equals(token_form.text.toString().trim()) -> {
                     showProgressBar(true)
                     btn_complete.visibility = View.INVISIBLE
-                    vmodel.postSalesToServer(repid, currentlat, currentlng, outletlat, outletlng, distance,  durations, urno, visit_sequence,  auto, token_form.text.toString().trim())
+                    vmodel.postSalesToServer(repid, currentlat, currentlng, outletlat, outletlng, distance,  durations, urno, visit_sequence,  auto, token_form.text.toString().trim(),uiid)
                 }
                 defaulttoken.equals(token_form.text.toString().trim()) -> {
                     showProgressBar(true)
                     btn_complete.visibility = View.INVISIBLE
-                    vmodel.postSalesToServer(repid, currentlat, currentlng, outletlat, outletlng, distance,  durations, urno, visit_sequence,  auto, token_form.text.toString().trim())
+                    vmodel.postSalesToServer(repid, currentlat, currentlng, outletlat, outletlng, distance,  durations, urno, visit_sequence,  auto, token_form.text.toString().trim(),uiid)
                 }
                 else -> showMessageDialogWithoutIntent(this,  "Error", "Invalid Customer Verification code")
             }
@@ -101,6 +106,19 @@ class EntryHistory : BaseActivity() {
         recycler_view_complete.layoutManager = layoutManager
 
         vmodel.fecthAllSalesEntries().observe(this, observerOfSalesEntry)
+        vmodel.OpenOutletObserver().observe(this, observeCloseOutlets)
+    }
+
+    private val observeCloseOutlets = Observer<AttendantParser> {
+        when(it.status){
+            200->{
+                showProgressBar(false)
+                showMessageDialogWithIntent(SalesViewPager(),this, "Successful", it.notis)
+            }else->{
+            showProgressBar(false)
+            showMessageDialogWithoutIntent(this,"Outlet Close Error", it.notis)
+        }
+        }
     }
 
     private val observerOfSalesEntry = Observer<List<EntityGetSalesEntry>> {
