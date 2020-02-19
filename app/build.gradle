@@ -66,6 +66,7 @@ dependencies {
     def material_version = "1.0.0"
     implementation "com.google.android.material:material:$material_version"
     implementation "androidx.cardview:cardview:$material_version"
+    implementation "com.android.support:design:29.0.0"
 
     // Retrofit
     def retrofitVersion = "2.5.0"
@@ -158,5 +159,17 @@ dependencies {
     implementation 'com.google.maps:google-maps-services:0.9.1'
     implementation 'com.google.maps.android:android-maps-utils:0.5+'
 
+    implementation 'com.google.firebase:firebase-core:17.0.1'
+    implementation 'com.google.firebase:firebase-messaging:20.1.0'
+    implementation 'com.google.firebase:firebase-auth:19.2.0'
+    implementation 'com.google.firebase:firebase-storage:19.1.0'
+    implementation 'com.google.firebase:firebase-database:19.2.0'
+    implementation 'com.google.firebase:firebase-analytics:17.2.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.1.0'
+    implementation 'com.airbnb.android:lottie:3.0.7'
+
+    //material dialog in android
+    def matieral_dialogs_version = "3.1.0"
+    implementation "com.afollestad.material-dialogs:core:$matieral_dialogs_version"
 
 }

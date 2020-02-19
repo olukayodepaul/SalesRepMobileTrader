@@ -1,7 +1,9 @@
 package com.mobbile.paul.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 data class ApplicationLogin(
     @SerializedName("status")
@@ -22,6 +24,9 @@ data class ApplicationLogin(
     @SerializedName("name")
     @Expose
     var name: String,
+    @SerializedName("region_id")
+    @Expose
+    var region_id: Int,
     @SerializedName("modules")
     @Expose
     var modules: List<ApplicationModules>? = null,
@@ -75,6 +80,7 @@ data class CustomersRemoteResponse(
     var alloutlets: List<ApplicationCustomers> = emptyList()
 )
 
+@Parcelize
 data class ApplicationCustomers(
     @SerializedName("auto")
     @Expose
@@ -151,7 +157,7 @@ data class ApplicationCustomers(
     @SerializedName("entry_time")
     @Expose
     var entry_time: String = ""
-)
+): Parcelable
 
 data class InitBasket (
     @SerializedName("status")
@@ -416,5 +422,71 @@ data class AllDetailsForEachSales(
     @SerializedName("product_category")
     @Expose
     var product_category: String = ""
+)
+
+data class OutletUpdateResponse(
+    @SerializedName("status")
+    @Expose
+    var status: Int = 0,
+    @SerializedName("notis")
+    @Expose
+    var notis: String = ""
+)
+
+data class OutletAsyn(
+    @SerializedName("status")
+    @Expose
+    var status: Int = 0,
+    @SerializedName("outletclassid")
+    @Expose
+    var outletclassid: Int = 0,
+    @SerializedName("outletlanguageid")
+    @Expose
+    var outletlanguageid: Int = 0,
+    @SerializedName("outlettypeid")
+    @Expose
+    var outlettypeid: Int = 0,
+    @SerializedName("outletname")
+    @Expose
+    var outletname: String = "",
+    @SerializedName("outletaddress")
+    @Expose
+    var outletaddress: String = "",
+    @SerializedName("contactname")
+    @Expose
+    var contactname: String = "",
+    @SerializedName("contactphone")
+    @Expose
+    var contactphone: String = "",
+    @SerializedName("longitude")
+    @Expose
+    var longitude: String = "",
+    @SerializedName("latitude")
+    @Expose
+    var latitude: String = ""
+)
+
+data class salesCommisssion (
+    @SerializedName("status")
+    @Expose
+    var status: Int = 0,
+    @SerializedName("comlist")
+    @Expose
+    var comlist: List<salesCommissionList>? = null
+)
+
+data class salesCommissionList(
+    @SerializedName("commisssiontype")
+    @Expose
+    var commisssiontype: String = "",
+    @SerializedName("dates")
+    @Expose
+    var dates: String = "",
+    @SerializedName("kays")
+    @Expose
+    var kays: String = "",
+    @SerializedName("amount")
+    @Expose
+    var amount: String = ""
 )
 

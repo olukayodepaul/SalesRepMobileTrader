@@ -58,4 +58,6 @@
     <color name="gray_line">#d3d3d3</color>
     <color name="brys">#F2F2F2</color>
     <color name="module_child">#fa8100</color>
+    <color name="gray_lights">#039BE5</color>
+    <color name="gray_light_light">#CFD8DC</color>
 </resources>

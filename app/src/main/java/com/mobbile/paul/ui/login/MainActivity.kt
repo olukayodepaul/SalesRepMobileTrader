@@ -3,11 +3,15 @@ package com.mobbile.paul.ui.login
 
 import android.Manifest
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.telephony.TelephonyManager
+import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -19,8 +23,11 @@ import com.mobbile.paul.util.Util.showMessageDialogWithoutIntent
 import kotlinx.android.synthetic.main.activity_main.*
 import androidx.core.app.ActivityCompat.checkSelfPermission
 import androidx.lifecycle.Observer
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.customview.customView
 import com.mobbile.paul.model.LoginExchange
 import com.mobbile.paul.ui.modules.Modules
+import com.mobbile.paul.ui.salesviewpagers.SalesViewPager
 import com.mobbile.paul.util.Util.intentWithFinish
 import javax.inject.Inject
 
@@ -35,6 +42,7 @@ class MainActivity : BaseActivity() {
 
     var date = ""
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -44,6 +52,7 @@ class MainActivity : BaseActivity() {
         initValues()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun initValues() {
         showProgressBar(false)
         btn_login.setOnClickListener {
@@ -73,6 +82,7 @@ class MainActivity : BaseActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun processLogin() {
         val permit = checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
         val username: String = et_email.text.toString()
@@ -88,7 +98,13 @@ class MainActivity : BaseActivity() {
         } else if (permit == PackageManager.PERMISSION_DENIED) {
             imeiRequest()
         } else {
-            vmodel.Login("hZgCbKv", "6670", "351736103271247", date)
+            //vmodel.Login("iDaCu5a", "5169", "351736102823741", date)
+            vmodel.Login(
+                username,
+                password,
+                tel.getImei(0),
+                date
+            )
         }
     }
 
@@ -127,6 +143,7 @@ class MainActivity : BaseActivity() {
             editor.putString("preferencesDate", ex.date)
             editor.putInt("preferencesEmployeeID", ex.employee_id)
             editor.putString("preferencesEmployeeName", ex.name)
+            editor.putInt("preferencesEmployeeRegionId",ex.region_id)
             editor.apply()
             intentWithFinish(this, Modules())
             finish()

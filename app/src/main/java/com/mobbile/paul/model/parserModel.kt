@@ -7,6 +7,7 @@ data class LoginExchange(
     var massage: String= "",
     var employee_id: Int = 0,
     var name: String = "",
+    var region_id: Int = 0,
     var notification: String = ""
 )
 
@@ -64,5 +65,10 @@ data class mDetailsForEachSalesParser (
     var status: Int = 0,
     var msg: String = "",
     var list: DetailsForEachSales? = null
+)
+
+data class OutletUpdateParser (
+    var status: Int = 0,
+    var notis: String = ""
 )
 

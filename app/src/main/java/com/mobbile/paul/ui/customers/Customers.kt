@@ -1,13 +1,13 @@
 package com.mobbile.paul.ui.customers
 
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.location.Location
 import android.os.Bundle
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,17 +17,14 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.location.*
-import com.mobbile.paul.model.AttendantParser
-import com.mobbile.paul.model.CustomerExchage
-import com.mobbile.paul.model.SequenceExchage
-import com.mobbile.paul.model.customersEntity
+import com.mobbile.paul.model.*
 import com.mobbile.paul.salesrepmobiletrader.R
 import com.mobbile.paul.ui.details.Details
 import com.mobbile.paul.ui.entries.Entries
+import com.mobbile.paul.ui.mapoutlet.MapNewOutlet
 import com.mobbile.paul.ui.outletupdate.OutletUpdate
 import com.mobbile.paul.ui.salesviewpagers.SalesViewPager
 import com.mobbile.paul.util.Util.getDate
-import com.mobbile.paul.util.Util.getTime
 import com.mobbile.paul.util.Util.setGeoFencing
 import com.mobbile.paul.util.Util.sharePrefenceDataSave
 import com.mobbile.paul.util.Util.showMessageDialogWithIntent
@@ -40,7 +37,7 @@ import java.util.*
 import javax.inject.Inject
 
 
-class Customers : DaggerFragment() {
+class Customers: DaggerFragment() {
 
     @Inject
     internal lateinit var modelFactory: ViewModelProvider.Factory
@@ -86,6 +83,32 @@ class Customers : DaggerFragment() {
         _r_view_pager.layoutManager = layoutManager
         vmodel.CustomersObserver().observe(this, observeRepBbasket)
         vmodel.CloseOutletObserver().observe(this, observeCloseOutlets)
+        vmodel.asycnOutlet().observe(this, observeDetailsChange)
+
+        fab.setOnClickListener {
+            val intent = Intent(this.requireContext(), MapNewOutlet::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(intent)
+        }
+    }
+
+    private val observeDetailsChange = Observer<OutletUpdateParser> {
+        if (it.status == 200) {
+            showProgressBar(false, base_progress_bar)
+            showMessageDialogWithIntent(
+                SalesViewPager(),
+                this.requireContext(),
+                "Successful",
+                "Customer data successfully synchronise"
+            )
+        } else {
+            showProgressBar(false, base_progress_bar)
+            showMessageDialogWithoutIntent(
+                this.requireContext(),
+                "Outlet Close Error",
+                "Customer data fail to synchronise"
+            )
+        }
     }
 
     private val observeRepBbasket = Observer<CustomerExchage> {
@@ -102,20 +125,29 @@ class Customers : DaggerFragment() {
     }
 
     private val observeCloseOutlets = Observer<AttendantParser> {
-        when(it.status){
-            200->{
-                showProgressBar(false,base_progress_bar)
-                showMessageDialogWithIntent(SalesViewPager(),this.requireContext(), "Successful", it.notis)
-            }else->{
-            showProgressBar(false,base_progress_bar)
-            showMessageDialogWithoutIntent(this.requireContext(),"Outlet Close Error", it.notis)
-        }
+        when (it.status) {
+            200 -> {
+                showProgressBar(false, base_progress_bar)
+                showMessageDialogWithIntent(
+                    SalesViewPager(),
+                    this.requireContext(),
+                    "Successful",
+                    it.notis
+                )
+            }
+            else -> {
+                showProgressBar(false, base_progress_bar)
+                showMessageDialogWithoutIntent(
+                    this.requireContext(),
+                    "Outlet Close Error",
+                    it.notis
+                )
+            }
         }
     }
 
-
     fun TmSalesRepCustomer(data: List<customersEntity>) {
-        showProgressBar(false,base_progress_bar)
+        showProgressBar(false, base_progress_bar)
         nAdapter = CustomersAdapter(data, this.requireContext(), this::partItemClicked)
         nAdapter.notifyDataSetChanged()
         _r_view_pager.setItemViewCacheSize(data.size)
@@ -136,17 +168,10 @@ class Customers : DaggerFragment() {
                 startGoogleMapIntent(this.requireContext(), destination, dmode, 't')
             }
             300 -> {
-                //update outlets
                 dataFromAdapter = partItem
+
                 val intent = Intent(this.requireContext(), OutletUpdate::class.java)
-                intent.putExtra("outletname", dataFromAdapter.outletname)
-                intent.putExtra("contactname", dataFromAdapter.contactname)
-                intent.putExtra("contactphone", dataFromAdapter.contactphone)
-                intent.putExtra("outletaddress", dataFromAdapter.outletaddress)
-                intent.putExtra("outletclassid", dataFromAdapter.outletclassid)
-                intent.putExtra("outletlanguageid", dataFromAdapter.outletlanguageid)
-                intent.putExtra("outlettypeid", dataFromAdapter.outlettypeid)
-                intent.putExtra("urno", dataFromAdapter.urno)
+                intent.putExtra("extra_item", dataFromAdapter)
                 startActivity(intent)
             }
             400 -> {
@@ -158,23 +183,22 @@ class Customers : DaggerFragment() {
             500 -> {
                 showProgressBar(true, base_progress_bar)
                 dataFromAdapter = partItem
-                //OutletAsyncUpdate()
+                asynchroniseDialogWithoutIntent()
             }
             600 -> {
                 dataFromAdapter = partItem
                 val intent = Intent(this.requireContext(), Details::class.java)
-                 intent.putExtra("urno", dataFromAdapter.urno)
-                 intent.putExtra("rep_id", dataFromAdapter.rep_id)
-                 intent.putExtra("outletname", dataFromAdapter.outletname)
-                 startActivity(intent)
+                intent.putExtra("urno", dataFromAdapter.urno)
+                intent.putExtra("rep_id", dataFromAdapter.rep_id)
+                intent.putExtra("outletname", dataFromAdapter.outletname)
+                startActivity(intent)
             }
         }
     }
 
+
     private fun startLocationRequest() {
-
         locationRequest = LocationRequest()
-
         locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         locationRequest.interval = INTERVAL
         locationRequest.fastestInterval = FASTEST_INTERVAL
@@ -204,62 +228,26 @@ class Customers : DaggerFragment() {
             startLocationRequest()
         } else {
             stoplocation()
-
-            val checkCustomerOutlet: Boolean = setGeoFencing(
-                location.latitude,
-                location.longitude,
-                dataFromAdapter.latitude,
-                dataFromAdapter.longitude,
-                2
-            )
-
+            val checkCustomerOutlet: Boolean = setGeoFencing(location.latitude, location.longitude, dataFromAdapter.latitude, dataFromAdapter.longitude, 2)
             if (!checkCustomerOutlet) {
-                //showProgressBar(false, base_progress_bar)
-                //showMessageDialogWithoutIntent(this.requireContext(),"Location Error","You are not at the corresponding outlet. Thanks!")
-                vmodel.validateOutletSequence(
-                    1,
-                    dataFromAdapter.sequenceno,
-                    location.latitude,
-                    location.longitude
-                ).observe(this, observeVisitSequence)
-
+                showProgressBar(false, base_progress_bar)
+                showMessageDialogWithoutIntent(this.requireContext(), "Location Error", "You are not at the corresponding outlet. Thanks!")
             } else {
-                vmodel.validateOutletSequence(
-                    1,
-                    dataFromAdapter.sequenceno,
-                    location.latitude,
-                    location.longitude
-                ).observe(this, observeVisitSequence)
+                vmodel.validateOutletSequence(1, dataFromAdapter.sequenceno, location.latitude, location.longitude).observe(this, observeVisitSequence)
             }
         }
     }
 
     private val observeVisitSequence = Observer<SequenceExchage> {
-        Log.d(TAG, it.status.toString())
-
         when (it.status) {
             200 -> {
                 when (mode) {
                     1 -> {
-
-                        //call entry intent
                         showProgressBar(false, base_progress_bar)
                         val intent = Intent(this.requireContext(), Entries::class.java)
-                        intent.putExtra("repid", dataFromAdapter.rep_id)
+                        intent.putExtra("extra_item", dataFromAdapter)
                         intent.putExtra("currentlat", it.currentLat.toString()) //current lat
                         intent.putExtra("currentlng", it.currentLng.toString())
-                        intent.putExtra("outletlat", dataFromAdapter.latitude.toString()) //outlet lat
-                        intent.putExtra("outletlng", dataFromAdapter.longitude.toString())
-                        intent.putExtra("distance", dataFromAdapter.distance)
-                        intent.putExtra("durations", dataFromAdapter.duration)
-                        intent.putExtra("urno", dataFromAdapter.urno)
-                        intent.putExtra("visit_sequence", dataFromAdapter.sequenceno)
-                        intent.putExtra("token", dataFromAdapter.token)
-                        intent.putExtra("outletname", dataFromAdapter.outletname)
-                        intent.putExtra("defaulttoken", dataFromAdapter.defaulttoken)
-                        intent.putExtra("customerno", dataFromAdapter.customerno)
-                        intent.putExtra("customer_code", dataFromAdapter.customer_code)
-                        intent.putExtra("auto", dataFromAdapter.auto)
                         startActivity(intent)
                     }
                     2 -> {
@@ -274,7 +262,7 @@ class Customers : DaggerFragment() {
                             dataFromAdapter.urno,
                             dataFromAdapter.sequenceno,
                             dataFromAdapter.auto,
-                            getDate()+"${dataFromAdapter.rep_id}"+UUID.randomUUID().toString()
+                            getDate() + "${dataFromAdapter.rep_id}" + UUID.randomUUID().toString()
                         )
                     }
                 }
@@ -296,11 +284,25 @@ class Customers : DaggerFragment() {
                 )
             }
         }
-
     }
 
     private fun stoplocation() {
         fusedLocationClient.removeLocationUpdates(callback)
+    }
+
+    fun asynchroniseDialogWithoutIntent() {
+        val builder = AlertDialog.Builder(this.requireContext(), R.style.AlertDialogDanger)
+        builder.setMessage("Are you sure you want to synchronise ${dataFromAdapter.outletname} outlet data")
+            .setTitle("Data Async")
+            .setIcon(R.drawable.icons8_google_alerts_100)
+            .setCancelable(false)
+            .setNegativeButton("Ok") { _, _ ->
+                vmodel.CustometInfoAsync(dataFromAdapter.urno, dataFromAdapter.auto)
+            }.setPositiveButton("NO"){ _, _ ->
+                showProgressBar(false, base_progress_bar)
+            }
+        val dialog = builder.create()
+        dialog.show()
     }
 
     companion object {

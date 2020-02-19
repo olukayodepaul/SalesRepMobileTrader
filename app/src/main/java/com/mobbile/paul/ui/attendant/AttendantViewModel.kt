@@ -88,7 +88,7 @@ class AttendantViewModel @Inject constructor(private var repository: Repository)
     }
 
     private fun SequencetManager(sequenceno:String) {
-        repository.SequencetManager(1, sequenceno.toInt()+1, "999999,${sequenceno}")
+        repository.SequencetManager(1, sequenceno.toInt()+1, "99999999,${sequenceno}")
             .subscribe({
                 AttendanExchange(mutable, attadant.status, attadant.notis)
             },{

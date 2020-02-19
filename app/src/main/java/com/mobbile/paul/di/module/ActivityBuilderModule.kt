@@ -11,12 +11,19 @@ import com.mobbile.paul.di.subcomponent.entry.EntryModule
 import com.mobbile.paul.di.subcomponent.entry.EntryScope
 import com.mobbile.paul.di.subcomponent.login.LoginModule
 import com.mobbile.paul.di.subcomponent.login.LoginScope
+import com.mobbile.paul.di.subcomponent.mapnewoutlet.MapNewOutletModule
+import com.mobbile.paul.di.subcomponent.mapnewoutlet.MapNewOutletScope
+import com.mobbile.paul.di.subcomponent.message.MessageModule
+import com.mobbile.paul.di.subcomponent.message.MessageScope
 import com.mobbile.paul.di.subcomponent.modules.ModulesModule
 import com.mobbile.paul.di.subcomponent.modules.ModulesScope
+import com.mobbile.paul.di.subcomponent.outletupdate.OutletUpdateModule
+import com.mobbile.paul.di.subcomponent.outletupdate.OutletUpdateScope
 import com.mobbile.paul.di.subcomponent.salesfragment.FragmentBuilderScope
 import com.mobbile.paul.di.subcomponent.salesfragment.SalesFragentViewPager
 import com.mobbile.paul.di.subcomponent.salesfragment.commission.CommissionModules
 import com.mobbile.paul.di.subcomponent.salesfragment.customers.CustomerModules
+import com.mobbile.paul.di.subcomponent.salesfragment.viewpagermodule.ViewPagerModules
 import com.mobbile.paul.ui.attendant.Banks
 import com.mobbile.paul.ui.attendant.Close
 import com.mobbile.paul.ui.attendant.Resumption
@@ -24,7 +31,10 @@ import com.mobbile.paul.ui.details.Details
 import com.mobbile.paul.ui.entries.Entries
 import com.mobbile.paul.ui.entryhistory.EntryHistory
 import com.mobbile.paul.ui.login.MainActivity
+import com.mobbile.paul.ui.mapoutlet.MapNewOutlet
+import com.mobbile.paul.ui.message.UsersList
 import com.mobbile.paul.ui.modules.Modules
+import com.mobbile.paul.ui.outletupdate.OutletUpdate
 import com.mobbile.paul.ui.salesviewpagers.SalesViewPager
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -53,11 +63,11 @@ abstract class ActivityBuilderModule {
         modules = [
             SalesFragentViewPager::class,
             CustomerModules::class,
-            CommissionModules::class
+            CommissionModules::class,
+            ViewPagerModules::class
         ]
     )
     abstract fun contributeSalesPagerActivity(): SalesViewPager
-
 
     @EntryScope
     @ContributesAndroidInjector(
@@ -107,5 +117,29 @@ abstract class ActivityBuilderModule {
         ]
     )
     abstract fun contributeDetailsModuleAndroidInjector(): Details
+
+    @OutletUpdateScope
+    @ContributesAndroidInjector(
+        modules = [
+            OutletUpdateModule::class
+        ]
+    )
+    abstract fun contributeOutletUpdateModuleAndroidInjector(): OutletUpdate
+
+    @MapNewOutletScope
+    @ContributesAndroidInjector(
+        modules = [
+            MapNewOutletModule::class
+        ]
+    )
+    abstract fun contributeMapNewOutletModuleAndroidInjector(): MapNewOutlet
+
+    @MessageScope
+    @ContributesAndroidInjector(
+        modules = [
+            MessageModule::class
+        ]
+    )
+    abstract fun contributeMessageModuleAndroidInjector(): UsersList
 
 }

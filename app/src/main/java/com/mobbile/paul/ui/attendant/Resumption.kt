@@ -23,6 +23,7 @@ import com.mobbile.paul.util.Util.showMessageDialogWithoutIntent
 import kotlinx.android.synthetic.main.activity_resumption.*
 import javax.inject.Inject
 
+
 class Resumption : BaseActivity() {
 
     @Inject

@@ -19,12 +19,22 @@ class CustomerViewModel @Inject constructor(private var repo: Repository) : View
 
     private var atresponse = MutableLiveData<AttendantParser>()
 
+    lateinit var asy_data: OutletAsyn
+
     fun CustomersObserver(): LiveData<CustomerExchage> {
         return response
     }
 
     fun CloseOutletObserver(): LiveData<AttendantParser> {
         return atresponse
+    }
+
+    private val res = MutableLiveData<OutletUpdateParser>()
+
+    val rst = OutletUpdateParser()
+
+    fun asycnOutlet(): LiveData<OutletUpdateParser> {
+        return res
     }
 
     private lateinit var outletClose: Attendant
@@ -129,6 +139,38 @@ class CustomerViewModel @Inject constructor(private var repo: Repository) : View
             AttendanExchange(atresponse, 400, it.message.toString())
         }).isDisposed
     }
+
+    fun CustometInfoAsync(urno:Int,auto:Int) {
+        repo.CustometInfoAsync(urno)
+            .subscribe(
+                {
+                    asy_data = it.body()!!
+                    UpdateCustomerInformation(asy_data,auto)
+                },{
+                    rst.status = 400
+                    rst.notis = it.message.toString()
+                    res.postValue(rst)
+                }
+            ).isDisposed
+    }
+
+    fun UpdateCustomerInformation(allCustInfo:OutletAsyn, auto:Int){
+        repo.updateIndividualCustomer(allCustInfo.outletclassid,allCustInfo.outletlanguageid,allCustInfo.outlettypeid,
+            allCustInfo.outletname,allCustInfo.outletaddress,allCustInfo.contactname,allCustInfo.contactphone,allCustInfo.latitude.toDouble(),
+            allCustInfo.longitude.toDouble(), auto)
+            .subscribe({
+                rst.status = 200
+                rst.notis = ""
+                res.postValue(rst)
+            },{
+                rst.status = 400
+                rst.notis = it.message.toString()
+                res.postValue(rst)
+            }).isDisposed
+    }
+
+
+
 
     companion object{
         val TAG = "CustomerViewModel"

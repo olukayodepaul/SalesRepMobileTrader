@@ -13,7 +13,8 @@ object ParserModel {
         massage:String,
         employee_id:Int,
         name:String,
-        notification:String
+        notification:String,
+        region_id:Int
 
     ) {
         val dataPasser = LoginExchange()
@@ -24,6 +25,7 @@ object ParserModel {
         dataPasser.employee_id = employee_id
         dataPasser.name = name
         dataPasser.notification = notification
+        dataPasser.region_id = region_id
         data.postValue(dataPasser)
     }
 

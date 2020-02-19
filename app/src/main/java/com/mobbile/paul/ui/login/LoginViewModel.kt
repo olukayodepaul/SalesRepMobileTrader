@@ -41,7 +41,8 @@ class LoginViewModel @Inject constructor(private var repo: Repository) : ViewMod
                             data.massage,
                             data.employee_id,
                             data.name,
-                            data.notification
+                            data.notification,
+                            data.region_id
                         )
                     } else {
 
@@ -58,7 +59,8 @@ class LoginViewModel @Inject constructor(private var repo: Repository) : ViewMod
                                 data.massage,
                                 data.employee_id,
                                 data.name,
-                                data.notification
+                                data.notification,
+                                data.region_id
                             )
                         }
                     }
@@ -72,11 +74,12 @@ class LoginViewModel @Inject constructor(private var repo: Repository) : ViewMod
                         data.massage,
                         0,
                         "",
-                        data.notification
+                        data.notification,
+                        data.region_id
                     )
                 }
             }, {
-                LoginParser(response, 0, 400, data.dates, "FAIL", 0, "", "${it.message}")
+                LoginParser(response, 0, 400, data.dates, "FAIL", 0, "", "${it.message}",0)
             }).isDisposed
     }
 
@@ -86,7 +89,7 @@ class LoginViewModel @Inject constructor(private var repo: Repository) : ViewMod
                 {
                     deleteSpiners()
                 }, {
-                    LoginParser(response, 0, 400, data.dates, "FAIL", 0, "", "${it.message}")
+                    LoginParser(response, 0, 400, data.dates, "FAIL", 0, "", "${it.message}",0)
                 }
             ).isDisposed
     }
@@ -97,7 +100,7 @@ class LoginViewModel @Inject constructor(private var repo: Repository) : ViewMod
                 {
                     deleteCustomers()
                 }, {
-                    LoginParser(response, 0, 400, data.dates, "FAIL", 0, "", "${it.message}")
+                    LoginParser(response, 0, 400, data.dates, "FAIL", 0, "", "${it.message}",0)
                 }
             ).isDisposed
     }
@@ -108,7 +111,7 @@ class LoginViewModel @Inject constructor(private var repo: Repository) : ViewMod
                 {
                     insertIntoSpinnerAndModulesTable()
                 }, {
-                    LoginParser(response, 0, 400, data.dates, "FAIL", 0, "", "${it.message}")
+                    LoginParser(response, 0, 400, data.dates, "FAIL", 0, "", "${it.message}",0)
                 }
             ).isDisposed
     }
@@ -128,10 +131,11 @@ class LoginViewModel @Inject constructor(private var repo: Repository) : ViewMod
                 data.massage,
                 data.employee_id,
                 data.name,
-                data.notification
+                data.notification,
+                data.region_id
             )
         },{
-            LoginParser(response, 0, 400, data.dates, "FAIL", 0, "", "${it.message}")
+            LoginParser(response, 0, 400, data.dates, "FAIL", 0, "", "${it.message}",0)
         }).isDisposed
     }
 

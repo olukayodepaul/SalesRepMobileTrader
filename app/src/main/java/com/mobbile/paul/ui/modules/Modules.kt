@@ -5,10 +5,12 @@ import android.Manifest
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.os.Bundle
 import android.provider.Settings
+import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -17,10 +19,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mobbile.paul.BaseActivity
 import com.mobbile.paul.salesrepmobiletrader.R
-import com.mobbile.paul.Message
 import com.mobbile.paul.model.modulesEntity
+import com.mobbile.paul.ui.message.UsersList
 import com.mobbile.paul.ui.salesviewpagers.SalesViewPager
 import com.mobbile.paul.util.Util
+import com.mobbile.paul.util.Util.sharePrefenceDataSave
 import kotlinx.android.synthetic.main.activity_modules.*
 import javax.inject.Inject
 
@@ -37,16 +40,21 @@ class Modules : BaseActivity() {
 
     private var hasGps = false
 
+    private var preferences: SharedPreferences? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_modules)
         vmodel = ViewModelProviders.of(this, modelFactory)[ModulesViewModel::class.java]
         vmodel.getModules().observe(this, ObserversModulesResult)
+        preferences = getSharedPreferences(sharePrefenceDataSave, Context.MODE_PRIVATE)
         requestLocationPermission()
     }
 
     fun initViews() {
+        confirmNewMessages()
+        tv_outlet_name.text = preferences!!.getString("preferencesEmployeeName","")!!
         module_recycler.setHasFixedSize(true)
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
         module_recycler.layoutManager = layoutManager
@@ -72,7 +80,7 @@ class Modules : BaseActivity() {
                 startActivity(intent)
             }
             3 -> {
-                intent = Intent(this, Message::class.java)
+                intent = Intent(this, UsersList::class.java)
                 startActivity(intent)
             }
         }
@@ -155,6 +163,18 @@ class Modules : BaseActivity() {
             }
         val dialog  = builder.create()
         dialog.show()
+    }
+
+    //count unread messages
+    private fun confirmNewMessages() {
+        vmodel.countUnReadMessage().observe(this, Observer {
+            if(it==0) {
+                dadgecounter.visibility = View.INVISIBLE
+            }else{
+                dadgecounter.visibility = View.VISIBLE
+                dadgecounter.text = it.toString()
+            }
+        })
     }
 
     companion object {

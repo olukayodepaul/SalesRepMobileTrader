@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "094081ad42a6a2f18f1122a3087f531c",
+    "identityHash": "961a1c967a2003106ae621e653f011a5",
     "entities": [
       {
         "tableName": "modules",
@@ -391,12 +391,56 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "chatmessage",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` TEXT NOT NULL, `status` INTEGER NOT NULL, `message` TEXT NOT NULL, `timeago` TEXT NOT NULL, `dates` TEXT NOT NULL, PRIMARY KEY(`uid`))",
+        "fields": [
+          {
+            "fieldPath": "uid",
+            "columnName": "uid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "message",
+            "columnName": "message",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "timeago",
+            "columnName": "timeago",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dates",
+            "columnName": "dates",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "uid"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"094081ad42a6a2f18f1122a3087f531c\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"961a1c967a2003106ae621e653f011a5\")"
     ]
   }
 }

@@ -19,4 +19,8 @@
         <item name="colorAccent">@color/blue_nblac</item>
     </style>
 
+    <style name="LoginTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="boxStrokeColor">@color/blue_nblac</item>
+    </style>
+
 </resources>

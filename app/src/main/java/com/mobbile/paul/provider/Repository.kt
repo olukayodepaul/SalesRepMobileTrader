@@ -209,6 +209,69 @@ constructor(private val appDao: AppDao, private val api: Api) {
             .observeOn(AndroidSchedulers.mainThread())
             .map{it}
 
+    fun fetchSpinners(): Single<List<spinersEntity>> =
+        Single.fromCallable {
+            appDao.fetchSpinners()
+        }.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
+    fun updateOutlet(tmid: Int, urno: Int, latitude: Double, longitude: Double, outletname: String, contactname: String,
+                     outletaddress: String, contactphone: String, outletclassid: Int, outletlanguage: Int,
+                     outlettypeid: Int): Single<Response<OutletUpdateResponse>> =
+        api.updateOutlet(tmid,urno,latitude,longitude,outletname,contactname,outletaddress,contactphone,outletclassid,outletlanguage,outlettypeid)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map {it}
+
+    fun mapOutlet(repid: Int,tmid:Int, latitude: Double, longitude: Double, outletname: String, contactname: String,
+                  outletaddress: String, contactphone: String, outletclassid: Int, outletlanguage: Int,
+                  outlettypeid: Int): Single<Response<OutletUpdateResponse>> =
+        api.mapOutlet(repid,tmid,latitude,longitude,outletname,contactname,outletaddress,contactphone,outletclassid,outletlanguage,outlettypeid)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map {it}
+
+    fun CustometInfoAsync(urno:Int): Single<Response<OutletAsyn>> =
+        api.CustometInfoAsync(urno)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map {it}
+
+    fun updateIndividualCustomer(outletclassid:Int, outletlanguageid:Int, outlettypeid:Int, outletname:String, outletaddress:String, contactname:String, contactphone:String, latitude:Double, longitude:Double,auto:Int) =
+        Single.fromCallable{
+            appDao.updateIndividualCustomer(outletclassid, outletlanguageid, outlettypeid, outletname, outletaddress, contactname, contactphone, latitude, longitude,auto)
+        }.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
+    fun salesCommission(user_id: Int): Single<Response<salesCommisssion>> =
+        api.salesCommission(user_id)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map {it}
+
+    fun ChatMessage(uid: String, status:Int, message:String,timeago:String, data:String) =
+        Single.fromCallable{
+            appDao.ChatMessage(uid, status, message,timeago,data)
+        }.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
+    fun fetchMessages(): Single<List<ChatMessage>> =
+        Single.fromCallable {
+            appDao.fetchMessages()
+        }.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
+    fun countUnReadMessage(): Single<Int> =
+        Single.fromCallable {
+            appDao.countUnReadMessage()
+        }.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
+    fun MarkAsUnReadMessage() =
+        Single.fromCallable{
+            appDao.MarkAsUnReadMessage()
+        }.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
 
 
 

@@ -1,7 +1,9 @@
 package com.mobbile.paul.model
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
 
 
 @Entity(tableName = "spiners")
@@ -23,7 +25,7 @@ data class modulesEntity(
     var imageurl: String = ""
 )
 
-
+@Parcelize
 @Entity(tableName = "customers")
 data class customersEntity(
     @PrimaryKey(autoGenerate = false)
@@ -52,7 +54,7 @@ data class customersEntity(
     var sort: Int = 0,
     var notice: String = "",
     var entry_time: String = ""
-)
+): Parcelable
 
 @Entity(tableName = "custometvisitsequence")
 data class EntityCustomerVisitSequence(
@@ -81,6 +83,16 @@ data class EntityGetSalesEntry (
     var controlinventory: String = "",
     var controlorder: String = "",
     var comision: Double = 0.0
+)
+
+@Entity(tableName = "chatmessage")
+data class ChatMessage(
+    @PrimaryKey(autoGenerate = false)
+    val uid: String,
+    val status: Int = 0,
+    val message:String="",
+    val timeago:String="",
+    val dates:String=""
 )
 
 

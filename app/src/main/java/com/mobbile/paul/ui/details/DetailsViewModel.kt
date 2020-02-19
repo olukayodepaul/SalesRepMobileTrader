@@ -9,7 +9,7 @@ import com.mobbile.paul.provider.Repository
 import com.mobbile.paul.util.ParserModel.mDetailsForEachSales
 import javax.inject.Inject
 
-class DetailsViewModel @Inject constructor(private var repository: Repository):ViewModel() {
+class DetailsViewModel @Inject constructor(private var repository: Repository) : ViewModel() {
 
     fun getDetailsForEachSales(rep_id:Int,urno:Int): LiveData<mDetailsForEachSalesParser> {
         val mResult = MutableLiveData<mDetailsForEachSalesParser>()

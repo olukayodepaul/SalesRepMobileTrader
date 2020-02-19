@@ -76,4 +76,22 @@ interface AppDao {
     @Query("SELECT * FROM salesentries")
     fun pullAllSalesEntry() : List<EntityGetSalesEntry>
 
+    @Query("SELECT * FROM spiners")
+    fun fetchSpinners() : List<spinersEntity>
+
+    @Query("UPDATE customers SET outletclassid=:outletclassid, outletlanguageid=:outletlanguageid, outlettypeid=:outlettypeid, outletname=:outletname, outletaddress=:outletaddress, contactname=:contactname, contactphone=:contactphone, latitude=:latitude, longitude=:longitude where auto=:auto")
+    fun updateIndividualCustomer(outletclassid:Int, outletlanguageid:Int, outlettypeid:Int, outletname:String, outletaddress:String, contactname:String, contactphone:String, latitude:Double, longitude:Double,auto:Int)
+
+    @Query("Insert into chatmessage (uid, status, message, timeago, dates) values (:uid, :status, :message,:timeago,:date)")
+    fun ChatMessage(uid: String, status:Int, message:String,timeago:String, date:String)
+
+    @Query("SELECT * FROM chatmessage order by dates DESC")
+    fun fetchMessages() : List<ChatMessage>
+
+    @Query("SELECT count(uid) from chatmessage where status = 1")
+    fun countUnReadMessage():Int
+
+    @Query("Update chatmessage set status = 2")
+    fun MarkAsUnReadMessage()
+
 }

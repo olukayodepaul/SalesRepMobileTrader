@@ -25,6 +25,7 @@ tools:context="com.mobbile.paul.ui.customers.Customers">
         android:layout_marginBottom="40dp"
         android:backgroundTint="@color/blue_nblac"
         android:clickable="true"
+        app:backgroundTint="@color/blue_nblac"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/add_icons" />
@@ -40,4 +41,5 @@ tools:context="com.mobbile.paul.ui.customers.Customers">
         android:indeterminateTint="@android:color/black"
         android:indeterminate="true"
         />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

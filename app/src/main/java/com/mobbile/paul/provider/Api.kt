@@ -10,8 +10,18 @@ import retrofit2.http.Query
 
 interface Api {
 
-    @Headers("Connection:close")
+    //rep login
+    /*@Headers("Connection:close")
     @POST("/api/rep_logins")
+    fun Login(
+        @Query("username") username: String,
+        @Query("password") password: String,
+        @Query("imei") imei: String
+    ): Single<Response<ApplicationLogin>>*/
+
+    //van login
+    @Headers("Connection:close")
+    @POST("/api/vanlogin")
     fun Login(
         @Query("username") username: String,
         @Query("password") password: String,
@@ -94,5 +104,48 @@ interface Api {
         @Query("urno") urno: Int
     ): Single<Response<DetailsForEachSales>>
 
+    @Headers("Connection:close")
+    @POST("/api/tm_update_outlet")
+    fun updateOutlet(
+        @Query("tmid") tmid: Int,
+        @Query("urno") urno: Int,
+        @Query("latitude") latitude: Double,
+        @Query("longitude") longitude: Double,
+        @Query("outletname") outletname: String,
+        @Query("contactname") contactname: String,
+        @Query("outletaddress") outletaddress: String,
+        @Query("contactphone") contactphone: String,
+        @Query("outletclassid") outletclassid: Int,
+        @Query("outletlanguageid") outletlanguageid: Int,
+        @Query("outlettypeid") outlettypeid: Int
+    ): Single<Response<OutletUpdateResponse>>
+
+    @Headers("Connection:close")
+    @POST("/api/tm_map_outlet")
+    fun mapOutlet(
+        @Query("repid") repid: Int,
+        @Query("tmid") tmid: Int,
+        @Query("latitude") latitude: Double,
+        @Query("longitude") longitude: Double,
+        @Query("outletname") outletname: String,
+        @Query("contactname") contactname: String,
+        @Query("outletaddress") outletaddress: String,
+        @Query("contactphone") contactphone: String,
+        @Query("outletclassid") outletclassid: Int,
+        @Query("outletlanguageid") outletlanguageid: Int,
+        @Query("outlettypeid") outlettypeid: Int
+    ): Single<Response<OutletUpdateResponse>>
+
+    @Headers("Connection:close")
+    @POST("/api/tm_outlet_info_async")
+    fun CustometInfoAsync(
+        @Query("urno") urno: Int
+    ): Single<Response<OutletAsyn>>
+
+    @Headers("Connection:close")
+    @POST("/api/commission")
+    fun salesCommission(
+        @Query("user_id") user_id: Int
+    ): Single<Response<salesCommisssion>>
 
 }

@@ -7,7 +7,7 @@ import com.mobbile.paul.model.*
 
 
 @Database(entities = [modulesEntity::class, spinersEntity::class, customersEntity::class,
-    EntityCustomerVisitSequence::class,EntityGetSalesEntry::class],version = 1)
+    EntityCustomerVisitSequence::class,EntityGetSalesEntry::class,ChatMessage::class],version = 1)
 @TypeConverters(Converters::class)
 abstract class AppDatabase: RoomDatabase() {
     abstract val appdao: AppDao

@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_name">SalesRepMobileTrader</string>
+    <string name="app_name">Mobile Trader</string>
     <string name="menu_sales">Sales</string>
     <string name="menu_details">Details</string>
     <string name="menu_commission">Commission</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="copywrite">Copyright © 2020 Great Brands Nig ltd. Release 3.1.0</string>
+    <string name="copywrite">Copyright© 2020 Great Brands Nig ltd. Stable Release 3.2.0</string>
     <string name="Themodules">Modules</string>
 
     <string name="ats">Attendant</string>
@@ -22,6 +22,8 @@
     <string name="cltn">Customer Location</string>
     <string name="title_activity_settings">Settings</string>
     <string name="c_order">Complete Order</string>
+    <string name="sales_successfully">Sales Successfully posted to the server. please confirm the integrity of your sales using the details on the customer MENU.</string>
+    <string name="sales_successfully_integrity">Please note that all your commission is a function of data integrity</string>
 
 
 </resources>

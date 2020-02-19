@@ -31,9 +31,9 @@ object Util {
         val dx = abs(customerLng - currentLng) * kx
         val dy = abs(customerLat - currentLat) * ky
         if(distance==1) {
-            return sqrt(dx * dx + dy * dy) <= 0.050 // 50 meters
+            return sqrt(dx * dx + dy * dy) <= 2 // 100 meters//->0.050 is 50meters..using two kilometer
         }else {
-            return sqrt(dx * dx + dy * dy) <= 0.020 // 20 meters
+            return sqrt(dx * dx + dy * dy) <= 2 // 20 meters//..using two kilometer
         }
     }
 
@@ -107,6 +107,7 @@ object Util {
 
     fun intentWithFinish(context:Context, activity: Activity) {
         val intent = Intent(context, activity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP.or(Intent.FLAG_ACTIVITY_NEW_TASK)
         context.startActivity(intent)
     }
 

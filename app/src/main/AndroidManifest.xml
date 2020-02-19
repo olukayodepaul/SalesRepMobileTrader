@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
+        android:usesCleartextTraffic="true"
         android:name="com.mobbile.paul.BaseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,7 +19,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.mobbile.paul.ui.outletupdate.OutletUpdate"></activity>
+        <activity android:name="com.mobbile.paul.ui.message.UsersList"></activity>
+        <activity android:name="com.mobbile.paul.ui.mapoutlet.MapNewOutlet" />
+        <activity android:name="com.mobbile.paul.ui.outletupdate.OutletUpdate" />
         <activity android:name="com.mobbile.paul.ui.details.Details" />
         <activity android:name="com.mobbile.paul.ui.entryhistory.EntryHistory" />
         <activity android:name="com.mobbile.paul.ui.entries.Entries" />

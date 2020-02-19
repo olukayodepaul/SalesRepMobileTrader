@@ -1,9 +1,309 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context="com.mobbile.paul.ui.outletupdate.OutletUpdate"
+android:focusable="true"
+android:focusableInTouchMode="true">
+
+<androidx.appcompat.widget.Toolbar
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:elevation="4dp"
+    android:theme="@style/ToolbarTheme"
+    tools:ignore="MissingConstraints">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="40dp">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/backbtn"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/arrow"
+                tools:layout_editor_absoluteX="1dp" />
+
+            <TextView
+                android:id="@+id/titles"
+                android:layout_width="match_parent"
+                android:layout_height="29dp"
+                android:layout_marginStart="65dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="80dp"
+                android:layout_marginBottom="12dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Edit Customer"
+                android:textColor="@color/white"
+                android:textSize="@dimen/fontSize"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.appcompat.widget.Toolbar>
+
+<ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mobbile.paul.ui.outletupdate.OutletUpdate">
+    android:layout_marginTop="60dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/customer_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Customer Name"
+            android:textColor="@color/ballReleaseColor"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:textSize="12sp"
+            android:fontFamily="@font/montserrat_regular"
+            android:layout_marginBottom="5dip"
+            android:layout_marginTop="5dp"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/customer_name_edit"
+            android:layout_below="@+id/customer_name"
+            />
+
+        <TextView
+            android:id="@+id/contact_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Contact Name"
+            android:textColor="@color/ballReleaseColor"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:textSize="12sp"
+            android:fontFamily="@font/montserrat_regular"
+            android:layout_marginBottom="5dip"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/customer_name_edit"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/contact_name_edit"
+            android:layout_below="@+id/contact_name"
+            />
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Address"
+            android:textColor="@color/ballReleaseColor"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:textSize="12sp"
+            android:fontFamily="@font/montserrat_regular"
+            android:layout_marginBottom="5dip"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/contact_name_edit"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/address_edit"
+            android:layout_below="@+id/address"
+            />
+
+        <TextView
+            android:id="@+id/phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone Number"
+            android:textColor="@color/ballReleaseColor"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:textSize="12sp"
+            android:fontFamily="@font/montserrat_regular"
+            android:layout_marginBottom="5dip"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/address_edit"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/phone_number_edit"
+            android:layout_below="@+id/phone_number"
+            />
+
+
+        <TextView
+            android:id="@+id/customer_classification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Customer Classification"
+            android:textColor="@color/ballReleaseColor"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:textSize="12sp"
+            android:fontFamily="@font/montserrat_regular"
+            android:layout_below="@+id/phone_number_edit"
+            android:layout_marginBottom="5dip"
+            android:layout_marginTop="5dp"
+            />
+
+        <RelativeLayout
+            android:id="@+id/customer_classification_edits"
+            android:layout_width="match_parent"
+            android:layout_height="33dp"
+            android:layout_below="@+id/customer_classification"
+            android:layout_marginTop="5dip">
+
+
+            <Spinner
+                android:id="@+id/custClass"
+                android:layout_width="match_parent"
+                android:layout_height="30dip"
+                android:backgroundTint="@color/line_color_light"
+                android:padding="0dip" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:layout_below="@+id/custClass"
+                android:layout_marginEnd="4dip"
+                android:layout_marginStart="4dp"
+                android:background="@color/line_color_light"
+                android:textSize="11sp" />
+
+        </RelativeLayout>
+
+
+
+        <TextView
+            android:id="@+id/pref_lang"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Preferred Language"
+            android:textColor="@color/ballReleaseColor"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:textSize="12sp"
+            android:fontFamily="@font/montserrat_regular"
+            android:layout_below="@+id/customer_classification_edits"
+            android:layout_marginBottom="5dip"
+            android:layout_marginTop="5dp"
+            />
+
+        <RelativeLayout
+            android:id="@+id/pref_lang_edits"
+            android:layout_width="match_parent"
+            android:layout_height="33dp"
+            android:layout_below="@+id/pref_lang"
+            android:layout_marginTop="5dip">
+
+
+            <Spinner
+                android:id="@+id/preflang"
+                android:layout_width="match_parent"
+                android:layout_height="30dip"
+                android:backgroundTint="@color/line_color_light"
+                android:padding="0dip" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:layout_below="@+id/preflang"
+                android:layout_marginEnd="4dip"
+                android:layout_marginStart="4dp"
+                android:background="@color/line_color_light"
+                android:textSize="11sp" />
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/outlet_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Outlet Type"
+            android:textColor="@color/ballReleaseColor"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:textSize="12sp"
+            android:fontFamily="@font/montserrat_regular"
+            android:layout_below="@+id/pref_lang_edits"
+            android:layout_marginBottom="5dip"
+            android:layout_marginTop="5dp"
+            />
+
+        <RelativeLayout
+            android:id="@+id/outlet_type_edit"
+            android:layout_width="match_parent"
+            android:layout_height="33dp"
+            android:layout_below="@+id/outlet_type"
+            android:layout_marginTop="5dip">
+
+
+            <Spinner
+                android:id="@+id/outlettypeedit"
+                android:layout_width="match_parent"
+                android:layout_height="30dip"
+                android:backgroundTint="@color/line_color_light"
+                android:padding="0dip" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:layout_below="@+id/outlettypeedit"
+                android:layout_marginEnd="4dip"
+                android:layout_marginStart="4dp"
+                android:background="@color/line_color_light"
+                android:textSize="11sp" />
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/registerBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/outlet_type_edit"
+            android:layout_marginTop="24dip"
+            android:background="@drawable/design_login_btn_black"
+            android:fontFamily="@font/montserrat_regular"
+            android:minWidth="16dip"
+            android:minHeight="16dip"
+            android:padding="10dip"
+            android:text="Save Change"
+            android:textAllCaps="false"
+            android:textColor="@color/white_color"
+            android:textSize="@dimen/fontSize"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="30dp"/>
+
+    </RelativeLayout>
+</ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

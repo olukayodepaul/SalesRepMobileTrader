@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/tv_msg"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="25dp"
+        android:background="@drawable/message_rounded_border"
+        android:fontFamily="@font/roboto_regular"
+        android:padding="10dp"
+        android:text=""
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/tv_msgr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_regular"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/date_time"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="6dp"
+        android:paddingStart="15dp"
+        android:textColor="@color/borders_lines"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/tv_msg"
+        app:layout_constraintStart_toStartOf="@+id/tv_msg"
+        app:layout_constraintTop_toBottomOf="@+id/tv_msg"
+        android:text="0000-00-00"
+        android:textAlignment="textEnd"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+

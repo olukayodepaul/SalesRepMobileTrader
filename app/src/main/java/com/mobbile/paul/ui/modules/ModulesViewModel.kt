@@ -9,17 +9,26 @@ import javax.inject.Inject
 
 class ModulesViewModel @Inject constructor(private var repository: Repository): ViewModel() {
 
-    fun getModules() : LiveData<List<modulesEntity>>{
-
+    fun getModules() : LiveData<List<modulesEntity>> {
         val result = MutableLiveData<List<modulesEntity>>()
-
         repository.fetchModules()
             .subscribe({
                 result.postValue(it)
             },{
                 result.postValue(emptyList())
             }).isDisposed
-
         return result
+    }
+
+    fun countUnReadMessage(): LiveData<Int> {
+        val nts = MutableLiveData<Int>()
+        repository.countUnReadMessage().subscribe(
+            {
+                nts.postValue(it)
+            },{
+                nts.postValue(0)
+            }
+        ).isDisposed
+        return nts
     }
 }

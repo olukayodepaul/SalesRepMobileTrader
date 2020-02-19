@@ -7,12 +7,6 @@
 
         />
 
-    <item android:title="@string/menu_details"
-        android:id="@+id/menu_details"
-        android:icon="@drawable/ic_payment_black_24dp"
-        />
-
-
     <item android:title="@string/menu_commission"
         android:id="@+id/menu_commission"
         android:icon="@drawable/ic_payment_black_24dp"

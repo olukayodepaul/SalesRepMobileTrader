@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mobbile.paul.BaseActivity
 import com.mobbile.paul.model.SalesEntryExchage
+import com.mobbile.paul.model.customersEntity
 import com.mobbile.paul.model.setSalesEntry
 import com.mobbile.paul.salesrepmobiletrader.R
 import com.mobbile.paul.ui.entryhistory.EntryHistory
@@ -36,25 +37,16 @@ class Entries : BaseActivity() {
 
     private var preferences: SharedPreferences? = null
 
-    var repid: Int = 0
+
+    private lateinit var customers: customersEntity
     var currentlat: String = "0.0"
     var currentlng: String = "0.0"
-    var outletlat: String = "0.0"
-    var outletlng: String = "0.0"
-    var distance: String = "0 km"
-    var durations: String = "0 MS"
-    var urno: Int = 0
-    var visit_sequence: Int = 0
-    var token: String = ""
-    var outletname: String = ""
-    var defaulttoken: String = ""
-    var customerno: String = ""
-    var customer_code: String = ""
-    var auto: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_entries)
+        vmodel = ViewModelProviders.of(this, modelFactory)[EntriesViewModel::class.java]
+        customers = intent.extras!!.getParcelable("extra_item")!!
         initViews()
 
         back_btn.setOnClickListener {
@@ -68,27 +60,13 @@ class Entries : BaseActivity() {
 
     private fun initViews(){
 
-        repid = intent.getIntExtra("repid", 0)
         currentlat = intent.getStringExtra("currentlat")!!
         currentlng = intent.getStringExtra("currentlng")!!
-        outletlat = intent.getStringExtra("outletlat")!!
-        outletlng = intent.getStringExtra("outletlng")!!
-        distance = intent.getStringExtra("distance")!!
-        durations = intent.getStringExtra("durations")!!
-        urno = intent.getIntExtra("urno", 0)
-        visit_sequence = intent.getIntExtra("visit_sequence", 0)
-        token = intent.getStringExtra("token")!!
-        outletname = intent.getStringExtra("outletname")!!
-        defaulttoken = intent.getStringExtra("defaulttoken")!!
-        customerno = intent.getStringExtra("customerno")!!
-        customer_code = intent.getStringExtra("customer_code")!!
-        auto = intent.getIntExtra("auto", 0)
 
-        vmodel = ViewModelProviders.of(this, modelFactory)[EntriesViewModel::class.java]
-        vmodel.fetchSales(customerno, customer_code, repid)
+        vmodel.fetchSales(customers.customerno, customers.customer_code, customers.rep_id)
         vmodel.getSalesEntryExchage().observe(this,observeSalesEntry)
         preferences = getSharedPreferences(sharePrefenceDataSave, Context.MODE_PRIVATE)
-        tv_outlet_name.text = outletname
+        tv_outlet_name.text = customers.outletname
 
         initAdapter()
     }
@@ -160,22 +138,10 @@ class Entries : BaseActivity() {
         if(it==0) {
             showProgressBar(false)
             val intent = Intent(this, EntryHistory::class.java)
-            intent.putExtra("repid", repid)
+            intent.putExtra("extra_item", customers)
             intent.putExtra("currentlat",currentlat)
             intent.putExtra("currentlng", currentlng)
-            intent.putExtra("outletlat", outletlat)
-            intent.putExtra("outletlng", outletlng)
-            intent.putExtra("distance",distance)
-            intent.putExtra("durations",durations)
-            intent.putExtra("urno", urno)
-            intent.putExtra("visit_sequence", visit_sequence)
-            intent.putExtra("token", token)
-            intent.putExtra("outletname",outletname)
-            intent.putExtra("defaulttoken", defaulttoken)
-            intent.putExtra("auto", auto)
-            intent.putExtra("customerno", customerno)
-            intent.putExtra("customer_code", customer_code)
-            intent.putExtra("uiid",getDate()+"${repid}"+UUID.randomUUID().toString())
+            intent.putExtra("uiid",getDate()+"${customers.rep_id}"+UUID.randomUUID().toString())
             startActivity(intent)
         }else {
             showProgressBar(false)

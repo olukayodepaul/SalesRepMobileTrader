@@ -8,7 +8,36 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1071280132687:android:ddfbf6231721feb8cf503a",
+        "mobilesdk_app_id": "1:1071280132687:android:d7095f6cfdedef1dcf503a",
+        "android_client_info": {
+          "package_name": "com.mobbile.paul.appx0f"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1071280132687-moojkrvu26s1d18eunao099vncc6r4av.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAm0zxt0uH2CEQoGMxMq2z8zpvh7JjueE4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1071280132687-moojkrvu26s1d18eunao099vncc6r4av.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1071280132687:android:0f53dd49aacb0927cf503a",
         "android_client_info": {
           "package_name": "com.mobbile.paul.salesrepmobiletrader"
         }

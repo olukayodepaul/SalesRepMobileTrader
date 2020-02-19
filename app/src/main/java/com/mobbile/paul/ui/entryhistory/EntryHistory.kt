@@ -2,18 +2,23 @@ package com.mobbile.paul.ui.entryhistory
 
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.customview.customView
 import com.mobbile.paul.BaseActivity
 import com.mobbile.paul.model.AttendantParser
 import com.mobbile.paul.model.EntityGetSalesEntry
 import com.mobbile.paul.model.SumSales
+import com.mobbile.paul.model.customersEntity
 import com.mobbile.paul.salesrepmobiletrader.R
 import com.mobbile.paul.ui.salesviewpagers.SalesViewPager
 import com.mobbile.paul.util.Util.sharePrefenceDataSave
@@ -26,22 +31,10 @@ import javax.inject.Inject
 
 class EntryHistory : BaseActivity() {
 
-    var repid: Int = 0
     var currentlat: String = "0.0"
     var currentlng: String = "0.0"
-    var outletlat: String = "0.0"
-    var outletlng: String = "0.0"
-    var distance: String = "0 km"
-    var durations: String = "0 MS"
-    var urno: Int = 0
-    var visit_sequence: Int = 0
-    var token: String = ""
-    var outletname: String = ""
-    var defaulttoken: String = ""
-    var customerno: String = ""
-    var customer_code: String = ""
-    var auto: Int = 0
-    var uiid:String = ""
+    var uiid: String = ""
+    private lateinit var customers: customersEntity
 
     @Inject
     internal lateinit var modelFactory: ViewModelProvider.Factory
@@ -57,27 +50,15 @@ class EntryHistory : BaseActivity() {
         setContentView(R.layout.activity_entry_history)
         vmodel = ViewModelProviders.of(this, modelFactory)[EntryHistoryViewModel::class.java]
         preferences = getSharedPreferences(sharePrefenceDataSave, Context.MODE_PRIVATE)
+        customers = intent.extras!!.getParcelable("extra_item")!!
         initViews()
     }
 
     private fun initViews() {
-        repid = intent.getIntExtra("repid", 0)
         currentlat = intent.getStringExtra("currentlat")!!
         currentlng = intent.getStringExtra("currentlng")!!
-        outletlat = intent.getStringExtra("outletlat")!!
-        outletlng = intent.getStringExtra("outletlng")!!
-        distance = intent.getStringExtra("distance")!!
-        durations = intent.getStringExtra("durations")!!
-        urno = intent.getIntExtra("urno", 0)
-        visit_sequence = intent.getIntExtra("visit_sequence", 0)
-        token = intent.getStringExtra("token")!!
-        outletname = intent.getStringExtra("outletname")!!
-        defaulttoken = intent.getStringExtra("defaulttoken")!!
-        customerno = intent.getStringExtra("customerno")!!
-        customer_code = intent.getStringExtra("customer_code")!!
-        auto = intent.getIntExtra("auto", 0)
         uiid = intent.getStringExtra("uiid")!!
-        tv_outlet_name.text = outletname
+        tv_outlet_name.text = customers.outletname
 
         back_btn.setOnClickListener {
             onBackPressed()
@@ -86,17 +67,47 @@ class EntryHistory : BaseActivity() {
         btn_complete.setOnClickListener {
 
             when {
-                token.equals(token_form.text.toString().trim()) -> {
+                customers.token.equals(token_form.text.toString().trim()) -> {
                     showProgressBar(true)
                     btn_complete.visibility = View.INVISIBLE
-                    vmodel.postSalesToServer(repid, currentlat, currentlng, outletlat, outletlng, distance,  durations, urno, visit_sequence,  auto, token_form.text.toString().trim(),uiid)
+                    vmodel.postSalesToServer(
+                        customers.rep_id,
+                        currentlat,
+                        currentlng,
+                        customers.latitude.toString(),
+                        customers.longitude.toString(),
+                        customers.distance,
+                        customers.duration,
+                        customers.urno,
+                        customers.sequenceno,
+                        customers.auto,
+                        token_form.text.toString().trim(),
+                        uiid
+                    )
                 }
-                defaulttoken.equals(token_form.text.toString().trim()) -> {
+                customers.defaulttoken.equals(token_form.text.toString().trim()) -> {
                     showProgressBar(true)
                     btn_complete.visibility = View.INVISIBLE
-                    vmodel.postSalesToServer(repid, currentlat, currentlng, outletlat, outletlng, distance,  durations, urno, visit_sequence,  auto, token_form.text.toString().trim(),uiid)
+                    vmodel.postSalesToServer(
+                        customers.rep_id,
+                        currentlat,
+                        currentlng,
+                        customers.latitude.toString(),
+                        customers.longitude.toString(),
+                        customers.distance,
+                        customers.duration,
+                        customers.urno,
+                        customers.sequenceno,
+                        customers.auto,
+                        token_form.text.toString().trim(),
+                        uiid
+                    )
                 }
-                else -> showMessageDialogWithoutIntent(this,  "Error", "Invalid Customer Verification code")
+                else -> showMessageDialogWithoutIntent(
+                    this,
+                    "Error",
+                    "Invalid Customer Verification code"
+                )
             }
 
         }
@@ -110,15 +121,30 @@ class EntryHistory : BaseActivity() {
     }
 
     private val observeCloseOutlets = Observer<AttendantParser> {
-        when(it.status){
-            200->{
+        when (it.status) {
+            200 -> {
                 showProgressBar(false)
-                showMessageDialogWithIntent(SalesViewPager(),this, "Successful", it.notis)
-            }else->{
-            showProgressBar(false)
-            showMessageDialogWithoutIntent(this,"Outlet Close Error", it.notis)
+                customeSuccessDialog()
+            }
+            else -> {
+                showProgressBar(false)
+                showMessageDialogWithoutIntent(this, "Outlet Close Error", it.notis)
+            }
         }
+    }
+
+    private fun customeSuccessDialog() {
+        val dialog = MaterialDialog(this)
+            .cancelOnTouchOutside(false)
+            .cancelable(false)
+            .customView(R.layout.dialogs)
+        dialog.findViewById<TextView>(R.id.positive_button).setOnClickListener {
+            val intent = Intent(this, SalesViewPager::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(intent)
+            dialog.dismiss()
         }
+        dialog.show()
     }
 
     private val observerOfSalesEntry = Observer<List<EntityGetSalesEntry>> {
@@ -141,13 +167,11 @@ class EntryHistory : BaseActivity() {
         if (it != null) {
             val df = DecimalFormat("#.#")
             df.roundingMode = RoundingMode.FLOOR
-            s_s_pricing.text = String.format("%,.1f",(df.format(it.spricing).toDouble()))
-            s_s_invetory.text = String.format("%,.1f",(df.format(it.sinventory).toDouble()))
-            s_s_order.text = String.format("%,.1f",(df.format(it.sorder).toDouble()))
-            s_s_amount.text = String.format("%,.1f",(df.format(it.samount).toDouble()))
+            s_s_pricing.text = String.format("%,.1f", (df.format(it.spricing).toDouble()))
+            s_s_invetory.text = String.format("%,.1f", (df.format(it.sinventory).toDouble()))
+            s_s_order.text = String.format("%,.1f", (df.format(it.sorder).toDouble()))
+            s_s_amount.text = String.format("%,.1f", (df.format(it.samount).toDouble()))
         }
     }
-
-
 
 }
