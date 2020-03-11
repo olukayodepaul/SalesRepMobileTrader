@@ -353,8 +353,28 @@
                     android:fontFamily="@font/montserrat_semi_bold"
                     android:text="COMPLETE"
                     android:textColor="@color/white"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"
+                    />
+
+                <Button
+                    android:id="@+id/btn_complete_forground"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/ma_be_button"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/design_login_btn_black"
+                    android:fontFamily="@font/montserrat_semi_bold"
+                    android:text="ORDER IN PROCESS........"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:visibility="gone"
+                  />
             </RelativeLayout>
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

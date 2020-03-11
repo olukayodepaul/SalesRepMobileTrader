@@ -55,6 +55,9 @@ class EntryHistory : BaseActivity() {
     }
 
     private fun initViews() {
+
+        btn_complete_forground.visibility = View.GONE
+
         currentlat = intent.getStringExtra("currentlat")!!
         currentlng = intent.getStringExtra("currentlng")!!
         uiid = intent.getStringExtra("uiid")!!
@@ -66,10 +69,12 @@ class EntryHistory : BaseActivity() {
 
         btn_complete.setOnClickListener {
 
+            btn_complete.visibility = View.GONE
+            btn_complete_forground.visibility = View.VISIBLE
+
             when {
                 customers.token.equals(token_form.text.toString().trim()) -> {
                     showProgressBar(true)
-                    btn_complete.visibility = View.INVISIBLE
                     vmodel.postSalesToServer(
                         customers.rep_id,
                         currentlat,
@@ -87,7 +92,6 @@ class EntryHistory : BaseActivity() {
                 }
                 customers.defaulttoken.equals(token_form.text.toString().trim()) -> {
                     showProgressBar(true)
-                    btn_complete.visibility = View.INVISIBLE
                     vmodel.postSalesToServer(
                         customers.rep_id,
                         currentlat,
@@ -103,11 +107,17 @@ class EntryHistory : BaseActivity() {
                         uiid
                     )
                 }
-                else -> showMessageDialogWithoutIntent(
-                    this,
-                    "Error",
-                    "Invalid Customer Verification code"
-                )
+                else -> {
+
+                    btn_complete.visibility = View.INVISIBLE
+                    btn_complete_forground.visibility = View.GONE
+
+                    showMessageDialogWithoutIntent(
+                        this,
+                        "Error",
+                        "Invalid Customer Verification code"
+                    )
+                }
             }
 
         }
@@ -127,6 +137,8 @@ class EntryHistory : BaseActivity() {
                 customeSuccessDialog()
             }
             else -> {
+                btn_complete.visibility = View.INVISIBLE
+                btn_complete_forground.visibility = View.GONE
                 showProgressBar(false)
                 showMessageDialogWithoutIntent(this, "Outlet Close Error", it.notis)
             }

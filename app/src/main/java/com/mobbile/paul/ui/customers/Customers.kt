@@ -169,7 +169,6 @@ class Customers: DaggerFragment() {
             }
             300 -> {
                 dataFromAdapter = partItem
-
                 val intent = Intent(this.requireContext(), OutletUpdate::class.java)
                 intent.putExtra("extra_item", dataFromAdapter)
                 startActivity(intent)
