@@ -11,17 +11,19 @@ import retrofit2.http.Query
 interface Api {
 
     //rep login
+
+
+    //van login
     /*@Headers("Connection:close")
-    @POST("/api/rep_logins")
+    @POST("/api/vanlogin")
     fun Login(
         @Query("username") username: String,
         @Query("password") password: String,
         @Query("imei") imei: String
     ): Single<Response<ApplicationLogin>>*/
 
-    //van login
     @Headers("Connection:close")
-    @POST("/api/vanlogin")
+    @POST("/api/replogin")
     fun Login(
         @Query("username") username: String,
         @Query("password") password: String,
@@ -33,14 +35,6 @@ interface Api {
     fun getAllCustomers(
         @Query("repid") repid: Int
     ): Single<Response<CustomersRemoteResponse>>
-
-    @Headers("Connection:close")
-    @POST("api/rep_sales_daily_entry")
-    fun getBasket(
-        @Query("customerno") customerno: String,
-        @Query("customer_code") customer_code: String,
-        @Query("repid") repid: Int
-    ): Single<Response<InitBasket>>
 
     @Headers("Connection:close")
     @POST("/api/tmrepbasket")
@@ -64,6 +58,15 @@ interface Api {
     ): Single<Response<Attendant>>
 
     @Headers("Connection:close")
+    @POST("api/rep_sales_daily_entry")
+    fun getBasket(
+        @Query("customerno") customerno: String,
+        @Query("customer_code") customer_code: String,
+        @Query("repid") repid: Int
+    ): Single<Response<InitBasket>>
+
+
+    @Headers("Connection:close")
     @POST("/api/rep_close_outlet_on_sales")
     fun CloseOutlets(
         @Query("repid") repid: Int,
@@ -84,6 +87,7 @@ interface Api {
     fun fetchPostSales(
         @Body datas: postToServer
     ): Single<Response<Attendant>>
+
 
     @Headers("Connection:close")
     @POST("/api/rep_sales_details")

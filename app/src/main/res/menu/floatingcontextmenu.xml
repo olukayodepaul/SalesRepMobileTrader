@@ -19,4 +19,11 @@
     <item android:title="Details"
         android:id="@+id/details" />
 
+    <!--USING THE SEQUENCE ERROR TO CORRECT THE SEQUENCE ISSUES. NEVER ASK REP TO GO BACK TO THE PREVIOUS OUTLETS-->
+    <!--please not to get SOQ in this adjustment-->
+
+    <item android:title="Sequence Error Correction"
+        android:id="@+id/sq_error" />
+
+
 </menu>

@@ -30,10 +30,11 @@ object Util {
         val kx = cos(PI * customerLat / 180.0) * ky
         val dx = abs(customerLng - currentLng) * kx
         val dy = abs(customerLat - currentLat) * ky
+
         if(distance==1) {
-            return sqrt(dx * dx + dy * dy) <= 2 // 100 meters//->0.050 is 50meters..using two kilometer
+            return sqrt(dx * dx + dy * dy) <= 1.000 // 100 meters//->0.050 is 50meters..using two kilometer 1 for one kilometer
         }else {
-            return sqrt(dx * dx + dy * dy) <= 2 // 20 meters//..using two kilometer
+            return sqrt(dx * dx + dy * dy) <= 1.000 // 20 meters//..using two kilometer
         }
     }
 

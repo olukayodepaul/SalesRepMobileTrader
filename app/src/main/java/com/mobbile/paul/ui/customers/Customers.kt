@@ -8,9 +8,11 @@ import android.content.SharedPreferences
 import android.location.Location
 import android.os.Bundle
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -57,6 +59,8 @@ class Customers: DaggerFragment() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     lateinit var locationRequest: LocationRequest
+
+    var closeOutletRebounce:String = "1"
 
 
     override fun onCreateView(
@@ -127,6 +131,7 @@ class Customers: DaggerFragment() {
     private val observeCloseOutlets = Observer<AttendantParser> {
         when (it.status) {
             200 -> {
+                closeOutletRebounce=="1"
                 showProgressBar(false, base_progress_bar)
                 showMessageDialogWithIntent(
                     SalesViewPager(),
@@ -136,6 +141,7 @@ class Customers: DaggerFragment() {
                 )
             }
             else -> {
+                closeOutletRebounce=="1"
                 showProgressBar(false, base_progress_bar)
                 showMessageDialogWithoutIntent(
                     this.requireContext(),
@@ -157,40 +163,67 @@ class Customers: DaggerFragment() {
     private fun partItemClicked(partItem: customersEntity, separator: Int) {
         when (separator) {
             100 -> {
-                showProgressBar(true, base_progress_bar)
-                mode = 1
-                dataFromAdapter = partItem
-                startLocationRequest()
+                if(closeOutletRebounce=="1") {
+                    Log.d(TAG,"CLOSE 1")
+                    showProgressBar(true, base_progress_bar)
+                    mode = 1
+                    dataFromAdapter = partItem
+                    startLocationRequest()
+                }else{
+                    Toast.makeText(context, "Wait while close outlet is processing........", Toast.LENGTH_LONG).show()
+                }
             }
             200 -> {
-                val dmode = partItem.mode.single()
-                val destination = "${partItem.latitude},${partItem.longitude}"
-                startGoogleMapIntent(this.requireContext(), destination, dmode, 't')
+                if(closeOutletRebounce=="1") {
+                    val dmode = partItem.mode.single()
+                    val destination = "${partItem.latitude},${partItem.longitude}"
+                    startGoogleMapIntent(this.requireContext(), destination, dmode, 't')
+                }else{
+                    Toast.makeText(context, "Wait while close outlet is processing........", Toast.LENGTH_LONG).show()
+                }
             }
             300 -> {
-                dataFromAdapter = partItem
-                val intent = Intent(this.requireContext(), OutletUpdate::class.java)
-                intent.putExtra("extra_item", dataFromAdapter)
-                startActivity(intent)
+                if(closeOutletRebounce=="1") {
+                    dataFromAdapter = partItem
+                    val intent = Intent(this.requireContext(), OutletUpdate::class.java)
+                    intent.putExtra("extra_item", dataFromAdapter)
+                    startActivity(intent)
+                }else{
+                    Toast.makeText(context, "Wait while close outlet is processing........", Toast.LENGTH_LONG).show()
+                }
             }
             400 -> {
-                showProgressBar(true, base_progress_bar)
-                mode = 2
-                dataFromAdapter = partItem
-                startLocationRequest()
+
+                if(closeOutletRebounce=="1") {
+                    closeOutletRebounce = "2"
+                    showProgressBar(true, base_progress_bar)
+                    mode = 2
+                    dataFromAdapter = partItem
+                    startLocationRequest()
+                }else{
+                    Toast.makeText(context, "Wait while close outlet is processing........", Toast.LENGTH_LONG).show()
+                }
             }
             500 -> {
-                showProgressBar(true, base_progress_bar)
-                dataFromAdapter = partItem
-                asynchroniseDialogWithoutIntent()
+                if(closeOutletRebounce=="1") {
+                    showProgressBar(true, base_progress_bar)
+                    dataFromAdapter = partItem
+                    asynchroniseDialogWithoutIntent()
+                }else{
+                    Toast.makeText(context, "Wait while close outlet is processing........", Toast.LENGTH_LONG).show()
+                }
             }
             600 -> {
-                dataFromAdapter = partItem
-                val intent = Intent(this.requireContext(), Details::class.java)
-                intent.putExtra("urno", dataFromAdapter.urno)
-                intent.putExtra("rep_id", dataFromAdapter.rep_id)
-                intent.putExtra("outletname", dataFromAdapter.outletname)
-                startActivity(intent)
+                if(closeOutletRebounce=="1") {
+                    dataFromAdapter = partItem
+                    val intent = Intent(this.requireContext(), Details::class.java)
+                    intent.putExtra("urno", dataFromAdapter.urno)
+                    intent.putExtra("rep_id", dataFromAdapter.rep_id)
+                    intent.putExtra("outletname", dataFromAdapter.outletname)
+                    startActivity(intent)
+                }else{
+                    Toast.makeText(context, "Wait while close outlet is processing........", Toast.LENGTH_LONG).show()
+                }
             }
         }
     }
@@ -230,6 +263,7 @@ class Customers: DaggerFragment() {
             val checkCustomerOutlet: Boolean = setGeoFencing(location.latitude, location.longitude, dataFromAdapter.latitude, dataFromAdapter.longitude, 2)
             if (!checkCustomerOutlet) {
                 showProgressBar(false, base_progress_bar)
+                closeOutletRebounce ="1"
                 showMessageDialogWithoutIntent(this.requireContext(), "Location Error", "You are not at the corresponding outlet. Thanks!")
             } else {
                 vmodel.validateOutletSequence(1, dataFromAdapter.sequenceno, location.latitude, location.longitude).observe(this, observeVisitSequence)
@@ -267,6 +301,9 @@ class Customers: DaggerFragment() {
                 }
             }
             300 -> {
+                if(mode==2){
+                    closeOutletRebounce ="1"
+                }
                 showProgressBar(false, base_progress_bar)
                 showMessageDialogWithoutIntent(
                     this.requireContext(),
@@ -275,6 +312,9 @@ class Customers: DaggerFragment() {
                 )
             }
             else -> {
+                if(mode==2){
+                    closeOutletRebounce ="1"
+                }
                 showProgressBar(false, base_progress_bar)
                 showMessageDialogWithoutIntent(
                     this.requireContext(),
@@ -306,7 +346,7 @@ class Customers: DaggerFragment() {
 
     companion object {
         private var TAG = "Customers"
-        private const val INTERVAL: Long = 1 * 1000
+        private const val INTERVAL: Long = 1 * 1000 //
         private const val FASTEST_INTERVAL: Long = 1 * 1000
     }
 }

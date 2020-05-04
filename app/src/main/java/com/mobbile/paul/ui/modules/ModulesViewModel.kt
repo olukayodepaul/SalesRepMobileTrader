@@ -9,6 +9,7 @@ import javax.inject.Inject
 
 class ModulesViewModel @Inject constructor(private var repository: Repository): ViewModel() {
 
+    //i do not persist modules
     fun getModules() : LiveData<List<modulesEntity>> {
         val result = MutableLiveData<List<modulesEntity>>()
         repository.fetchModules()
@@ -20,6 +21,7 @@ class ModulesViewModel @Inject constructor(private var repository: Repository): 
         return result
     }
 
+    //count for the message and link the message url direct to messages
     fun countUnReadMessage(): LiveData<Int> {
         val nts = MutableLiveData<Int>()
         repository.countUnReadMessage().subscribe(
@@ -31,4 +33,6 @@ class ModulesViewModel @Inject constructor(private var repository: Repository): 
         ).isDisposed
         return nts
     }
+
+
 }

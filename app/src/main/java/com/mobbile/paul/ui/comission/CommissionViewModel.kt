@@ -14,7 +14,8 @@ class CommissionViewModel @Inject constructor(private var repository: Repository
         val mResult = MutableLiveData<List<salesCommissionList>>()
         repository.salesCommission(user_id)
             .subscribe({
-                if(it.body()!!.status==200){
+                if(
+                    it.body()!!.status==200){
                     mResult.postValue(it.body()!!.comlist)
                 }else{
                     mResult.postValue(null)

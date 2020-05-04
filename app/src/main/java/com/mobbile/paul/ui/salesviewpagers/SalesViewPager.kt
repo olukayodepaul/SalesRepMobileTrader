@@ -3,6 +3,7 @@ package com.mobbile.paul.ui.salesviewpagers
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -17,6 +18,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.mobbile.paul.salesrepmobiletrader.R
+import com.mobbile.paul.ui.allorders.All_Orders
 import com.mobbile.paul.ui.comission.Comission
 import com.mobbile.paul.ui.customers.Customers
 import com.mobbile.paul.ui.modules.Modules
@@ -89,6 +91,12 @@ class SalesViewPager : DaggerAppCompatActivity() {
 
         backbtn.setOnClickListener {
             onBackPressed()
+        }
+
+        orderbadgecounter.setOnClickListener {
+            val intents  = Intent(this, All_Orders::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(intents)
         }
 
         vmodel.fetchsAllCustomers().observe(this, Observer<String> {

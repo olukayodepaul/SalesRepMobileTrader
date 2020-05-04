@@ -25,7 +25,7 @@ class UserMessageAdapter(private var mItems: List<ChatMessage>) :
     }
 
     override fun getItemCount(): Int {
-        return mItems.size
+        return 1
     }
 
     inner class ViewHolder(override val containerView: View) :

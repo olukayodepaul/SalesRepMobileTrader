@@ -169,8 +169,7 @@ class Resumption : BaseActivity() {
 
             stoplocation()
 
-            val checkCustomerOutlet: Boolean =
-                setGeoFencing(location.latitude, location.longitude, outletlat, outletlng, 1)
+            val checkCustomerOutlet: Boolean = setGeoFencing(location.latitude, location.longitude, outletlat, outletlng, 1)
 
             if (!checkCustomerOutlet) {
                 showProgressBar(false)

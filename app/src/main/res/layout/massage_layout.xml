@@ -13,9 +13,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="25dp"
+        android:layout_marginEnd="10dp"
         android:background="@drawable/message_rounded_border"
         android:fontFamily="@font/roboto_regular"
+        android:orientation="vertical"
         android:padding="10dp"
         android:text=""
         android:textColor="@color/white"
@@ -30,15 +31,20 @@
             android:id="@+id/tv_msgr"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="5dp"
             android:fontFamily="@font/roboto_regular"
             android:text=""
             android:textColor="@color/white"
-            android:textSize="14sp"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            />
+            android:textSize="14sp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/is" />
 
     </LinearLayout>
 

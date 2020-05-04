@@ -69,12 +69,12 @@ class EntryHistory : BaseActivity() {
 
         btn_complete.setOnClickListener {
 
-            btn_complete.visibility = View.GONE
+            btn_complete.visibility = View.INVISIBLE
             btn_complete_forground.visibility = View.VISIBLE
 
             when {
-                customers.token.equals(token_form.text.toString().trim()) -> {
-                    showProgressBar(true)
+                customers.token == token_form.text.toString().trim() -> {
+                   showProgressBar(true)
                     vmodel.postSalesToServer(
                         customers.rep_id,
                         currentlat,
@@ -90,7 +90,7 @@ class EntryHistory : BaseActivity() {
                         uiid
                     )
                 }
-                customers.defaulttoken.equals(token_form.text.toString().trim()) -> {
+                customers.defaulttoken == token_form.text.toString().trim() -> {
                     showProgressBar(true)
                     vmodel.postSalesToServer(
                         customers.rep_id,
@@ -109,17 +109,17 @@ class EntryHistory : BaseActivity() {
                 }
                 else -> {
 
-                    btn_complete.visibility = View.INVISIBLE
-                    btn_complete_forground.visibility = View.GONE
+                    btn_complete.visibility = View.VISIBLE
+                    btn_complete_forground.visibility = View.INVISIBLE
 
                     showMessageDialogWithoutIntent(
                         this,
                         "Error",
                         "Invalid Customer Verification code"
                     )
+
                 }
             }
-
         }
 
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
@@ -133,12 +133,16 @@ class EntryHistory : BaseActivity() {
     private val observeCloseOutlets = Observer<AttendantParser> {
         when (it.status) {
             200 -> {
+
                 showProgressBar(false)
                 customeSuccessDialog()
+
             }
             else -> {
-                btn_complete.visibility = View.INVISIBLE
-                btn_complete_forground.visibility = View.GONE
+
+                btn_complete.visibility = View.VISIBLE
+                btn_complete_forground.visibility = View.INVISIBLE
+
                 showProgressBar(false)
                 showMessageDialogWithoutIntent(this, "Outlet Close Error", it.notis)
             }

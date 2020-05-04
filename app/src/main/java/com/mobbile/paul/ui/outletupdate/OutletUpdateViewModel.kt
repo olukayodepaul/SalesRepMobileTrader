@@ -12,7 +12,7 @@ class OutletUpdateViewModel @Inject constructor(private val repository: Reposito
 
 
     fun fetchSpinners(): LiveData<List<spinersEntity>> {
-        var mResult = MutableLiveData<List<spinersEntity>>()
+        val mResult = MutableLiveData<List<spinersEntity>>()
         repository.fetchSpinners()
             .subscribe({
                 mResult.postValue(it)

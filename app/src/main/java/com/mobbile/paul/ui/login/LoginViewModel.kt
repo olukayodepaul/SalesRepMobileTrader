@@ -117,7 +117,6 @@ class LoginViewModel @Inject constructor(private var repo: Repository) : ViewMod
     }
 
     private fun insertIntoSpinnerAndModulesTable() {
-
         repo.insertIntoSpinnerAndModulesTable(
             data.modules!!.map{it.toModules()},
             data.spinners!!.map{it.toSpinner()}

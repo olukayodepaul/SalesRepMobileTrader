@@ -93,13 +93,13 @@ class MainActivity : BaseActivity() {
         } else if (permit == PackageManager.PERMISSION_DENIED) {
             imeiRequest()
         } else {
-            //vmodel.Login("iDaCu5a", "5169", "351736102823741", date)
-            vmodel.Login(
+            vmodel.Login("aYxT8Qz", "6990", "357574094971200", date)
+            /*vmodel.Login(
                 username,
                 password,
                 tel.getImei(0),
                 date
-            )
+            )*/
         }
     }
 

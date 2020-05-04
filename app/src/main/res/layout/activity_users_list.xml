@@ -65,7 +65,7 @@ tools:context="com.mobbile.paul.ui.message.UsersList"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
         android:background="@color/white"
-        android:paddingTop="25dp"
+        android:paddingTop="10dp"
         android:paddingBottom="25dp" />
 
 </RelativeLayout>
