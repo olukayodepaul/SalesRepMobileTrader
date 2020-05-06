@@ -18,10 +18,10 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.mobbile.paul.salesrepmobiletrader.R
-import com.mobbile.paul.ui.allorders.All_Orders
 import com.mobbile.paul.ui.comission.Comission
 import com.mobbile.paul.ui.customers.Customers
 import com.mobbile.paul.ui.modules.Modules
+import com.mobbile.paul.ui.orders.Orders
 import com.mobbile.paul.util.ChatMessages
 import com.mobbile.paul.util.Util.sharePrefenceDataSave
 import com.mobbile.paul.util.Util.showMessageDialogWithIntent
@@ -94,7 +94,7 @@ class SalesViewPager : DaggerAppCompatActivity() {
         }
 
         orderbadgecounter.setOnClickListener {
-            val intents  = Intent(this, All_Orders::class.java)
+            val intents  = Intent(this, Orders::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intents)
         }

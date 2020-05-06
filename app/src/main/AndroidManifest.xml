@@ -19,7 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name="com.mobbile.paul.ui.allorders.All_Orders"></activity>
+        <activity android:name="com.mobbile.paul.ui.orders.OrderSummary"></activity>
+        <activity android:name="com.mobbile.paul.ui.orders.OrderEntry" />
+        <activity android:name="com.mobbile.paul.ui.orders.Orders" />
         <activity android:name="com.mobbile.paul.ui.message.UsersList" />
         <activity android:name="com.mobbile.paul.ui.mapoutlet.MapNewOutlet" />
         <activity android:name="com.mobbile.paul.ui.outletupdate.OutletUpdate" />

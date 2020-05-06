@@ -273,6 +273,16 @@ constructor(private val appDao: AppDao, private val api: Api) {
         }.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
+    fun customerOrder(employeeid: Int): Observable<Response<customerProductOrder>> =
+        api.customerOrder(employeeid)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map {it}
 
+    fun skuTotalOrder(orderid: Int): Observable<Response<skuOrderd>> =
+        api.skuTotalOrder(orderid)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map {it}
 
 }

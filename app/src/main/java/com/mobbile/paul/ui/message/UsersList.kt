@@ -27,8 +27,6 @@ class UsersList : BaseActivity() {
         setContentView(R.layout.activity_users_list)
         vmodel = ViewModelProviders.of(this, modelFactory)[MessageViewModel::class.java]
         initView()
-
-       //Mark this is unread message
         vmodel.MarkAsUnReadMessage()
     }
 

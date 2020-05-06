@@ -21,6 +21,7 @@ import com.mobbile.paul.BaseActivity
 import com.mobbile.paul.salesrepmobiletrader.R
 import com.mobbile.paul.model.modulesEntity
 import com.mobbile.paul.ui.message.UsersList
+import com.mobbile.paul.ui.orders.Orders
 import com.mobbile.paul.ui.salesviewpagers.SalesViewPager
 import com.mobbile.paul.util.Util
 import com.mobbile.paul.util.Util.sharePrefenceDataSave
@@ -53,6 +54,13 @@ class Modules : BaseActivity() {
     }
 
     fun initViews() {
+
+        orderbadget.setOnClickListener {
+            val orderIntent = Intent(this, Orders::class.java)
+            startActivity(orderIntent)
+        }
+
+
         confirmNewMessages()
         tv_outlet_name.text = preferences!!.getString("preferencesEmployeeName","")!!
         module_recycler.setHasFixedSize(true)

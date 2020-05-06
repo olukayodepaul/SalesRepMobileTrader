@@ -490,3 +490,62 @@ data class salesCommissionList(
     var amount: String = ""
 )
 
+data class customerProductOrder(
+    @SerializedName("order")
+    @Expose
+    var order: List<allCustomerProductOrder>?  = null
+)
+
+data class allCustomerProductOrder(
+    @SerializedName("orderid")
+    @Expose
+    var orderid: Int = 0,
+    @SerializedName("outletname")
+    @Expose
+    var outletname: String = "",
+    @SerializedName("urno")
+    @Expose
+    var urno: Int = 0,
+    @SerializedName("customerno")
+    @Expose
+    var customerno: String = "",
+    @SerializedName("latitude")
+    @Expose
+    var latitude: String = "",
+    @SerializedName("longitude")
+    @Expose
+    var longitude: String = "",
+    @SerializedName("employeeid")
+    @Expose
+    var employeeid: Int = 0
+)
+
+
+data class skuOrderd(
+    @SerializedName("skuorder")
+    @Expose
+    var skuorder: List<allskuOrderd>?  = null
+)
+
+data class allskuOrderd(
+    @SerializedName("id")
+    @Expose
+    var id: Int = 0,
+    @SerializedName("customerinfo")
+    @Expose
+    var customerinfo: Int = 0,
+    @SerializedName("qtyordered")
+    @Expose
+    var qtyordered: Int = 0,
+    @SerializedName("skuname")
+    @Expose
+    var skuname: String = "",
+    @SerializedName("productcode")
+    @Expose
+    var productcode: String = "",
+    @SerializedName("amount")
+    @Expose
+    var amount: Double = 0.0
+)
+
+

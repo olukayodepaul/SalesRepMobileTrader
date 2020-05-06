@@ -17,6 +17,8 @@ import com.mobbile.paul.di.subcomponent.message.MessageModule
 import com.mobbile.paul.di.subcomponent.message.MessageScope
 import com.mobbile.paul.di.subcomponent.modules.ModulesModule
 import com.mobbile.paul.di.subcomponent.modules.ModulesScope
+import com.mobbile.paul.di.subcomponent.order.OrderModule
+import com.mobbile.paul.di.subcomponent.order.OrderScope
 import com.mobbile.paul.di.subcomponent.outletupdate.OutletUpdateModule
 import com.mobbile.paul.di.subcomponent.outletupdate.OutletUpdateScope
 import com.mobbile.paul.di.subcomponent.salesfragment.FragmentBuilderScope
@@ -34,6 +36,7 @@ import com.mobbile.paul.ui.login.MainActivity
 import com.mobbile.paul.ui.mapoutlet.MapNewOutlet
 import com.mobbile.paul.ui.message.UsersList
 import com.mobbile.paul.ui.modules.Modules
+import com.mobbile.paul.ui.orders.Orders
 import com.mobbile.paul.ui.outletupdate.OutletUpdate
 import com.mobbile.paul.ui.salesviewpagers.SalesViewPager
 import dagger.Module
@@ -141,5 +144,13 @@ abstract class ActivityBuilderModule {
         ]
     )
     abstract fun contributeMessageModuleAndroidInjector(): UsersList
+
+    @OrderScope
+    @ContributesAndroidInjector(
+        modules = [
+            OrderModule::class
+        ]
+    )
+    abstract fun contributeOrderModuleAndroidInjector(): Orders
 
 }

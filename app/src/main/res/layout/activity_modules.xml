@@ -68,13 +68,13 @@ tools:context="com.mobbile.paul.ui.modules.Modules">
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginTop="11dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="36dp"
                 android:layout_marginBottom="11dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.4"
-                app:srcCompat="@drawable/ic_notifications_active_black_24dp" />
+                app:layout_constraintVertical_bias="parent"
+                app:srcCompat="@drawable/ic_message_black_24dp" />
 
             <TextView
                 android:id="@+id/dadgecounter"
@@ -88,6 +88,34 @@ tools:context="com.mobbile.paul.ui.modules.Modules">
                 android:textSize="10sp"
                 app:layout_constraintEnd_toEndOf="@+id/badget"
                 app:layout_constraintTop_toTopOf="@+id/badget" />
+
+
+            <ImageView
+                android:id="@+id/orderbadget"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="11dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="parent"
+                app:srcCompat="@drawable/ic_shopping_cart_black_24dp" />
+
+            <TextView
+                android:id="@+id/orderbadgecounter"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:background="@drawable/badge"
+                android:gravity="center"
+                android:text=""
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                app:layout_constraintEnd_toEndOf="@+id/orderbadget"
+                app:layout_constraintTop_toTopOf="@+id/orderbadget"
+                />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

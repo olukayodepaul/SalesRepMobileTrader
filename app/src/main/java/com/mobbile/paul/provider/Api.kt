@@ -1,12 +1,10 @@
 package com.mobbile.paul.provider
 
 import com.mobbile.paul.model.*
+import io.reactivex.Observable
 import io.reactivex.Single
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.Headers
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface Api {
 
@@ -151,5 +149,17 @@ interface Api {
     fun salesCommission(
         @Query("user_id") user_id: Int
     ): Single<Response<salesCommisssion>>
+
+    @Headers("Connection:close")
+    @GET("/api/customer/customerorder")
+    fun customerOrder(
+        @Query("employeeid") employeeid: Int
+    ): Observable<Response<customerProductOrder>>
+
+    @Headers("Connection:close")
+    @GET("/api/customer/skuordered")
+    fun skuTotalOrder(
+        @Query("orderid") orderid: Int
+    ): Observable<Response<skuOrderd>>
 
 }
