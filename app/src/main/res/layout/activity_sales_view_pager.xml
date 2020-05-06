@@ -96,7 +96,6 @@ tools:context="com.mobbile.paul.ui.salesviewpagers.SalesViewPager">
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="parent"
                 app:srcCompat="@drawable/ic_message_black_24dp" />
 
             <TextView
@@ -124,7 +123,6 @@ tools:context="com.mobbile.paul.ui.salesviewpagers.SalesViewPager">
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="parent"
                 app:srcCompat="@drawable/ic_shopping_cart_black_24dp" />
 
             <TextView

@@ -1,18 +1,22 @@
 package com.mobbile.paul.ui.orders
 
 import android.os.Bundle
+import android.view.View
+import android.widget.PopupMenu
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.mobbile.paul.BaseActivity
 import com.mobbile.paul.model.allCustomerProductOrder
 import com.mobbile.paul.salesrepmobiletrader.R
-import com.mobbile.paul.util.Util.showProgressBar
 import kotlinx.android.synthetic.main.activity_all__orders.*
+import kotlinx.android.synthetic.main.customersorders.view.*
 import javax.inject.Inject
 
 
-class Orders : BaseActivity(){
+class Orders : BaseActivity() {
 
     @Inject
     internal lateinit var modelFactory: ViewModelProvider.Factory
@@ -28,23 +32,34 @@ class Orders : BaseActivity(){
         initView()
     }
 
-    private fun initView(){
-        vmodel.getcustomerOrder(5).observe(this,customerOrders)
-    }
-
-    val customerOrders = Observer<List<allCustomerProductOrder>>{
-        if(it.isEmpty()){
-            val s = 10
-        }else{
-            showProgressBar(false, base_progress_bar)
-            nAdapter = OrdersAdapter(it, this,::modulesAdapterItems)
-            nAdapter.notifyDataSetChanged()
-            _r_view_pager.setItemViewCacheSize(it.size)
-            _r_view_pager.adapter = nAdapter
+    private fun initView() {
+        backbtn.setOnClickListener {
+            onBackPressed()
         }
+
+        vmodel.getcustomerOrder(2213).observe(this,customerOrders)
     }
 
-    private fun modulesAdapterItems(item : allCustomerProductOrder) {
+    val customerOrders = Observer<List<allCustomerProductOrder>> {
+        //please check if data is empty
+        val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
+        _r_view_pager_order.layoutManager = layoutManager
+        nAdapter = OrdersAdapter(it, this, ::modulesAdapterItems)
+        nAdapter.notifyDataSetChanged()
+        _r_view_pager_order.adapter = nAdapter
+    }
 
+    private fun modulesAdapterItems( item : allCustomerProductOrder,widget: View) {
+
+        val popupMenu = PopupMenu(this, widget.menu_icon)
+        val inflater = popupMenu.menuInflater
+        inflater.inflate(R.menu.floatingordermenu, popupMenu.menu)
+
+        popupMenu.show()
+
+    }
+
+    companion object{
+        val TAG = "Orders"
     }
 }
