@@ -18,11 +18,8 @@ import kotlin.reflect.KFunction2
 
 
 class OrdersAdapter(private var mItems: List<allCustomerProductOrder>, private var contexts: Context,
-                    private val clickListener: KFunction2<@ParameterName(name = "partItem") allCustomerProductOrder, @ParameterName(
-                        name = "containerView"
-                    ) View, Unit>
-    ):
-        RecyclerView.Adapter<OrdersAdapter.ViewHolder>() {
+                    private val clickListener: KFunction2<@ParameterName(name = "partItem") allCustomerProductOrder,
+                            @ParameterName(name = "containerView") View, Unit>): RecyclerView.Adapter<OrdersAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
@@ -44,8 +41,7 @@ class OrdersAdapter(private var mItems: List<allCustomerProductOrder>, private v
         RecyclerView.ViewHolder(containerView),
         LayoutContainer {
         fun bind(
-            item: allCustomerProductOrder, clickListener: KFunction2<@ParameterName(
-                name = "partItem"
+            item: allCustomerProductOrder, clickListener: KFunction2<@ParameterName(name = "partItem"
             ) allCustomerProductOrder, @ParameterName(name = "containerView") View, Unit>
         ) {
 

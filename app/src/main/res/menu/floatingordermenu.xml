@@ -2,12 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:title="Outlet Location (onGoogle Map)"
-        android:id="@+id/outlet_nav" />
+        android:id="@+id/googlelocation" />
 
-    <item android:title="Outlet Close"
-        android:id="@+id/close_outlet" />
-
-    <item android:title="Outlet Open"
-        android:id="@+id/entries_id" />
+    <item android:title="Proceed To Deliver"
+        android:id="@+id/deliver" />
 
 </menu>

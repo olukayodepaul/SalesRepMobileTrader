@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mobbile.paul.BaseActivity
 import com.mobbile.paul.model.allCustomerProductOrder
 import com.mobbile.paul.salesrepmobiletrader.R
+import com.mobbile.paul.util.Util.startGoogleMapIntent
 import kotlinx.android.synthetic.main.activity_all__orders.*
 import kotlinx.android.synthetic.main.customersorders.view.*
 import javax.inject.Inject
@@ -55,11 +56,33 @@ class Orders : BaseActivity() {
         val inflater = popupMenu.menuInflater
         inflater.inflate(R.menu.floatingordermenu, popupMenu.menu)
 
+        popupMenu.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.googlelocation -> {
+                    googleDirection(item)
+                }
+                R.id.deliver -> {
+                    orderDialog(item)
+                }
+            }
+            true
+        }
+
         popupMenu.show()
 
     }
 
-    companion object{
+    private fun googleDirection(item : allCustomerProductOrder) {
+        val dmode = "l".single()
+        val destination = "${item.latitude},${item.longitude}"
+        startGoogleMapIntent(this, destination, dmode, 't')
+    }
+
+    private fun orderDialog(item : allCustomerProductOrder) {
+
+    }
+
+    companion object {
         val TAG = "Orders"
     }
 }
