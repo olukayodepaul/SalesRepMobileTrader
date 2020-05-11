@@ -9,8 +9,6 @@ import retrofit2.http.*
 interface Api {
 
     //rep login
-
-
     //van login
     /*@Headers("Connection:close")
     @POST("/api/vanlogin")
@@ -21,7 +19,7 @@ interface Api {
     ): Single<Response<ApplicationLogin>>*/
 
     @Headers("Connection:close")
-    @POST("/api/replogin")
+    @POST("/api/customer/tokenlogin")
     fun Login(
         @Query("username") username: String,
         @Query("password") password: String,

@@ -168,7 +168,6 @@ class MainActivity : BaseActivity() {
                 }
                 val token = task.result?.token
                 getCurrentTokenFromDevice = token.toString()
-                Log.d(TAG, token.toString())
             })
     }
 }

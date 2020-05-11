@@ -1,30 +1,30 @@
 package com.mobbile.paul
 
 
+
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
+import android.util.Log
+import com.google.firebase.messaging.FirebaseMessagingService
+import com.google.firebase.messaging.RemoteMessage
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.media.AudioAttributes
 import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
-import android.util.Log
-import com.google.firebase.messaging.FirebaseMessagingService
-import com.google.firebase.messaging.RemoteMessage
+import androidx.core.app.NotificationCompat
+import com.mobbile.paul.salesrepmobiletrader.R
 import com.mobbile.paul.ui.login.MainActivity
+
 
 class CloudMessage: FirebaseMessagingService() {
 
-    var promoId = ""
-    var promo = ""
-    var promoUnit = ""
-    var body = ""
-    var title = ""
     var RC_INTENT = 100
-    var CHANNEL_ID = "appx0f"
-
+    var CHANNEL_ID = "salesrepmobiletrader"
 
     override fun onMessageReceived(p0: RemoteMessage) {
         super.onMessageReceived(p0)
@@ -32,43 +32,16 @@ class CloudMessage: FirebaseMessagingService() {
         val intent = Intent(this, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
-        //if the incoming message is a data, get the content
-        if(p0.data.isNotEmpty()) {
-
-            promoId = p0.data.getValue("promoId")
-            promo = p0.data.getValue("promo")
-            promoUnit = p0.data.getValue("promoUnit")
-
-            intent.putExtra("promoId",promoId)
-            intent.putExtra("promo",promo)
-            intent.putExtra("promoUnit",promoUnit)
-            intent.putExtra("type",0)
-
-            sendNotif("Today Promo!!","$promo $promoUnit", intent)
-        }
-
-        //if the incoming message is a notification, get the content
         if(p0.notification!=null) {
-
-            body = p0.notification!!.body!!
-            title = p0.notification!!.title!!
-
-            intent.putExtra("title",body)
-            intent.putExtra("body",title)
-            intent.putExtra("type",1)
-
-            sendNotif(title,"$body", intent)
-
-        }else{
-            Log.d(TAG, "error access the information")
+            val messageBody = p0.notification!!.body!!
+            val messageTitle = p0.notification!!.title!!
+            passMessageToActivity(messageTitle, messageBody, intent)
         }
     }
 
-    fun sendNotif(title: String, body:String, intent: Intent) {
+    private fun passMessageToActivity(title: String, body:String, intent: Intent){
 
-        //call pending intent in the application
-        val pendingindent: PendingIntent = PendingIntent.getActivity(this, RC_INTENT,
-            intent, PendingIntent.FLAG_ONE_SHOT)
+        val pendingindent: PendingIntent = PendingIntent.getActivity(this, RC_INTENT, intent, PendingIntent.FLAG_ONE_SHOT)
 
         //choose ringing tone
         val ringtoneUri: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE)
@@ -82,16 +55,16 @@ class CloudMessage: FirebaseMessagingService() {
 
         //for android 8 sdk
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val mChannel= NotificationChannel(CHANNEL_ID, "appx0f", NotificationManager.IMPORTANCE_HIGH )
-            mChannel.description = "App x0f"
+            val mChannel= NotificationChannel(CHANNEL_ID, "Notification", NotificationManager.IMPORTANCE_HIGH )
+            mChannel.description = "Notification"
             mChannel.setSound(ringtoneUri, audioAttributes)
             notificationManeger.createNotificationChannel(mChannel)
         }
 
         //build a notification
-        /*val notificationBuilder: Notification = NotificationCompat.Builder(baseContext, CHANNEL_ID)
-            .setSmallIcon(R.drawable.logo_2b_01)
-            .setLargeIcon(BitmapFactory.decodeResource(resources,R.drawable.logo_2b_01))
+        val notificationBuilder: Notification = NotificationCompat.Builder(baseContext, CHANNEL_ID)
+            .setSmallIcon(R.drawable.logoss)
+            .setLargeIcon(BitmapFactory.decodeResource(resources,R.drawable.logoss))
             .setContentText(title)
             .setContentText(body)
             .setSound(ringtoneUri)
@@ -100,12 +73,10 @@ class CloudMessage: FirebaseMessagingService() {
             .setBadgeIconType(NotificationCompat.BADGE_ICON_SMALL)
             .setNumber(0)
             .build()
-        notificationManeger.notify(RC_INTENT, notificationBuilder)*/
-
+        notificationManeger.notify(RC_INTENT, notificationBuilder)
     }
 
-    companion object{
+    companion object {
         val TAG = "DNCJDNCJDNCJDNJDN"
     }
-
 }
