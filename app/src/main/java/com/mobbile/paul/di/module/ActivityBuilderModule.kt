@@ -36,6 +36,7 @@ import com.mobbile.paul.ui.login.MainActivity
 import com.mobbile.paul.ui.mapoutlet.MapNewOutlet
 import com.mobbile.paul.ui.message.UsersList
 import com.mobbile.paul.ui.modules.Modules
+import com.mobbile.paul.ui.orders.OrderSummary
 import com.mobbile.paul.ui.orders.Orders
 import com.mobbile.paul.ui.outletupdate.OutletUpdate
 import com.mobbile.paul.ui.salesviewpagers.SalesViewPager
@@ -152,5 +153,13 @@ abstract class ActivityBuilderModule {
         ]
     )
     abstract fun contributeOrderModuleAndroidInjector(): Orders
+
+    @OrderScope
+    @ContributesAndroidInjector(
+        modules = [
+            OrderModule::class
+        ]
+    )
+    abstract fun contributeOrderSummaryModuleAndroidInjector(): OrderSummary
 
 }

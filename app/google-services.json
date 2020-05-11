@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1071280132687-g0p1s9bd6f6aiejqeq2cjsbl8bfl56la.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mobbile.paul.appx0f",
+            "certificate_hash": "6b2a0deeb04b5d73d9ca3bca76f1dd4faf58eeb9"
+          }
+        },
+        {
           "client_id": "1071280132687-moojkrvu26s1d18eunao099vncc6r4av.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -43,6 +51,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "1071280132687-82la1sa9an2vk1ifq3lgcius77befpm4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mobbile.paul.salesrepmobiletrader",
+            "certificate_hash": "6b2a0deeb04b5d73d9ca3bca76f1dd4faf58eeb9"
+          }
+        },
         {
           "client_id": "1071280132687-moojkrvu26s1d18eunao099vncc6r4av.apps.googleusercontent.com",
           "client_type": 3

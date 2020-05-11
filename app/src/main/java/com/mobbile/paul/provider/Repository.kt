@@ -16,9 +16,10 @@ constructor(private val appDao: AppDao, private val api: Api) {
     fun Login(
         username: String,
         password: String,
-        imei: String
+        imei: String,
+        deviceToken: String
     ): Single<Response<ApplicationLogin>> =
-        api.Login(username, password, imei)
+        api.Login(username, password, imei, deviceToken)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .map {

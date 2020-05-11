@@ -13,10 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import com.mobbile.paul.salesrepmobiletrader.R
 import com.mobbile.paul.ui.comission.Comission
 import com.mobbile.paul.ui.customers.Customers
@@ -45,6 +42,8 @@ class SalesViewPager : DaggerAppCompatActivity() {
     private val latestMessagesMap = HashMap<String, ChatMessages>()
 
     private var regionId = 0
+
+    var employId:Int = 0
 
     private val bt = BottomNavigationView.OnNavigationItemSelectedListener {
         when (it.itemId) {
@@ -77,8 +76,9 @@ class SalesViewPager : DaggerAppCompatActivity() {
         showProgressBar(false, base_progress_bar_s)
         vmodel = ViewModelProviders.of(this, modelFactory)[ViewPagerViewModel::class.java]
         preferences = getSharedPreferences(sharePrefenceDataSave, Context.MODE_PRIVATE)
-
         database = FirebaseDatabase.getInstance()
+        employId = preferences!!.getInt("preferencesEmployeeID",0)
+        countBargeData()
 
         settings_btn.visibility = View.INVISIBLE
         dadgecounter.visibility = View.INVISIBLE
@@ -128,6 +128,21 @@ class SalesViewPager : DaggerAppCompatActivity() {
                 showMessageDialogWithoutIntent(this, "Error", "Can't fetch customer at this moment, try again")
             }else{
                 showMessageDialogWithIntent(Modules(), this, "Successful", "Customer successfully synchronise. You will be redirect to the Modules")
+            }
+        })
+    }
+
+    private fun countBargeData() {
+        val references = database.getReference("/message/customer/$employId")
+        references.addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {}
+            override fun onDataChange(p0: DataSnapshot) {
+                if(p0.exists()){
+                    orderbadgecounter.visibility = View.VISIBLE
+                    orderbadgecounter.text = p0.childrenCount.toString()
+                }else{
+                    orderbadgecounter.visibility = View.INVISIBLE
+                }
             }
         })
     }

@@ -23,9 +23,9 @@ class LoginViewModel @Inject constructor(private var repo: Repository) : ViewMod
         return response
     }
 
-    fun Login(username: String, password: String, imei: String, date: String) {
+    fun Login(username: String, password: String, imei: String, date: String, deviceToken: String) {
 
-        repo.Login(username, password, imei)
+        repo.Login(username, password, imei, deviceToken)
             .subscribe({
 
                 data = it.body()!!

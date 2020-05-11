@@ -10,6 +10,7 @@ import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
@@ -17,7 +18,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.mobbile.paul.BaseActivity
+import com.mobbile.paul.model.ChatMessage
 import com.mobbile.paul.salesrepmobiletrader.R
 import com.mobbile.paul.model.modulesEntity
 import com.mobbile.paul.ui.message.UsersList
@@ -26,6 +32,9 @@ import com.mobbile.paul.ui.salesviewpagers.SalesViewPager
 import com.mobbile.paul.util.Util
 import com.mobbile.paul.util.Util.sharePrefenceDataSave
 import kotlinx.android.synthetic.main.activity_modules.*
+import kotlinx.android.synthetic.main.activity_modules.orderbadgecounter
+import kotlinx.android.synthetic.main.activity_modules.orderbadget
+import kotlinx.android.synthetic.main.activity_order_summary.*
 import javax.inject.Inject
 
 class Modules : BaseActivity() {
@@ -43,32 +52,54 @@ class Modules : BaseActivity() {
 
     private var preferences: SharedPreferences? = null
 
+    private lateinit var database: FirebaseDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_modules)
         vmodel = ViewModelProviders.of(this, modelFactory)[ModulesViewModel::class.java]
         vmodel.getModules().observe(this, ObserversModulesResult)
+        database = FirebaseDatabase.getInstance()
         preferences = getSharedPreferences(sharePrefenceDataSave, Context.MODE_PRIVATE)
         requestLocationPermission()
+
     }
 
-    fun initViews() {
 
+
+    fun initViews() {
+        orderbadgecounter.visibility = View.INVISIBLE
+        countBargeData()
         orderbadget.setOnClickListener {
             val orderIntent = Intent(this, Orders::class.java)
             startActivity(orderIntent)
         }
-
 
         confirmNewMessages()
         tv_outlet_name.text = preferences!!.getString("preferencesEmployeeName","")!!
         module_recycler.setHasFixedSize(true)
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
         module_recycler.layoutManager = layoutManager
+
     }
 
-    val ObserversModulesResult = Observer<List<modulesEntity>> {
+    private fun countBargeData() {
+        val employId:Int = preferences!!.getInt("preferencesEmployeeID",0)
+        val references = database.getReference("/message/customer/$employId")
+        references.addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {}
+            override fun onDataChange(p0: DataSnapshot) {
+                if(p0.exists()){
+                    orderbadgecounter.visibility = View.VISIBLE
+                    orderbadgecounter.text = p0.childrenCount.toString()
+                }else{
+                    orderbadgecounter.visibility = View.INVISIBLE
+                }
+            }
+        })
+    }
+
+    private val ObserversModulesResult = Observer<List<modulesEntity>> {
         if (it.isNotEmpty()) {
             showProgressBar(false)
             val list: List<modulesEntity> = it
@@ -186,7 +217,7 @@ class Modules : BaseActivity() {
     }
 
     companion object {
-        private var TAG = "Modules"
+        private var TAG = "ModulesCASCS"
         const val RC_ENABLE_LOCATION = 1
         const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1235
     }

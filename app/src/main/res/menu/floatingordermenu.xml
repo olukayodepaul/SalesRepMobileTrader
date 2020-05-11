@@ -4,7 +4,7 @@
     <item android:title="Outlet Location (onGoogle Map)"
         android:id="@+id/googlelocation" />
 
-    <item android:title="Proceed To Deliver"
+    <item android:title="Order Delivery"
         android:id="@+id/deliver" />
 
 </menu>

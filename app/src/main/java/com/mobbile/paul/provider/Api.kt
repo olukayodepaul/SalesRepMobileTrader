@@ -25,7 +25,8 @@ interface Api {
     fun Login(
         @Query("username") username: String,
         @Query("password") password: String,
-        @Query("imei") imei: String
+        @Query("imei") imei: String,
+        @Query("devicetoken") devicetoken: String
     ): Single<Response<ApplicationLogin>>
 
     @Headers("Connection:close")

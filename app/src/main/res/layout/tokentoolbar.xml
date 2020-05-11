@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:padding="8dp"
+    android:background="@color/clr_otp_bg"
+    android:layout_height="wrap_content">
+
+    <ImageButton
+        android:id="@+id/close_dialog"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="@drawable/ic_close_black_24dp" />
+
+</RelativeLayout>

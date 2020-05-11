@@ -517,7 +517,19 @@ data class allCustomerProductOrder(
     var longitude: String = "",
     @SerializedName("employeeid")
     @Expose
-    var employeeid: Int = 0
+    var employeeid: Int = 0,
+    @SerializedName("contactphone")
+    @Expose
+    var contactphone: String = "",
+    @SerializedName("outletaddress")
+    @Expose
+    var outletaddress: String = "",
+    @SerializedName("uid")
+    @Expose
+    var uid: String = "",
+    @SerializedName("token")
+    @Expose
+    var token: Int = 0
 )
 
 

@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.telephony.TelephonyManager
+import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
@@ -21,6 +22,8 @@ import com.mobbile.paul.util.Util.showMessageDialogWithoutIntent
 import kotlinx.android.synthetic.main.activity_main.*
 import androidx.core.app.ActivityCompat.checkSelfPermission
 import androidx.lifecycle.Observer
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.iid.FirebaseInstanceId
 import com.mobbile.paul.model.LoginExchange
 import com.mobbile.paul.ui.modules.Modules
 import com.mobbile.paul.util.Util.intentWithFinish
@@ -37,10 +40,13 @@ class MainActivity : BaseActivity() {
 
     var date = ""
 
+    var getCurrentTokenFromDevice = ""
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        receiveDeviceToken()
         vmodel = ViewModelProviders.of(this, modelFactory)[LoginViewModel::class.java]
         preferences = getSharedPreferences(sharePrefenceDataSave, Context.MODE_PRIVATE)
         date = preferences!!.getString("preferencesDate", "")!!
@@ -68,6 +74,7 @@ class MainActivity : BaseActivity() {
     val loginObservers = Observer<LoginExchange> {
         when (it.status) {
             200 -> {
+                Log.d(TAG, "$it.employee_id")
                 setSession(it)
             }
             400 -> {
@@ -93,7 +100,7 @@ class MainActivity : BaseActivity() {
         } else if (permit == PackageManager.PERMISSION_DENIED) {
             imeiRequest()
         } else {
-            vmodel.Login("aYxT8Qz", "6990", "357574094971200", date)
+            vmodel.Login("aYxT8Qz", "6990", "357574094971200", date, getCurrentTokenFromDevice)
             /*vmodel.Login(
                 username,
                 password,
@@ -150,5 +157,18 @@ class MainActivity : BaseActivity() {
 
     companion object {
         const val DEVICE_STATE_PERMISSION = 101
+        val TAG = "MainActivityassaAS"
+    }
+
+    private fun receiveDeviceToken() {
+        FirebaseInstanceId.getInstance().instanceId
+            .addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    return@OnCompleteListener
+                }
+                val token = task.result?.token
+                getCurrentTokenFromDevice = token.toString()
+                Log.d(TAG, token.toString())
+            })
     }
 }

@@ -21,9 +21,9 @@ class OrderViewModel @Inject constructor(private var repository: Repository): Vi
         return result
     }
 
-    fun getskuTotalOrder(employeeid:Int) : LiveData<List<allskuOrderd>> {
+    fun getskuTotalOrder(orderInfoId:Int) : LiveData<List<allskuOrderd>> {
         val result = MutableLiveData<List<allskuOrderd>>()
-        repository.skuTotalOrder(employeeid)
+        repository.skuTotalOrder(orderInfoId)
             .subscribe({
                 result.postValue(it.body()!!.skuorder)
             },{
