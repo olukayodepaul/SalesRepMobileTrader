@@ -64,7 +64,7 @@ class Orders : BaseActivity() {
             onBackPressed()
         }
 
-        vmodel.getcustomerOrder(2213).observe(this,customerOrders)
+        vmodel.getcustomerOrder(employId).observe(this,customerOrders)
     }
 
 
@@ -86,6 +86,7 @@ class Orders : BaseActivity() {
 
 
     val customerOrders = Observer<List<allCustomerProductOrder>> {
+        showProgressBar(false)
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
         _r_view_pager_order.layoutManager = layoutManager
         nAdapter = OrdersAdapter(it, this, ::modulesAdapterItems)

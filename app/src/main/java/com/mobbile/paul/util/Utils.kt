@@ -10,6 +10,8 @@ import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Build
 import android.view.View
+import androidx.lifecycle.MutableLiveData
+import com.mobbile.paul.model.NotificationData
 import com.mobbile.paul.salesrepmobiletrader.R
 import java.text.SimpleDateFormat
 import java.util.*
@@ -136,6 +138,9 @@ object Util {
         } else
             false
     }
+
+    var onRatingRequired: MutableLiveData<NotificationData>? = null // observed in current tasks fragment, thrown when confirmation comes
+
 
 
 }

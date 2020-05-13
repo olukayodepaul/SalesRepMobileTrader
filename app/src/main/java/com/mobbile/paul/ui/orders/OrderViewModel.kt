@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mobbile.paul.model.allCustomerProductOrder
 import com.mobbile.paul.model.allskuOrderd
+import com.mobbile.paul.model.skuOrderd
 import com.mobbile.paul.provider.Repository
 import javax.inject.Inject
 
@@ -21,13 +22,13 @@ class OrderViewModel @Inject constructor(private var repository: Repository): Vi
         return result
     }
 
-    fun getskuTotalOrder(orderInfoId:Int) : LiveData<List<allskuOrderd>> {
-        val result = MutableLiveData<List<allskuOrderd>>()
+    fun getskuTotalOrder(orderInfoId:Int) : LiveData<skuOrderd> {
+        val result = MutableLiveData<skuOrderd>()
         repository.skuTotalOrder(orderInfoId)
             .subscribe({
-                result.postValue(it.body()!!.skuorder)
+                result.postValue(it.body())
             },{
-                result.postValue(emptyList())
+                //this is for the error
             }).isDisposed
         return result
     }

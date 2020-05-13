@@ -27,6 +27,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.mobbile.paul.BaseActivity
 import com.mobbile.paul.model.allskuOrderd
+import com.mobbile.paul.model.skuOrderd
 import com.mobbile.paul.salesrepmobiletrader.R
 import com.mobbile.paul.util.BargeMessages
 import com.mobbile.paul.util.Util.sharePrefenceDataSave
@@ -114,12 +115,15 @@ class OrderSummary : BaseActivity() {
 
 
 
-    private val customerOrdersSummary = Observer<List<allskuOrderd>> {
+    private val customerOrdersSummary = Observer<skuOrderd> {
+        showProgressBar(false)
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
         recycleOrderHistory.layoutManager = layoutManager
-        nAdapter = OrderSummaryAdapter(it)
+        nAdapter = OrderSummaryAdapter(it.skuorder!!)
         nAdapter.notifyDataSetChanged()
         recycleOrderHistory.adapter = nAdapter
+        price_tvs.text = (it.totalamount*it.totalqty).toString()
+        qty_tvs.text  = it.totalqty.toString()
     }
 
     @SuppressLint("MissingPermission")

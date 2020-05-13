@@ -536,7 +536,13 @@ data class allCustomerProductOrder(
 data class skuOrderd(
     @SerializedName("skuorder")
     @Expose
-    var skuorder: List<allskuOrderd>?  = null
+    var skuorder: List<allskuOrderd>?  = null,
+    @SerializedName("totalqty")
+    @Expose
+    var totalqty: Double = 0.0,
+    @SerializedName("totalamount")
+    @Expose
+    var totalamount: Double = 0.0
 )
 
 data class allskuOrderd(

@@ -72,3 +72,8 @@ data class OutletUpdateParser (
     var notis: String = ""
 )
 
+data class NotificationData(
+    var status: String = "",
+    var notis: String = ""
+)
+
