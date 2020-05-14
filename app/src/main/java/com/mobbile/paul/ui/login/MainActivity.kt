@@ -155,6 +155,7 @@ class MainActivity : BaseActivity() {
     private fun setSession(ex: LoginExchange) {
         showProgressBar(false)
         if (ex.sep == 1) {
+            Log.d(TAG, ex.employee_id.toString())
             preferences!!.edit().apply()
             val editor = preferences!!.edit()
             editor.clear()

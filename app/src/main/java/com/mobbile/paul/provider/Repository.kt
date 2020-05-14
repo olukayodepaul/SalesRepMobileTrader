@@ -286,4 +286,10 @@ constructor(private val appDao: AppDao, private val api: Api) {
             .observeOn(AndroidSchedulers.mainThread())
             .map {it}
 
+    fun orderProducts(employeeid: Int, orderid: Int): Observable<Response<realOrder>> =
+        api.orderProduct(employeeid, orderid)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map {it}
+
 }

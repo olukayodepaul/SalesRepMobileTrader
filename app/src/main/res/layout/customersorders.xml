@@ -74,6 +74,16 @@ android:background="@color/rippleEffectColor">
             app:layout_constraintStart_toStartOf="parent"
             tools:layout_editor_absoluteY="2dp" />
 
+        <TextView
+            android:id="@+id/timeAgo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:layout_editor_absoluteY="1dp"
+            android:textSize="10sp"
+            android:textAlignment="textEnd"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

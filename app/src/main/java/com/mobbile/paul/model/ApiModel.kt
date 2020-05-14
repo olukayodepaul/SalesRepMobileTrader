@@ -529,7 +529,14 @@ data class allCustomerProductOrder(
     var uid: String = "",
     @SerializedName("token")
     @Expose
-    var token: Int = 0
+    var token: Int = 0,
+    @SerializedName("dates")
+    @Expose
+    var dates: String = "",
+    @SerializedName("trantime")
+    @Expose
+    var trantime: String = ""
+
 )
 
 
@@ -565,5 +572,15 @@ data class allskuOrderd(
     @Expose
     var amount: Double = 0.0
 )
+
+data class realOrder(
+    @SerializedName("status")
+    @Expose
+    var status: Int = 0,
+    @SerializedName("msg")
+    @Expose
+    var msg: String = ""
+)
+
 
 

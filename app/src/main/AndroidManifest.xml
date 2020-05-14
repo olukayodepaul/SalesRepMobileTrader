@@ -20,20 +20,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name="com.mobbile.paul.ui.orders.OrderSummary"></activity>
-        <activity android:name="com.mobbile.paul.ui.orders.OrderEntry" />
-        <activity android:name="com.mobbile.paul.ui.orders.Orders" />
-        <activity android:name="com.mobbile.paul.ui.message.UsersList" />
-        <activity android:name="com.mobbile.paul.ui.mapoutlet.MapNewOutlet" />
-        <activity android:name="com.mobbile.paul.ui.outletupdate.OutletUpdate" />
-        <activity android:name="com.mobbile.paul.ui.details.Details" />
-        <activity android:name="com.mobbile.paul.ui.entryhistory.EntryHistory" />
-        <activity android:name="com.mobbile.paul.ui.entries.Entries" />
-        <activity android:name="com.mobbile.paul.ui.attendant.Banks" />
-        <activity android:name="com.mobbile.paul.ui.attendant.Close" />
-        <activity android:name="com.mobbile.paul.ui.attendant.Resumption" />
-        <activity android:name="com.mobbile.paul.ui.salesviewpagers.SalesViewPager" />
-        <activity android:name="com.mobbile.paul.ui.modules.Modules" />
+        <activity android:name="com.mobbile.paul.ui.orders.OrderSummary" android:screenOrientation="portrait"></activity>
+        <activity android:name="com.mobbile.paul.ui.orders.OrderEntry" android:screenOrientation="portrait" />
+        <activity android:name="com.mobbile.paul.ui.orders.Orders"  android:screenOrientation="portrait"/>
+        <activity android:name="com.mobbile.paul.ui.message.UsersList" android:screenOrientation="portrait" />
+        <activity android:name="com.mobbile.paul.ui.mapoutlet.MapNewOutlet" android:screenOrientation="portrait"/>
+        <activity android:name="com.mobbile.paul.ui.outletupdate.OutletUpdate" android:screenOrientation="portrait" />
+        <activity android:name="com.mobbile.paul.ui.details.Details" android:screenOrientation="portrait"/>
+        <activity android:name="com.mobbile.paul.ui.entryhistory.EntryHistory" android:screenOrientation="portrait"/>
+        <activity android:name="com.mobbile.paul.ui.entries.Entries" android:screenOrientation="portrait"/>
+        <activity android:name="com.mobbile.paul.ui.attendant.Banks" android:screenOrientation="portrait"/>
+        <activity android:name="com.mobbile.paul.ui.attendant.Close" android:screenOrientation="portrait"/>
+        <activity android:name="com.mobbile.paul.ui.attendant.Resumption" android:screenOrientation="portrait"/>
+        <activity android:name="com.mobbile.paul.ui.salesviewpagers.SalesViewPager" android:screenOrientation="portrait"/>
+        <activity android:name="com.mobbile.paul.ui.modules.Modules" android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"

@@ -1,6 +1,7 @@
 package com.mobbile.paul.ui.orders
 
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.RecyclerView
 import android.view.View
@@ -9,12 +10,10 @@ import com.mobbile.paul.model.allCustomerProductOrder
 import com.mobbile.paul.salesrepmobiletrader.R
 import kotlinx.android.extensions.LayoutContainer
 import android.content.Context
-import android.util.Log
 import com.amulyakhare.textdrawable.TextDrawable
 import com.amulyakhare.textdrawable.util.ColorGenerator
 import kotlinx.android.synthetic.main.customersorders.view.*
 import kotlin.reflect.KFunction2
-
 
 
 class OrdersAdapter(private var mItems: List<allCustomerProductOrder>, private var contexts: Context,
@@ -40,12 +39,11 @@ class OrdersAdapter(private var mItems: List<allCustomerProductOrder>, private v
     inner class ViewHolder(override val containerView: View) :
         RecyclerView.ViewHolder(containerView),
         LayoutContainer {
+        @SuppressLint("SetTextI18n")
         fun bind(
             item: allCustomerProductOrder, clickListener: KFunction2<@ParameterName(name = "partItem"
             ) allCustomerProductOrder, @ParameterName(name = "containerView") View, Unit>
         ) {
-
-            Log.d(TAG, item.toString())
 
             val letter: String? = item.outletname.substring(0, 1)
             val generator = ColorGenerator.MATERIAL
@@ -54,15 +52,11 @@ class OrdersAdapter(private var mItems: List<allCustomerProductOrder>, private v
             containerView.imageView.setImageDrawable(drawable)
             containerView.tv_name.text = item.outletname
             containerView.tv_titles.text = ("URNO: ${item.urno}")
-
+            containerView.timeAgo.text = "${item.dates} ${item.trantime}"
             containerView.menu_icon.setOnClickListener {
                 clickListener(item, containerView)
             }
+
         }
     }
-
-    companion object {
-        val TAG = "OrdersAdapter"
-    }
-
 }

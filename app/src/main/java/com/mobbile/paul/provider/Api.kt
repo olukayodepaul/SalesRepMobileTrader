@@ -161,4 +161,12 @@ interface Api {
         @Query("orderid") orderid: Int
     ): Observable<Response<skuOrderd>>
 
+    @Headers("Connection:close")
+    @GET("/api/customer/orderproducts")
+    fun orderProduct(
+        @Query("employeeid") employeeid: Int,
+        @Query("orderid") orderid: Int
+    ): Observable<Response<realOrder>>
+
 }
+

@@ -23,8 +23,6 @@ import com.mobbile.paul.util.Util.startGoogleMapIntent
 import kotlinx.android.synthetic.main.activity_all__orders.*
 import kotlinx.android.synthetic.main.activity_all__orders.backbtn
 import kotlinx.android.synthetic.main.activity_all__orders.orderbadgecounter
-import kotlinx.android.synthetic.main.activity_modules.*
-import kotlinx.android.synthetic.main.activity_order_summary.*
 import kotlinx.android.synthetic.main.customersorders.view.*
 import javax.inject.Inject
 

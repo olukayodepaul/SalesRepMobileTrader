@@ -11,6 +11,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -27,8 +28,10 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.mobbile.paul.BaseActivity
 import com.mobbile.paul.model.allskuOrderd
+import com.mobbile.paul.model.realOrder
 import com.mobbile.paul.model.skuOrderd
 import com.mobbile.paul.salesrepmobiletrader.R
+import com.mobbile.paul.ui.modules.Modules
 import com.mobbile.paul.util.BargeMessages
 import com.mobbile.paul.util.Util.sharePrefenceDataSave
 import kotlinx.android.synthetic.main.activity_order_summary.*
@@ -157,12 +160,57 @@ class OrderSummary : BaseActivity() {
             val confirmToken =
                 dialog.et_1.text.toString()+""+dialog.et_2.text.toString()+""+dialog.et_3.text.toString()+""+dialog.et_4.text.toString()+""+dialog.et_5.text.toString()+""+dialog.et_6.text.toString()
             if(confirmToken == token.toString()) {
-                closeOrderFromFirebase(uidForOrderConfirmation)
-                Toast.makeText(this,"correct here 1",Toast.LENGTH_LONG).show()
 
+                //closeOrderFromFirebase(uidForOrderConfirmation)
+                dialog.confirmButtons.visibility = View.INVISIBLE
+                dialog.completeButton.visibility = View.INVISIBLE
+                dialog.loaders.visibility = View.VISIBLE
+
+                dialog.close_dialog.visibility = View.VISIBLE
+                dialog.vcode_tv.text = "PLease Wait"
+                dialog.vnote_tv.text = "You order is processing"
+
+
+                vmodel.getskuOrderProducts(employId, orderId).observe(this, Observer<realOrder> {
+
+                    if(it!=null) {
+                        if(it.status==200) {
+
+                            dialog.confirmButtons.visibility = View.INVISIBLE
+                            dialog.completeButton.visibility = View.VISIBLE
+                            dialog.loaders.visibility = View.INVISIBLE
+
+                            dialog.close_dialog.visibility = View.INVISIBLE
+                            dialog.vcode_tv.text = "Order Confirmed"
+                            dialog.vnote_tv.text = it.msg
+
+                        } else {
+
+                            dialog.confirmButtons.visibility = View.VISIBLE
+                            dialog.confirmButtons.text = "ERROR"
+                            dialog.completeButton.visibility = View.INVISIBLE
+                            dialog.loaders.visibility = View.INVISIBLE
+
+                            dialog.close_dialog.visibility = View.VISIBLE
+                            dialog.vcode_tv.text = "Order Confirmed Error"
+                            dialog.vnote_tv.text = it.msg
+                        }
+
+                    }else{
+                        Log.d(TAG, "$it")
+                    }
+
+                })
             }else{
-                Toast.makeText(this,"correct here 2",Toast.LENGTH_LONG).show()
+                Toast.makeText(this,"Please Enter Valid Order Verification Code",Toast.LENGTH_LONG).show()
             }
+        }
+
+        dialog.completeButton.setOnClickListener {
+            val intentNavigation = Intent(this, Modules::class.java)
+            intentNavigation.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intentNavigation)
+            finish()
         }
 
         dialog.et_1.addTextChangedListener(object : TextWatcher {
@@ -265,4 +313,8 @@ class OrderSummary : BaseActivity() {
             }
         })
     }
+
+   companion object{
+       val TAG = "orderproducts"
+   }
 }
