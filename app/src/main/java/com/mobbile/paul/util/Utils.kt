@@ -139,7 +139,8 @@ object Util {
             false
     }
 
-    var onRatingRequired: MutableLiveData<NotificationData>? = null // observed in current tasks fragment, thrown when confirmation comes
+    //initialize it here
+    var onRatingRequired: MutableLiveData<passNotofocation>? = null
 
 
 

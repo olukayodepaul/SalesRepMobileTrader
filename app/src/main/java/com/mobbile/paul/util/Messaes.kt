@@ -5,3 +5,4 @@ class ChatMessages(val key:String, val msg: String, val dates: String, val timea
 }
 
 class BargeMessages(val uid:String)
+class passNotofocation(val number:String, delimeter:String)

@@ -15,7 +15,8 @@ import kotlin.reflect.KFunction2
 
 
 class EntriesAdapter(private var mItems: List<setSalesEntry>,
-                     val clickListener: KFunction2<@ParameterName(name = "partItem") setSalesEntry, @ParameterName(
+                     val clickListener: KFunction2<@ParameterName(name = "partItem") setSalesEntry,
+                             @ParameterName(
                          name = "containerView"
                      ) View, Unit>
 ) :
@@ -46,9 +47,8 @@ class EntriesAdapter(private var mItems: List<setSalesEntry>,
         LayoutContainer {
         fun bind(
             item: setSalesEntry,
-            clickListener: KFunction2<@ParameterName(name = "partItem") setSalesEntry, @ParameterName(
-                name = "containerView"
-            ) View, Unit>
+            clickListener: KFunction2<@ParameterName(name = "partItem") setSalesEntry,
+                    @ParameterName(name = "containerView") View, Unit>
         ) {
 
             containerView.tv_skus.text = item.product_name

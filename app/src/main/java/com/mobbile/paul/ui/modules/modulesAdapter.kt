@@ -6,16 +6,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.firebase.database.FirebaseDatabase
 import com.mobbile.paul.model.modulesEntity
 import com.mobbile.paul.salesrepmobiletrader.R
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.modules_adapter.view.*
+import kotlin.reflect.KFunction2
+
+private lateinit var database: FirebaseDatabase
 
 
-class modulesAdapter(private var mItems: List<modulesEntity>, private var contexts: Context,
-                     val clickListener: (modulesEntity) -> Unit
-                     ):
-    RecyclerView.Adapter<modulesAdapter.ViewHolder>() {
+class modulesAdapter(private var notify: Int, private var contexts: Context, var mItems: List<modulesEntity>,
+                         val clickListener: KFunction2<@ParameterName(name = "partItem") modulesEntity,
+                                 @ParameterName(
+                                     name = "containerView"
+                                 ) View, Unit>
+    ) :
+        RecyclerView.Adapter<modulesAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
         val v = LayoutInflater.from(p0.context)
@@ -37,9 +44,19 @@ class modulesAdapter(private var mItems: List<modulesEntity>, private var contex
     }
 
     inner class ViewHolder(override val containerView: View): RecyclerView.ViewHolder(containerView),
+
         LayoutContainer {
-        fun bind(item: modulesEntity, clickListener: (modulesEntity) -> Unit) {
+        fun bind(
+            item: modulesEntity,
+            clickListener: KFunction2<@ParameterName(name = "partItem") modulesEntity,
+                    @ParameterName(name = "containerView") View, Unit>
+        ) {
+
+            database = FirebaseDatabase.getInstance()
+
             containerView.tv_name.text = item.name
+
+            containerView.tv_count.visibility = View.INVISIBLE
 
             Glide.with(contexts)
                 .load(item.imageurl)
@@ -47,7 +64,7 @@ class modulesAdapter(private var mItems: List<modulesEntity>, private var contex
                 .into(containerView.imageView)
 
             containerView.setOnClickListener {
-                clickListener(item)
+                clickListener(item, containerView)
             }
         }
     }

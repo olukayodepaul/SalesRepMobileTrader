@@ -52,11 +52,24 @@ android:background="@color/rippleEffectColor">
             android:layout_marginBottom="20dp"
             app:layout_constraintBottom_toBottomOf="parent">
 
-        <TextView android:id="@+id/tv_name"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:fontFamily="@font/roboto_regular"
-                  android:textSize="@dimen/sales_title"/>
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_regular"
+            android:textSize="@dimen/sales_title" />
+
+        <TextView
+            android:id="@+id/tv_count"
+            android:layout_marginStart="14dp"
+            android:layout_toEndOf="@+id/tv_name"
+            android:fontFamily="@font/roboto_regular"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/badge"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:textColor="@color/white"/>
 
 
     </RelativeLayout>

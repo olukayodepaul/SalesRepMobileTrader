@@ -10,7 +10,6 @@ import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
@@ -23,7 +22,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.mobbile.paul.BaseActivity
-import com.mobbile.paul.model.ChatMessage
 import com.mobbile.paul.salesrepmobiletrader.R
 import com.mobbile.paul.model.modulesEntity
 import com.mobbile.paul.ui.message.UsersList
@@ -31,10 +29,11 @@ import com.mobbile.paul.ui.orders.Orders
 import com.mobbile.paul.ui.salesviewpagers.SalesViewPager
 import com.mobbile.paul.util.Util
 import com.mobbile.paul.util.Util.sharePrefenceDataSave
+import com.mobbile.paul.util.passNotofocation
 import kotlinx.android.synthetic.main.activity_modules.*
 import kotlinx.android.synthetic.main.activity_modules.orderbadgecounter
 import kotlinx.android.synthetic.main.activity_modules.orderbadget
-import kotlinx.android.synthetic.main.activity_order_summary.*
+import kotlinx.android.synthetic.main.modules_adapter.view.*
 import javax.inject.Inject
 
 class Modules : BaseActivity() {
@@ -54,6 +53,9 @@ class Modules : BaseActivity() {
 
     private lateinit var database: FirebaseDatabase
 
+    var employId:Int = 0
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_modules)
@@ -62,7 +64,7 @@ class Modules : BaseActivity() {
         database = FirebaseDatabase.getInstance()
         preferences = getSharedPreferences(sharePrefenceDataSave, Context.MODE_PRIVATE)
         requestLocationPermission()
-
+        employId = preferences!!.getInt("preferencesEmployeeID",0)
     }
 
 
@@ -84,7 +86,7 @@ class Modules : BaseActivity() {
     }
 
     private fun countBargeData() {
-        val employId:Int = preferences!!.getInt("preferencesEmployeeID",0)
+
         val references = database.getReference("/message/customer/$employId")
         references.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {}
@@ -103,7 +105,7 @@ class Modules : BaseActivity() {
         if (it.isNotEmpty()) {
             showProgressBar(false)
             val list: List<modulesEntity> = it
-            mAdapter = modulesAdapter(list, this,::modulesAdapterItems)
+            mAdapter = modulesAdapter(0, this, list, ::modulesAdapterItems)
             mAdapter.notifyDataSetChanged()
             module_recycler.adapter = mAdapter
         }else {
@@ -111,8 +113,8 @@ class Modules : BaseActivity() {
         }
     }
 
-    private fun modulesAdapterItems(item : modulesEntity) {
-        var intent: Intent?
+    private fun modulesAdapterItems(item : modulesEntity, containerView: View) {
+        val intent: Intent?
         when (item.nav) {
             1 -> {
                 intent = Intent(this, SalesViewPager::class.java)
@@ -120,6 +122,10 @@ class Modules : BaseActivity() {
             }
             3 -> {
                 intent = Intent(this, UsersList::class.java)
+                startActivity(intent)
+            }
+            6 -> {
+                intent = Intent(this, Orders::class.java)
                 startActivity(intent)
             }
         }
