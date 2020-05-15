@@ -116,7 +116,7 @@ class MainActivity : BaseActivity() {
         } else if (permit == PackageManager.PERMISSION_DENIED) {
             imeiRequest()
         } else {
-            vmodel.Login("aYxT8Qz", "6990", "357574094971200", date, getCurrentTokenFromDevice)
+            vmodel.Login("t0kTdEw", "3613", "356973100833183", date, getCurrentTokenFromDevice)
             /*vmodel.Login(
                 username,
                 password,

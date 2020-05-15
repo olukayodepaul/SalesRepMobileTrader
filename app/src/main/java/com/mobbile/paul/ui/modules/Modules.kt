@@ -86,7 +86,6 @@ class Modules : BaseActivity() {
     }
 
     private fun countBargeData() {
-
         val references = database.getReference("/message/customer/$employId")
         references.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {}
@@ -94,8 +93,12 @@ class Modules : BaseActivity() {
                 if(p0.exists()){
                     orderbadgecounter.visibility = View.VISIBLE
                     orderbadgecounter.text = p0.childrenCount.toString()
+                    mAdapter.setNotification(p0.childrenCount.toInt())
+                    mAdapter.notifyDataSetChanged()
                 }else{
                     orderbadgecounter.visibility = View.INVISIBLE
+                    mAdapter.setNotification(0)
+                    mAdapter.notifyDataSetChanged()
                 }
             }
         })
@@ -108,6 +111,7 @@ class Modules : BaseActivity() {
             mAdapter = modulesAdapter(0, this, list, ::modulesAdapterItems)
             mAdapter.notifyDataSetChanged()
             module_recycler.adapter = mAdapter
+            mAdapter.setNotification(0)
         }else {
             Util.showMessageDialogWithoutIntent(this, "Error","No Module assign to you")
         }

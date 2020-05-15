@@ -24,6 +24,13 @@ class modulesAdapter(private var notify: Int, private var contexts: Context, var
     ) :
         RecyclerView.Adapter<modulesAdapter.ViewHolder>() {
 
+    var orderNotification: Int = 0
+
+    fun setNotification(notifyOrder: Int) {
+        orderNotification = notifyOrder
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
         val v = LayoutInflater.from(p0.context)
             .inflate(R.layout.modules_adapter, p0, false)
@@ -43,6 +50,8 @@ class modulesAdapter(private var notify: Int, private var contexts: Context, var
         private val TAG = "ModulesActivity"
     }
 
+
+
     inner class ViewHolder(override val containerView: View): RecyclerView.ViewHolder(containerView),
 
         LayoutContainer {
@@ -57,6 +66,15 @@ class modulesAdapter(private var notify: Int, private var contexts: Context, var
             containerView.tv_name.text = item.name
 
             containerView.tv_count.visibility = View.INVISIBLE
+
+            if(item.nav==6) {
+                if(orderNotification==0){
+                    containerView.tv_count.visibility = View.INVISIBLE
+                }else{
+                    containerView.tv_count.visibility = View.VISIBLE
+                    containerView.tv_count.text = orderNotification.toString()
+                }
+            }
 
             Glide.with(contexts)
                 .load(item.imageurl)
