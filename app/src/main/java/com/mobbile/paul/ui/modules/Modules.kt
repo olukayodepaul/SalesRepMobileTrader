@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.LocationManager
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.provider.Settings
 import android.view.View
@@ -29,11 +30,9 @@ import com.mobbile.paul.ui.orders.Orders
 import com.mobbile.paul.ui.salesviewpagers.SalesViewPager
 import com.mobbile.paul.util.Util
 import com.mobbile.paul.util.Util.sharePrefenceDataSave
-import com.mobbile.paul.util.passNotofocation
 import kotlinx.android.synthetic.main.activity_modules.*
 import kotlinx.android.synthetic.main.activity_modules.orderbadgecounter
 import kotlinx.android.synthetic.main.activity_modules.orderbadget
-import kotlinx.android.synthetic.main.modules_adapter.view.*
 import javax.inject.Inject
 
 class Modules : BaseActivity() {
@@ -55,6 +54,9 @@ class Modules : BaseActivity() {
 
     var employId:Int = 0
 
+    lateinit var playSounds: MediaPlayer
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +67,7 @@ class Modules : BaseActivity() {
         preferences = getSharedPreferences(sharePrefenceDataSave, Context.MODE_PRIVATE)
         requestLocationPermission()
         employId = preferences!!.getInt("preferencesEmployeeID",0)
+        playSounds = MediaPlayer.create(this, R.raw.to_the_point)
     }
 
 
@@ -91,6 +94,7 @@ class Modules : BaseActivity() {
             override fun onCancelled(p0: DatabaseError) {}
             override fun onDataChange(p0: DataSnapshot) {
                 if(p0.exists()){
+                    playSounds.start()
                     orderbadgecounter.visibility = View.VISIBLE
                     orderbadgecounter.text = p0.childrenCount.toString()
                     mAdapter.setNotification(p0.childrenCount.toInt())

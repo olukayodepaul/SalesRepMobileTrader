@@ -5,6 +5,7 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.media.RingtoneManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
@@ -26,22 +27,22 @@ object Util {
 
     fun setGeoFencing(
         currentLat: Double, currentLng: Double,
-        customerLat: Double, customerLng: Double, distance:Int
+        customerLat: Double, customerLng: Double, distance: Int
     ): Boolean {
         val ky = 40000 / 360
         val kx = cos(PI * customerLat / 180.0) * ky
         val dx = abs(customerLng - currentLng) * kx
         val dy = abs(customerLat - currentLat) * ky
 
-        if(distance==1) {
+        if (distance == 1) {
             return sqrt(dx * dx + dy * dy) <= 1.000 // 100 meters//->0.050 is 50meters..using two kilometer 1 for one kilometer
-        }else {
+        } else {
             return sqrt(dx * dx + dy * dy) <= 1.000 // 20 meters//..using two kilometer
         }
     }
 
     @SuppressLint("SimpleDateFormat")
-    fun getTime(): String{
+    fun getTime(): String {
         return SimpleDateFormat("HH:mm:ss").format(Date())
     }
 
@@ -62,7 +63,12 @@ object Util {
         dialog.show()
     }
 
-    fun showMessageDialogWithIntent(activity: Activity, context: Context, title: String, msg: String?) {
+    fun showMessageDialogWithIntent(
+        activity: Activity,
+        context: Context,
+        title: String,
+        msg: String?
+    ) {
         val builder = AlertDialog.Builder(context, R.style.AlertDialogDanger)
         builder.setMessage(msg)
             .setTitle(title)
@@ -108,19 +114,19 @@ object Util {
         return result
     }
 
-    fun intentWithFinish(context:Context, activity: Activity) {
+    fun intentWithFinish(context: Context, activity: Activity) {
         val intent = Intent(context, activity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP.or(Intent.FLAG_ACTIVITY_NEW_TASK)
         context.startActivity(intent)
     }
 
-    fun intentWithWithoutFinish(context:Context, activity: Activity) {
+    fun intentWithWithoutFinish(context: Context, activity: Activity) {
         val intent = Intent(context, activity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         context.startActivity(intent)
     }
 
-    fun showProgressBar(visible: Boolean, base_progress_bar:View) {
+    fun showProgressBar(visible: Boolean, base_progress_bar: View) {
         base_progress_bar.visibility =
             if (visible)
                 View.VISIBLE
@@ -141,7 +147,4 @@ object Util {
 
     //initialize it here
     var onRatingRequired: MutableLiveData<passNotofocation>? = null
-
-
-
 }

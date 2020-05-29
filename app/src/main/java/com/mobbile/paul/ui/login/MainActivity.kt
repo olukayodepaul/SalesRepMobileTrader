@@ -7,6 +7,7 @@ import android.app.NotificationManager
 import android.content.*
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
+import android.media.MediaPlayer
 import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
@@ -116,13 +117,14 @@ class MainActivity : BaseActivity() {
         } else if (permit == PackageManager.PERMISSION_DENIED) {
             imeiRequest()
         } else {
-            vmodel.Login("t0kTdEw", "3613", "356973100833183", date, getCurrentTokenFromDevice)
-            /*vmodel.Login(
+            //vmodel.Login("446J6B0", "1627", "355236091093709", date, getCurrentTokenFromDevice)
+            vmodel.Login(
                 username,
                 password,
                 tel.getImei(0),
-                date
-            )*/
+                date,
+                getCurrentTokenFromDevice
+            )
         }
     }
 

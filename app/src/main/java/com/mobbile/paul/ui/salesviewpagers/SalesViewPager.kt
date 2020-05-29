@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -44,6 +45,8 @@ class SalesViewPager : DaggerAppCompatActivity() {
     private var regionId = 0
 
     var employId:Int = 0
+
+    lateinit var playSounds: MediaPlayer
 
     private val bt = BottomNavigationView.OnNavigationItemSelectedListener {
         when (it.itemId) {
@@ -130,6 +133,8 @@ class SalesViewPager : DaggerAppCompatActivity() {
                 showMessageDialogWithIntent(Modules(), this, "Successful", "Customer successfully synchronise. You will be redirect to the Modules")
             }
         })
+
+        playSounds = MediaPlayer.create(this, R.raw.to_the_point)
     }
 
     private fun countBargeData() {
@@ -138,6 +143,7 @@ class SalesViewPager : DaggerAppCompatActivity() {
             override fun onCancelled(p0: DatabaseError) {}
             override fun onDataChange(p0: DataSnapshot) {
                 if(p0.exists()){
+                    playSounds.start()
                     orderbadgecounter.visibility = View.VISIBLE
                     orderbadgecounter.text = p0.childrenCount.toString()
                 }else{

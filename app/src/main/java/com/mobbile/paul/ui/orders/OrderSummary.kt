@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
@@ -55,6 +56,8 @@ class OrderSummary : BaseActivity() {
 
     private lateinit var database: FirebaseDatabase
 
+    lateinit var playSounds: MediaPlayer
+
     var outletAddress: String = ""
     var contactPhone: String = ""
     var outletName: String = ""
@@ -89,13 +92,14 @@ class OrderSummary : BaseActivity() {
         address.text = outletAddress
         contactphone.text = contactPhone
         order_id.text = orderId.toString()
+        playSounds = MediaPlayer.create(this, R.raw.to_the_point)
         initView()
+        countBargeData()
     }
 
     private fun initView() {
 
         orderbadgecounter.visibility = View.INVISIBLE
-        countBargeData()
         confirmOrder.setOnClickListener {
             confirmTokenDialog()
         }
@@ -305,6 +309,7 @@ class OrderSummary : BaseActivity() {
             override fun onCancelled(p0: DatabaseError) {}
             override fun onDataChange(p0: DataSnapshot) {
                 if(p0.exists()){
+                    //playSounds.start()
                     orderbadgecounter.visibility = View.VISIBLE
                     orderbadgecounter.text = p0.childrenCount.toString()
                 }else{

@@ -42,7 +42,7 @@ class CloudMessage : FirebaseMessagingService() {
 
     private fun passMessageToActivity(title: String, body: String, intent:Intent) {
 
-        val pendingindent: PendingIntent = PendingIntent.getActivity(applicationContext, 0, intent, FLAG_CANCEL_CURRENT or FLAG_UPDATE_CURRENT)
+        /*val pendingindent: PendingIntent = PendingIntent.getActivity(applicationContext, 0, intent, FLAG_CANCEL_CURRENT or FLAG_UPDATE_CURRENT)
 
         val soundUri: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
 
@@ -82,7 +82,7 @@ class CloudMessage : FirebaseMessagingService() {
             //.setStyle(NotificationCompat.BigTextStyle().bigText(body))
         }
         notificationManager.notify(0, builder.build())
-
+*/
     }
 
     companion object {

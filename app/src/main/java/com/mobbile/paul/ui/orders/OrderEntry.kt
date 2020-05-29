@@ -1,8 +1,10 @@
 package com.mobbile.paul.ui.orders
 
-import androidx.appcompat.app.AppCompatActivity
+
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.mobbile.paul.salesrepmobiletrader.R
+
 
 class OrderEntry : AppCompatActivity() {
 

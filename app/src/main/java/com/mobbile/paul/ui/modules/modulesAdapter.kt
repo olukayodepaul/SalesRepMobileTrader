@@ -51,7 +51,6 @@ class modulesAdapter(private var notify: Int, private var contexts: Context, var
     }
 
 
-
     inner class ViewHolder(override val containerView: View): RecyclerView.ViewHolder(containerView),
 
         LayoutContainer {

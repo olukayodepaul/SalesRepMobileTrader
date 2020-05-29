@@ -129,12 +129,11 @@ class Entries : BaseActivity() {
         vmodel.updateDailySales(trasformInventory, trasformPricing, trasformOrder, getTime(), controltrasformPricing, controltrasformInventory,controltrasformOrder, partItem.product_code)
     }
 
-    private fun validateSalesEntries(){
+    private fun validateSalesEntries() {
         vmodel.validateEntryStatus().observe(this, observeValidateSalesEntries)
     }
 
     private val observeValidateSalesEntries = Observer<Int>{
-
         if(it==0) {
             showProgressBar(false)
             val intent = Intent(this, EntryHistory::class.java)
