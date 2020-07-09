@@ -582,5 +582,11 @@ data class realOrder(
     var msg: String = ""
 )
 
+data class sendTokenToIndividualCustomer(
+    @SerializedName("status")
+    @Expose
+    var status: String = ""
+)
+
 
 

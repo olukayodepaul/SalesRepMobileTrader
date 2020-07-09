@@ -169,8 +169,12 @@ class CustomerViewModel @Inject constructor(private var repo: Repository) : View
             }).isDisposed
     }
 
-
-
+    fun sentTokenToCustomers(urno: Int) {
+        repo.sendTokenToday(urno)
+            .subscribe({
+            },{
+            }).isDisposed
+    }
 
     companion object{
         val TAG = "CustomerViewModel"

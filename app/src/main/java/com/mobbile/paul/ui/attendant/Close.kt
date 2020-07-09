@@ -78,7 +78,7 @@ class Close : BaseActivity() {
         clockoutbtn.setOnClickListener { //close
             showProgressBar(true)
             vmodel.takeAttendantForOther(
-                4, repid, outletlat, outletlng, 0.0, 0.0,
+                6, repid, outletlat, outletlng, 0.0, 0.0,
                 distance, duration, "${sequenceno}", getDate(),auto
             )
         }

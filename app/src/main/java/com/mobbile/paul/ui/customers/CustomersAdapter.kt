@@ -15,7 +15,9 @@ import com.mobbile.paul.ui.attendant.Banks
 import com.mobbile.paul.ui.attendant.Close
 import com.mobbile.paul.ui.attendant.Resumption
 import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.outlet_adapter.*
 import kotlinx.android.synthetic.main.outlet_adapter.view.*
+import kotlinx.android.synthetic.main.outlet_adapter.view.icons_images
 import kotlin.reflect.KFunction2
 
 

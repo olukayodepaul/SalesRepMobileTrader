@@ -1,6 +1,7 @@
 package com.mobbile.paul.ui.customers
 
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
@@ -170,7 +171,7 @@ class Customers: DaggerFragment() {
                     dataFromAdapter = partItem
                     startLocationRequest()
                 }else{
-                    Toast.makeText(context, "Wait while close outlet is processing........", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "Wait while open outlet is processing........", Toast.LENGTH_LONG).show()
                 }
             }
             200 -> {
@@ -229,6 +230,7 @@ class Customers: DaggerFragment() {
     }
 
 
+    @SuppressLint("MissingPermission")
     private fun startLocationRequest() {
         locationRequest = LocationRequest()
         locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
@@ -276,6 +278,7 @@ class Customers: DaggerFragment() {
             200 -> {
                 when (mode) {
                     1 -> {
+                        vmodel.sentTokenToCustomers(dataFromAdapter.urno)
                         showProgressBar(false, base_progress_bar)
                         val intent = Intent(this.requireContext(), Entries::class.java)
                         intent.putExtra("extra_item", dataFromAdapter)

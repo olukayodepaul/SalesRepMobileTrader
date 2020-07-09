@@ -292,4 +292,10 @@ constructor(private val appDao: AppDao, private val api: Api) {
             .observeOn(AndroidSchedulers.mainThread())
             .map {it}
 
+    fun sendTokenToday(urno: Int): Observable<Response<sendTokenToIndividualCustomer>> =
+        api.sendTokenToday(urno)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map {it}
+
 }
