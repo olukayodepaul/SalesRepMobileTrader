@@ -58,7 +58,7 @@ interface AppDao {
     @Query("SELECT * FROM salesentries order by seperator asc")
     fun fetchAllEntryPerDay(): List<EntityGetSalesEntry>
 
-    @Query("SELECT  SUM(inventory) AS sinventory, SUM(pricing) AS spricing, SUM(orders) as sorder, SUM(amount) as samount FROM salesentries")
+    @Query("SELECT  SUM(inventory) AS sinventory, SUM(pricing) AS spricing, SUM(orders) as sorder, SUM(amount*orders) as samount FROM salesentries WHERE seperator = 1" )
     fun SumAllTotalSalesEntry(): SumSales
 
     @Query("Update customers set entry_time =:time WHERE auto = 1")

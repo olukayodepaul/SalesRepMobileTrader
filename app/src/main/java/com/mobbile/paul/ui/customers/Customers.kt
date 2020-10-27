@@ -13,12 +13,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.customview.customView
 import com.google.android.gms.location.*
 import com.mobbile.paul.model.*
 import com.mobbile.paul.salesrepmobiletrader.R
@@ -36,33 +39,27 @@ import com.mobbile.paul.util.Util.showProgressBar
 import com.mobbile.paul.util.Util.startGoogleMapIntent
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_sales.*
+import kotlinx.android.synthetic.main.mobilenumberupdate.*
+import kotlinx.android.synthetic.main.outlet_close_reason_dialog.*
+import kotlinx.android.synthetic.main.tokentoolbar.*
 import java.util.*
 import javax.inject.Inject
 
 
-class Customers: DaggerFragment() {
+class Customers : DaggerFragment() {
 
     @Inject
     internal lateinit var modelFactory: ViewModelProvider.Factory
-
     lateinit var vmodel: CustomerViewModel
-
     private lateinit var nAdapter: CustomersAdapter
-
     private var preferences: SharedPreferences? = null
-
     var employee_id = 0
-
     private var mode = 0
-
     private lateinit var dataFromAdapter: customersEntity
-
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-
     lateinit var locationRequest: LocationRequest
-
-    var closeOutletRebounce:String = "1"
-
+    var closeOutletRebounce: String = "1"
+    lateinit var dialog: MaterialDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -77,6 +74,7 @@ class Customers: DaggerFragment() {
         preferences = activity!!.getSharedPreferences(sharePrefenceDataSave, Context.MODE_PRIVATE)
         employee_id = preferences!!.getInt("preferencesEmployeeID", 0)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this.requireContext())
+        dialog = MaterialDialog(this.requireContext())
         showProgressBar(true, base_progress_bar)
         initViews()
     }
@@ -130,9 +128,10 @@ class Customers: DaggerFragment() {
     }
 
     private val observeCloseOutlets = Observer<AttendantParser> {
+        dialog.dismiss()
         when (it.status) {
             200 -> {
-                closeOutletRebounce=="1"
+                closeOutletRebounce == "1"
                 showProgressBar(false, base_progress_bar)
                 showMessageDialogWithIntent(
                     SalesViewPager(),
@@ -142,7 +141,7 @@ class Customers: DaggerFragment() {
                 )
             }
             else -> {
-                closeOutletRebounce=="1"
+                closeOutletRebounce == "1"
                 showProgressBar(false, base_progress_bar)
                 showMessageDialogWithoutIntent(
                     this.requireContext(),
@@ -164,67 +163,95 @@ class Customers: DaggerFragment() {
     private fun partItemClicked(partItem: customersEntity, separator: Int) {
         when (separator) {
             100 -> {
-                if(closeOutletRebounce=="1") {
-                    Log.d(TAG,"CLOSE 1")
+                if (closeOutletRebounce == "1") {
+                    Log.d(TAG, "CLOSE 1")
                     showProgressBar(true, base_progress_bar)
                     mode = 1
                     dataFromAdapter = partItem
                     startLocationRequest()
-                }else{
-                    Toast.makeText(context, "Wait while open outlet is processing........", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(
+                        context,
+                        "Wait while open outlet is processing........",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
             200 -> {
-                if(closeOutletRebounce=="1") {
+                if (closeOutletRebounce == "1") {
                     val dmode = partItem.mode.single()
                     val destination = "${partItem.latitude},${partItem.longitude}"
                     startGoogleMapIntent(this.requireContext(), destination, dmode, 't')
-                }else{
-                    Toast.makeText(context, "Wait while close outlet is processing........", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(
+                        context,
+                        "Wait while close outlet is processing........",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
             300 -> {
-                if(closeOutletRebounce=="1") {
+                if (closeOutletRebounce == "1") {
                     dataFromAdapter = partItem
                     val intent = Intent(this.requireContext(), OutletUpdate::class.java)
                     intent.putExtra("extra_item", dataFromAdapter)
                     startActivity(intent)
-                }else{
-                    Toast.makeText(context, "Wait while close outlet is processing........", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(
+                        context,
+                        "Wait while close outlet is processing........",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
             400 -> {
 
-                if(closeOutletRebounce=="1") {
+                if (closeOutletRebounce == "1") {
                     closeOutletRebounce = "2"
                     showProgressBar(true, base_progress_bar)
                     mode = 2
                     dataFromAdapter = partItem
                     startLocationRequest()
-                }else{
-                    Toast.makeText(context, "Wait while close outlet is processing........", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(
+                        context,
+                        "Wait while close outlet is processing........",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
             500 -> {
-                if(closeOutletRebounce=="1") {
+                if (closeOutletRebounce == "1") {
                     showProgressBar(true, base_progress_bar)
                     dataFromAdapter = partItem
                     asynchroniseDialogWithoutIntent()
-                }else{
-                    Toast.makeText(context, "Wait while close outlet is processing........", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(
+                        context,
+                        "Wait while close outlet is processing........",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
             600 -> {
-                if(closeOutletRebounce=="1") {
+                if (closeOutletRebounce == "1") {
                     dataFromAdapter = partItem
                     val intent = Intent(this.requireContext(), Details::class.java)
                     intent.putExtra("urno", dataFromAdapter.urno)
                     intent.putExtra("rep_id", dataFromAdapter.rep_id)
                     intent.putExtra("outletname", dataFromAdapter.outletname)
                     startActivity(intent)
-                }else{
-                    Toast.makeText(context, "Wait while close outlet is processing........", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(
+                        context,
+                        "Wait while close outlet is processing........",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
+            }
+            700->{
+                dataFromAdapter = partItem
+                UpdateCustomerNumber(dataFromAdapter.urno)
             }
         }
     }
@@ -262,13 +289,26 @@ class Customers: DaggerFragment() {
             startLocationRequest()
         } else {
             stoplocation()
-            val checkCustomerOutlet: Boolean = setGeoFencing(location.latitude, location.longitude, dataFromAdapter.latitude, dataFromAdapter.longitude, 2)
+            val checkCustomerOutlet: Boolean = setGeoFencing(
+                location.latitude,
+                location.longitude,
+                dataFromAdapter.latitude,
+                dataFromAdapter.longitude,
+                2
+            )
             if (!checkCustomerOutlet) {
+
                 showProgressBar(false, base_progress_bar)
                 closeOutletRebounce ="1"
                 showMessageDialogWithoutIntent(this.requireContext(), "Location Error", "You are not at the corresponding outlet. Thanks!")
+
             } else {
-                vmodel.validateOutletSequence(1, dataFromAdapter.sequenceno, location.latitude, location.longitude).observe(this, observeVisitSequence)
+                vmodel.validateOutletSequence(
+                    1,
+                    dataFromAdapter.sequenceno,
+                    location.latitude,
+                    location.longitude
+                ).observe(this, observeVisitSequence)
             }
         }
     }
@@ -278,7 +318,7 @@ class Customers: DaggerFragment() {
             200 -> {
                 when (mode) {
                     1 -> {
-                        vmodel.sentTokenToCustomers(dataFromAdapter.urno)
+                        vmodel.sentTokenToCustomers(dataFromAdapter.urno) //sending token
                         showProgressBar(false, base_progress_bar)
                         val intent = Intent(this.requireContext(), Entries::class.java)
                         intent.putExtra("extra_item", dataFromAdapter)
@@ -287,25 +327,13 @@ class Customers: DaggerFragment() {
                         startActivity(intent)
                     }
                     2 -> {
-                        vmodel.closeOutlet(
-                            dataFromAdapter.rep_id,
-                            it.currentLat.toString(),
-                            it.currentLng.toString(),
-                            dataFromAdapter.latitude.toString(),
-                            dataFromAdapter.longitude.toString(),
-                            dataFromAdapter.distance,
-                            dataFromAdapter.duration,
-                            dataFromAdapter.urno,
-                            dataFromAdapter.sequenceno,
-                            dataFromAdapter.auto,
-                            getDate() + "${dataFromAdapter.rep_id}" + UUID.randomUUID().toString()
-                        )
+                        outletClosedReasonDialog(it)
                     }
                 }
             }
             300 -> {
-                if(mode==2){
-                    closeOutletRebounce ="1"
+                if (mode == 2) {
+                    closeOutletRebounce = "1"
                 }
                 showProgressBar(false, base_progress_bar)
                 showMessageDialogWithoutIntent(
@@ -315,8 +343,8 @@ class Customers: DaggerFragment() {
                 )
             }
             else -> {
-                if(mode==2){
-                    closeOutletRebounce ="1"
+                if (mode == 2) {
+                    closeOutletRebounce = "1"
                 }
                 showProgressBar(false, base_progress_bar)
                 showMessageDialogWithoutIntent(
@@ -340,11 +368,89 @@ class Customers: DaggerFragment() {
             .setCancelable(false)
             .setNegativeButton("Ok") { _, _ ->
                 vmodel.CustometInfoAsync(dataFromAdapter.urno, dataFromAdapter.auto)
-            }.setPositiveButton("NO"){ _, _ ->
+            }.setPositiveButton("NO") { _, _ ->
                 showProgressBar(false, base_progress_bar)
             }
         val dialog = builder.create()
         dialog.show()
+    }
+
+    private fun outletClosedReasonDialog(lstlngs: SequenceExchage) {
+        showProgressBar(false, base_progress_bar)
+        dialog
+            .cancelOnTouchOutside(false)
+            .cancelable(false)
+            .customView(R.layout.outlet_close_reason_dialog)
+        dialog.confirm_reasons.setOnClickListener {
+
+            showProgressBar(true, base_progress_bar)
+            closeOutletRebounce = "1"
+            val selectedId: Int = dialog.radioGroups.checkedRadioButtonId
+
+            if (selectedId != -1) {
+                dialog.progress_bar.visibility = View.VISIBLE
+                dialog.confirm_reasons.visibility = View.INVISIBLE
+                dialog.close_reasons.visibility = View.INVISIBLE
+                val radio: RadioButton = dialog.findViewById(selectedId)
+                Log.d("TAGSD", radio.text.toString())
+                vmodel.closeOutlet(
+                    dataFromAdapter.rep_id,
+                    lstlngs.currentLat.toString(),
+                    lstlngs.currentLng.toString(),
+                    dataFromAdapter.latitude.toString(),
+                    dataFromAdapter.longitude.toString(),
+                    dataFromAdapter.distance,
+                    dataFromAdapter.duration,
+                    dataFromAdapter.urno,
+                    dataFromAdapter.sequenceno,
+                    dataFromAdapter.auto,
+                    getDate() + "${dataFromAdapter.rep_id}" + UUID.randomUUID().toString(),
+                    radio.text.toString()
+                )
+            }
+        }
+        dialog.close_reasons.setOnClickListener {
+            closeOutletRebounce = "1"
+            showProgressBar(false, base_progress_bar)
+            dialog.dismiss()
+        }
+        dialog.show()
+    }
+
+    //this is for the Update Customer.....
+    fun UpdateCustomerNumber(urno:Int) {
+        showProgressBar(false, base_progress_bar)
+        val dialogs: MaterialDialog = MaterialDialog(this.requireContext())
+            .cancelOnTouchOutside(false)
+            .cancelable(false)
+            .customView(R.layout.mobilenumberupdate)
+
+        dialogs.close_dialog.setOnClickListener {
+            dialogs.cancel()
+        }
+        dialogs.confirmButtons.setOnClickListener {
+            val customerMobile: String = dialogs.et_1.text.toString()
+            if(customerMobile.length==11){
+                dialogs.close_dialog.visibility = View.INVISIBLE
+                dialogs.confirmButtons.visibility = View.INVISIBLE
+                dialogs.loaders.visibility = View.VISIBLE
+                vmodel.UpdateCustomerMobileNumber(employee_id, urno, customerMobile).observe(this,
+                    Observer{
+                        val dataReturnedFromApi = it.toString().split(':')
+                        dialogs.close_dialog.visibility = View.VISIBLE
+                        dialogs.confirmButtons.visibility = View.VISIBLE
+                        dialogs.loaders.visibility = View.INVISIBLE
+                        if(dataReturnedFromApi[0]=="200") {
+                            dialogs.vnote_msg.text = dataReturnedFromApi[1]
+                        }else{
+                            dialogs.vnote_msg.text = dataReturnedFromApi[1]
+                        }
+                    })
+            }else{
+                dialogs.vnote_msg.text = "Invalid Customer Phone Number"
+            }
+        }
+        dialogs.show()
     }
 
     companion object {

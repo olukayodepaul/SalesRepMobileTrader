@@ -156,7 +156,10 @@ data class ApplicationCustomers(
     var notice: String = "",
     @SerializedName("entry_time")
     @Expose
-    var entry_time: String = ""
+    var entry_time: String = "",
+    @SerializedName("depotwaivers")
+    @Expose
+    var depotwaivers: String
 ): Parcelable
 
 data class InitBasket (
@@ -536,9 +539,7 @@ data class allCustomerProductOrder(
     @SerializedName("trantime")
     @Expose
     var trantime: String = ""
-
 )
-
 
 data class skuOrderd(
     @SerializedName("skuorder")
@@ -586,6 +587,21 @@ data class sendTokenToIndividualCustomer(
     @SerializedName("status")
     @Expose
     var status: String = ""
+)
+
+data class updateCustomerMobileNumber(
+    @SerializedName("status")
+    @Expose
+    var status: Int?,
+    @SerializedName("msg")
+    @Expose
+    var msg: String?
+)
+
+data class requestForDefaultTokens(
+    @SerializedName("status")
+    @Expose
+    var status: Int?
 )
 
 

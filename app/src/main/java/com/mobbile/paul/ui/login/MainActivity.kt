@@ -2,14 +2,8 @@ package com.mobbile.paul.ui.login
 
 
 import android.Manifest
-import android.app.Notification
-import android.app.NotificationManager
 import android.content.*
 import android.content.pm.PackageManager
-import android.graphics.BitmapFactory
-import android.media.MediaPlayer
-import android.media.RingtoneManager
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.telephony.TelephonyManager
@@ -26,17 +20,12 @@ import com.mobbile.paul.util.Util.sharePrefenceDataSave
 import com.mobbile.paul.util.Util.showMessageDialogWithoutIntent
 import kotlinx.android.synthetic.main.activity_main.*
 import androidx.core.app.ActivityCompat.checkSelfPermission
-import androidx.core.app.NotificationCompat
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.iid.FirebaseInstanceId
 import com.mobbile.paul.model.LoginExchange
-import com.mobbile.paul.model.NotificationData
 import com.mobbile.paul.ui.modules.Modules
 import com.mobbile.paul.util.Util.intentWithFinish
-import com.mobbile.paul.util.Util.onRatingRequired
 import javax.inject.Inject
 
 class MainActivity : BaseActivity() {
@@ -117,8 +106,8 @@ class MainActivity : BaseActivity() {
         } else if (permit == PackageManager.PERMISSION_DENIED) {
             imeiRequest()
         } else {
-            //vmodel.Login("pQlQu3x", "3736", "351736103791228", date, getCurrentTokenFromDevice)
-            vmodel.Login(
+            //vmodel.Login("2Qg48R4", "3580", "359181096763128", date, getCurrentTokenFromDevice)
+          vmodel.Login(
                 username,
                 password,
                 tel.getImei(0),
@@ -157,7 +146,6 @@ class MainActivity : BaseActivity() {
     private fun setSession(ex: LoginExchange) {
         showProgressBar(false)
         if (ex.sep == 1) {
-            Log.d(TAG, ex.employee_id.toString())
             preferences!!.edit().apply()
             val editor = preferences!!.edit()
             editor.clear()
@@ -189,6 +177,4 @@ class MainActivity : BaseActivity() {
                 getCurrentTokenFromDevice = token.toString()
             })
     }
-
-
 }

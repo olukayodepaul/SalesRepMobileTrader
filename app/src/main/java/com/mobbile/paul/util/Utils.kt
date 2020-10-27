@@ -69,6 +69,7 @@ object Util {
         title: String,
         msg: String?
     ) {
+
         val builder = AlertDialog.Builder(context, R.style.AlertDialogDanger)
         builder.setMessage(msg)
             .setTitle(title)

@@ -156,6 +156,8 @@ class OrderSummary : BaseActivity() {
             .cancelOnTouchOutside(false)
             .cancelable(false)
             .customView(R.layout.dialogfortoken)
+
+
        dialog.close_dialog.setOnClickListener {
            dialog.dismiss()
         }

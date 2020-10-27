@@ -78,6 +78,7 @@ class EntryHistoryViewModel @Inject constructor(private var repository: Reposito
         list.uiid = uiid
         list.lists = lists
 
+
         repository.fetchPostSales(list)
             .subscribe({
                 outletOpen= it.body()!!
@@ -86,8 +87,6 @@ class EntryHistoryViewModel @Inject constructor(private var repository: Reposito
                 AttendanExchange(atresponse, 400, it.message.toString())
             }).isDisposed
     }
-
-
 
     private fun UpdateSeque(id: Int, sequenceno: Int, auto: Int) {
         repository.UpdateSeque(id, sequenceno+1, ",$sequenceno").subscribe({
@@ -103,6 +102,17 @@ class EntryHistoryViewModel @Inject constructor(private var repository: Reposito
         }, {
             AttendanExchange(atresponse, 400, it.message.toString())
         }).isDisposed
+    }
+
+    fun requestForDefaultToken(urno:Int, employee_id:Int, curlocation:String, region: Int): MutableLiveData<String> {
+        val mResult = MutableLiveData<String>()
+        repository.requestForDefaultToken(urno, employee_id, curlocation, region)
+            .subscribe({
+                mResult.postValue("${it.body()!!.status!!}:Successful")
+            }, {
+                mResult.postValue("400:${it.message.toString()}")
+            }).isDisposed
+        return mResult
     }
 
 }

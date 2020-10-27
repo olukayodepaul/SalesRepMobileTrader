@@ -1,6 +1,7 @@
 package com.mobbile.paul.ui.attendant
 
 
+import android.annotation.SuppressLint
 import android.location.Location
 import android.os.Bundle
 import android.os.Looper
@@ -47,6 +48,7 @@ class Resumption : BaseActivity() {
     var duration: String = ""
     var customer_code: String = ""
     var sortid: Int = 0
+    var depotwaiver: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,6 +69,7 @@ class Resumption : BaseActivity() {
         duration = intent.getStringExtra("duration")!!
         customer_code = intent.getStringExtra("customer_code")!!
         sortid = intent.getIntExtra("sort", 0)
+        depotwaiver = intent.getStringExtra("depotwaivers")!!
 
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
         view_pager.layoutManager = layoutManager
@@ -111,7 +114,7 @@ class Resumption : BaseActivity() {
             }
             else -> {
                 showProgressBar(false)
-                showMessageDialogWithoutIntent(this, "Basket Error","No basket is assign to you")
+                showMessageDialogWithoutIntent(this, "Basket Error", "No basket is assign to you")
                 refresh_image.visibility = View.VISIBLE
             }
         }
@@ -134,6 +137,7 @@ class Resumption : BaseActivity() {
         }
     }
 
+    @SuppressLint("MissingPermission")
     fun startLocationUpdates() {
 
         locationRequest = LocationRequest()
@@ -169,11 +173,29 @@ class Resumption : BaseActivity() {
 
             stoplocation()
 
-            val checkCustomerOutlet: Boolean = setGeoFencing(location.latitude, location.longitude, outletlat, outletlng, 1)
+            val checkCustomerOutlet: Boolean =
+                setGeoFencing(location.latitude, location.longitude, outletlat, outletlng, 1)
 
             if (!checkCustomerOutlet) {
-                showProgressBar(false)
-                showMessageDialogWithoutIntent(this,"Location Error","You are not at the DEPOT. Thanks!")
+                if (depotwaiver.equals("false")) {
+                    when (mode) {
+                        1 -> {
+                            vmodel.takeAttendant(
+                                1, repid, outletlat, outletlng, location.latitude, location.longitude,
+                                distance, duration, "${sequenceno}", getDate()
+                            )
+                        }
+                        2 -> {
+                            vmodel.takeAttendant(
+                                2, repid, outletlat, outletlng, location.latitude, location.longitude,
+                                distance, duration, "${sequenceno}", getDate()
+                            )
+                        }
+                    }
+                } else {
+                    showProgressBar(false)
+                    showMessageDialogWithoutIntent(this,"Location Error","You are not at the DEPOT. Thanks!")
+                }
             } else {
                 when (mode) {
                     1 -> {

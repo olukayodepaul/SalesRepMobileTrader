@@ -77,3 +77,14 @@ data class NotificationData(
     var notis: String = ""
 )
 
+data class CustomerUpdateResponse(
+    var status: Int = 0,
+    var msg:String=""
+)
+
+data class FireBaseModel(
+    val status: String = "",
+    val token: String = "",
+    var urno: String = ""
+)
+

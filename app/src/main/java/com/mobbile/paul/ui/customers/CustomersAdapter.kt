@@ -101,6 +101,7 @@ class CustomersAdapter(
                         intent.putExtra("duration",item.duration)
                         intent.putExtra("customer_code",item.customer_code)
                         intent.putExtra("sort",item.sort)
+                        intent.putExtra("depotwaivers",item.depotwaivers)
                         context.startActivity(intent)
                     }
                     3->{
@@ -161,6 +162,9 @@ class CustomersAdapter(
                     }
                     R.id.details -> {
                         itemClickListener(item,600)
+                    }
+                    R.id.update_phone_number -> {
+                        itemClickListener(item,700)
                     }
                 }
                 true

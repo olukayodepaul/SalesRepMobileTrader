@@ -13,6 +13,9 @@
     <item android:title="Outlet Update"
         android:id="@+id/update_outlet" />
 
+    <item android:title="Update Customer Phone Number"
+        android:id="@+id/update_phone_number" />
+
     <item android:title="Synchronisation"
         android:id="@+id/async" />
 

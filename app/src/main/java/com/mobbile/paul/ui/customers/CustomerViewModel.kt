@@ -114,8 +114,8 @@ class CustomerViewModel @Inject constructor(private var repo: Repository) : View
 
     //from here close outlet works
     fun closeOutlet(rep_id:Int, currentLat:String, currentLng:String, outletLat:String, outletLng:String, distance:String,
-                    duration:String, urno:Int, sequenceno:Int, auto:Int, uiid:String) {
-        repo.CloseOutlets(rep_id,  currentLat, currentLng, outletLat, outletLng, getTime(), sequenceno, distance, duration, urno,uiid)
+                    duration:String, urno:Int, sequenceno:Int, auto:Int, uiid:String, closeReasons:String) {
+        repo.CloseOutlets(rep_id,  currentLat, currentLng, outletLat, outletLng, getTime(), sequenceno, distance, duration, urno,uiid, closeReasons)
             .subscribe({
                 outletClose = it.body()!!
                 UpdateSeque(1, sequenceno,auto)
@@ -174,6 +174,17 @@ class CustomerViewModel @Inject constructor(private var repo: Repository) : View
             .subscribe({
             },{
             }).isDisposed
+    }
+
+    fun UpdateCustomerMobileNumber(employee_id:Int, outlet_id:Int, phone:String): MutableLiveData<String> {
+        var mResult = MutableLiveData<String>()
+        repo.updateContactPhone(employee_id, outlet_id, phone)
+            .subscribe({
+                mResult.postValue("${it.body()!!.status!!}:${it.body()!!.msg}")
+            }, {
+                mResult.postValue("400,${it.message.toString()}")
+            }).isDisposed
+        return mResult
     }
 
     companion object{

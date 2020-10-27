@@ -18,8 +18,10 @@ interface Api {
         @Query("imei") imei: String
     ): Single<Response<ApplicationLogin>>*/
 //tokenlogin
+
+    ///api/customer/userslogins
     @Headers("Connection:close")
-    @POST("/api/customer/userslogins")
+    @POST("/api/customer/logins") //logins
     fun Login(
         @Query("username") username: String,
         @Query("password") password: String,
@@ -76,7 +78,8 @@ interface Api {
         @Query("distance") distance: String,
         @Query("duration") duration: String,
         @Query("urno") urno: Int,
-        @Query("uiid") uiid: String
+        @Query("uiid") uiid: String,
+        @Query("reasons") reasons: String
     ): Single<Response<Attendant>>
 
     @Headers("Connection:close")
@@ -173,5 +176,23 @@ interface Api {
     fun sendTokenToday(
         @Query("unro") unro: Int
     ): Observable<Response<sendTokenToIndividualCustomer>>
+
+    @Headers("Connection:close")
+    @POST("/api/customer/updatecontact")
+    fun updateContactPhone(
+        @Query("employee_id") employee_id: Int,
+        @Query("outlet_id") outlet_id: Int,
+        @Query("phone") phone: String
+    ): Observable<Response<updateCustomerMobileNumber>>
+
+    @Headers("Connection:close")
+    @POST("/api/validate/defaulttoken")
+    fun requestForDefaultToken(
+        @Query("urno") urno: Int,
+        @Query("employee_id") employee_id: Int,
+        @Query("curlocation") curlocation: String,
+        @Query("region") region: Int
+    ): Observable<Response<requestForDefaultTokens>>
+
 }
 

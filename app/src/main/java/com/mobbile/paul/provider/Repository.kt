@@ -6,6 +6,7 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Response
+import retrofit2.http.Query
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -162,8 +163,9 @@ constructor(private val appDao: AppDao, private val api: Api) {
 
     fun CloseOutlets(repid: Int,  currentlat: String, currentlng: String,
                      outletlat: String, outletlng: String, arrivaltime: String,
-                     visitsequence: Int, distance: String, duration: String, urno: Int,uiid:String): Single<Response<Attendant>> =
-        api.CloseOutlets(repid,currentlat,currentlng,outletlat, outletlng,arrivaltime, visitsequence,distance,duration,urno, uiid)
+                     visitsequence: Int, distance: String, duration: String, urno: Int,uiid:String, closeReasons:String)
+            : Single<Response<Attendant>> =
+        api.CloseOutlets(repid,currentlat,currentlng,outletlat, outletlng,arrivaltime, visitsequence,distance,duration,urno, uiid, closeReasons)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .map{it}
@@ -297,5 +299,19 @@ constructor(private val appDao: AppDao, private val api: Api) {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .map {it}
+
+    fun updateContactPhone(employee_id:Int, outlet_id:Int, phone:String): Observable<Response<updateCustomerMobileNumber>> =
+        api.updateContactPhone(employee_id, outlet_id, phone)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map {it}
+
+    fun requestForDefaultToken(urno:Int, employee_id:Int, curlocation:String, region: Int): Observable<Response<requestForDefaultTokens>> =
+        api.requestForDefaultToken(urno, employee_id, curlocation, region)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map {it}
+
+
 
 }

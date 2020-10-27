@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "961a1c967a2003106ae621e653f011a5",
+    "identityHash": "37a0db20045e09af7c79745ad9fe5214",
     "entities": [
       {
         "tableName": "modules",
@@ -88,7 +88,7 @@
       },
       {
         "tableName": "customers",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`auto` INTEGER NOT NULL, `rep_id` INTEGER NOT NULL, `urno` INTEGER NOT NULL, `customerno` TEXT NOT NULL, `outletclassid` INTEGER NOT NULL, `outletlanguageid` INTEGER NOT NULL, `outlettypeid` INTEGER NOT NULL, `outletname` TEXT NOT NULL, `outletaddress` TEXT NOT NULL, `contactname` TEXT NOT NULL, `contactphone` TEXT NOT NULL, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, `token` TEXT NOT NULL, `defaulttoken` TEXT NOT NULL, `sequenceno` INTEGER NOT NULL, `distance` TEXT NOT NULL, `duration` TEXT NOT NULL, `mode` TEXT NOT NULL, `dates` TEXT NOT NULL, `volumeclass` TEXT NOT NULL, `customer_code` TEXT NOT NULL, `sort` INTEGER NOT NULL, `notice` TEXT NOT NULL, `entry_time` TEXT NOT NULL, PRIMARY KEY(`auto`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`auto` INTEGER NOT NULL, `rep_id` INTEGER NOT NULL, `urno` INTEGER NOT NULL, `customerno` TEXT NOT NULL, `outletclassid` INTEGER NOT NULL, `outletlanguageid` INTEGER NOT NULL, `outlettypeid` INTEGER NOT NULL, `outletname` TEXT NOT NULL, `outletaddress` TEXT NOT NULL, `contactname` TEXT NOT NULL, `contactphone` TEXT NOT NULL, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, `token` TEXT NOT NULL, `defaulttoken` TEXT NOT NULL, `sequenceno` INTEGER NOT NULL, `distance` TEXT NOT NULL, `duration` TEXT NOT NULL, `mode` TEXT NOT NULL, `dates` TEXT NOT NULL, `volumeclass` TEXT NOT NULL, `customer_code` TEXT NOT NULL, `sort` INTEGER NOT NULL, `notice` TEXT NOT NULL, `entry_time` TEXT NOT NULL, `depotwaivers` TEXT NOT NULL, PRIMARY KEY(`auto`))",
         "fields": [
           {
             "fieldPath": "auto",
@@ -237,6 +237,12 @@
           {
             "fieldPath": "entry_time",
             "columnName": "entry_time",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "depotwaivers",
+            "columnName": "depotwaivers",
             "affinity": "TEXT",
             "notNull": true
           }
@@ -440,7 +446,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"961a1c967a2003106ae621e653f011a5\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"37a0db20045e09af7c79745ad9fe5214\")"
     ]
   }
 }

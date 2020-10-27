@@ -141,6 +141,7 @@ class Entries : BaseActivity() {
             intent.putExtra("currentlat",currentlat)
             intent.putExtra("currentlng", currentlng)
             intent.putExtra("uiid",getDate()+"${customers.rep_id}"+UUID.randomUUID().toString())
+            intent.putExtra("urno", customers.urno)
             startActivity(intent)
         }else {
             showProgressBar(false)

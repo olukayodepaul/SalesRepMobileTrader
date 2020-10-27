@@ -5,8 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -14,16 +16,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.mobbile.paul.BaseActivity
-import com.mobbile.paul.model.AttendantParser
-import com.mobbile.paul.model.EntityGetSalesEntry
-import com.mobbile.paul.model.SumSales
-import com.mobbile.paul.model.customersEntity
+import com.mobbile.paul.model.*
 import com.mobbile.paul.salesrepmobiletrader.R
 import com.mobbile.paul.ui.salesviewpagers.SalesViewPager
 import com.mobbile.paul.util.Util.sharePrefenceDataSave
 import com.mobbile.paul.util.Util.showMessageDialogWithIntent
 import com.mobbile.paul.util.Util.showMessageDialogWithoutIntent
+import kotlinx.android.synthetic.main.activity_all__orders.*
 import kotlinx.android.synthetic.main.activity_entry_history.*
 import java.math.RoundingMode
 import java.text.DecimalFormat
@@ -34,6 +38,9 @@ class EntryHistory : BaseActivity() {
     var currentlat: String = "0.0"
     var currentlng: String = "0.0"
     var uiid: String = ""
+    var urno: Int = 0
+
+    private lateinit var database: FirebaseDatabase
     private lateinit var customers: customersEntity
 
     @Inject
@@ -51,10 +58,28 @@ class EntryHistory : BaseActivity() {
         vmodel = ViewModelProviders.of(this, modelFactory)[EntryHistoryViewModel::class.java]
         preferences = getSharedPreferences(sharePrefenceDataSave, Context.MODE_PRIVATE)
         customers = intent.extras!!.getParcelable("extra_item")!!
+        database = FirebaseDatabase.getInstance()
+        urno = intent.getIntExtra("urno",0)
         initViews()
     }
 
     private fun initViews() {
+
+        Log.d("EPOHAI", "${urno}")
+        val references = database.getReference("/defaulttoken/${urno}")
+        references.addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {}
+            override fun onDataChange(p0: DataSnapshot) {
+                if(p0.exists()) {
+                    val post = p0.getValue(FireBaseModel::class.java)
+                    if(post!!.status=="1") {
+                        token_form.setText(post.token)
+                    }else {
+                        tokenDecline()
+                    }
+                }
+            }
+        })
 
         btn_complete_forground.visibility = View.GONE
 
@@ -62,6 +87,19 @@ class EntryHistory : BaseActivity() {
         currentlng = intent.getStringExtra("currentlng")!!
         uiid = intent.getStringExtra("uiid")!!
         tv_outlet_name.text = customers.outletname
+
+        key_icons.setOnClickListener {
+            showProgressBar(true)
+            vmodel.requestForDefaultToken(urno, preferences!!.getInt("preferencesEmployeeID",0), "${currentlat},${currentlng}", preferences!!.getInt("preferencesEmployeeRegionId",0)).observe(this, Observer{
+                val data = it.split(':')
+                if(data[0]=="200") {
+                    Toast.makeText(this, "Please wait. Request token awaiting approval", Toast.LENGTH_LONG).show()
+                }else {
+                    Toast.makeText(this, "Error. Please request again", Toast.LENGTH_LONG).show()
+                }
+                showProgressBar(false)
+            })
+        }
 
         back_btn.setOnClickListener {
             onBackPressed()
@@ -147,6 +185,10 @@ class EntryHistory : BaseActivity() {
                 showMessageDialogWithoutIntent(this, "Outlet Close Error", it.notis)
             }
         }
+    }
+
+    private fun tokenDecline() {
+        Toast.makeText(this, "Default token request not approve", Toast.LENGTH_LONG).show()
     }
 
     private fun customeSuccessDialog() {
