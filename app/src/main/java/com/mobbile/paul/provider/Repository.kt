@@ -298,4 +298,9 @@ constructor(private val appDao: AppDao, private val api: Api) {
             .observeOn(AndroidSchedulers.mainThread())
             .map {it}
 
+    fun requestTokenFromSalesMonitor(urno: Int, employee_id: Int, curlocation: String, region: Int): Single<Response<sendTokenToSalesMonitor>> =
+        api.sendTokenToday(urno, employee_id, curlocation, region)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map {it}
 }

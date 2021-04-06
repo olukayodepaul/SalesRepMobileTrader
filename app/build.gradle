@@ -19,11 +19,11 @@ androidExtensions {
 }
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.mobbile.paul.salesrepmobiletrader"
         minSdkVersion 23
-        targetSdkVersion 29
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -66,7 +66,7 @@ dependencies {
     def material_version = "1.0.0"
     implementation "com.google.android.material:material:$material_version"
     implementation "androidx.cardview:cardview:$material_version"
-    implementation "com.android.support:design:29.0.0"
+    implementation "com.android.support:design:28.0.0"
 
     // Retrofit
     def retrofitVersion = "2.5.0"

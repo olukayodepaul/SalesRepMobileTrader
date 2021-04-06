@@ -588,5 +588,23 @@ data class sendTokenToIndividualCustomer(
     var status: String = ""
 )
 
+data class sendTokenToSalesMonitor(
+    @SerializedName("status")
+    @Expose
+    var status: String = "",
+    @SerializedName("msg")
+    @Expose
+    var msg: String = "",
+    @SerializedName("counts")
+    @Expose
+    var counts: String = ""
+)
+
+data class GetRequestToken(
+    val status: String? = null,
+    val time: String? = null,
+    val token: String? = null,
+    val urno: String? = null
+)
 
 

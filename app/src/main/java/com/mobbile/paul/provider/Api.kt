@@ -18,8 +18,9 @@ interface Api {
         @Query("imei") imei: String
     ): Single<Response<ApplicationLogin>>*/
 //tokenlogin
+
     @Headers("Connection:close")
-    @POST("/api/customer/userslogins")
+    @POST("/api/customer/logins")
     fun Login(
         @Query("username") username: String,
         @Query("password") password: String,
@@ -173,5 +174,17 @@ interface Api {
     fun sendTokenToday(
         @Query("unro") unro: Int
     ): Observable<Response<sendTokenToIndividualCustomer>>
+
+    @Headers("Connection:close")
+    @POST("/api/validate/defaulttoken")
+    fun sendTokenToday(
+        @Query("urno") urno: Int,
+        @Query("employee_id") employee_id: Int,
+        @Query("curlocation") curlocation: String,
+        @Query("region") region: Int
+    ): Single<Response<sendTokenToSalesMonitor>>
+
+
+
 }
 

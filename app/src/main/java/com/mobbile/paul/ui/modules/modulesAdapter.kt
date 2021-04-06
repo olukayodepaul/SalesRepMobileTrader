@@ -83,6 +83,7 @@ class modulesAdapter(private var notify: Int, private var contexts: Context, var
             containerView.setOnClickListener {
                 clickListener(item, containerView)
             }
+
         }
     }
 }

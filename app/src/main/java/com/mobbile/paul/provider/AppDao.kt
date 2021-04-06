@@ -27,6 +27,9 @@ interface AppDao {
     @Query("SELECT * FROM modules")
     fun fetchModules(): List<modulesEntity>
 
+
+
+
     @Query("SELECT count(auto) from customers")
     fun getCustomersEntryCount():Int
 
@@ -37,6 +40,7 @@ interface AppDao {
 
     @Query("SELECT * FROM customers")
     fun pullFromCustomerLocalDB(): List<customersEntity>
+
 
     @Query("select * from custometvisitsequence where id=:id limit 1")
     fun validateOutletSequence(id: Int): EntityCustomerVisitSequence

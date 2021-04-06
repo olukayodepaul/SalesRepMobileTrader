@@ -57,7 +57,6 @@ class Modules : BaseActivity() {
     lateinit var playSounds: MediaPlayer
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_modules)

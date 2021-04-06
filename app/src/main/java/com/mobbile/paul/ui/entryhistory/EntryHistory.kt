@@ -7,6 +7,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -14,17 +15,21 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.mobbile.paul.BaseActivity
-import com.mobbile.paul.model.AttendantParser
-import com.mobbile.paul.model.EntityGetSalesEntry
-import com.mobbile.paul.model.SumSales
-import com.mobbile.paul.model.customersEntity
+import com.mobbile.paul.model.*
 import com.mobbile.paul.salesrepmobiletrader.R
 import com.mobbile.paul.ui.salesviewpagers.SalesViewPager
 import com.mobbile.paul.util.Util.sharePrefenceDataSave
 import com.mobbile.paul.util.Util.showMessageDialogWithIntent
 import com.mobbile.paul.util.Util.showMessageDialogWithoutIntent
 import kotlinx.android.synthetic.main.activity_entry_history.*
+import kotlinx.android.synthetic.main.activity_entry_history.tv_outlet_name
+import kotlinx.android.synthetic.main.activity_modules.*
+import retrofit2.http.Query
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import javax.inject.Inject
@@ -45,16 +50,43 @@ class EntryHistory : BaseActivity() {
 
     private var preferences: SharedPreferences? = null
 
+    private lateinit var database: FirebaseDatabase
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_entry_history)
         vmodel = ViewModelProviders.of(this, modelFactory)[EntryHistoryViewModel::class.java]
         preferences = getSharedPreferences(sharePrefenceDataSave, Context.MODE_PRIVATE)
         customers = intent.extras!!.getParcelable("extra_item")!!
+        database = FirebaseDatabase.getInstance()
+        countBargeData()
         initViews()
     }
 
+
     private fun initViews() {
+        //countBargeData()
+        println(
+            "VIEWDATA ${customers.urno} ${customers.rep_id} ${
+                preferences!!.getInt(
+                    "preferencesEmployeeID",
+                    0
+                )
+            } ${customers.latitude},${customers.longitude} ${
+                preferences!!.getInt(
+                    "preferencesEmployeeRegionId",
+                    0
+                )
+            }"
+        )
+        key_icons.setOnClickListener {
+            vmodel.RefreshTokenRequest(
+                customers.urno,
+                customers.rep_id,
+                "${customers.latitude},${customers.longitude}",
+                preferences!!.getInt("preferencesEmployeeRegionId", 0)
+            ).observe(this, RequestTokenObserver)
+        }
 
         btn_complete_forground.visibility = View.GONE
 
@@ -74,7 +106,7 @@ class EntryHistory : BaseActivity() {
 
             when {
                 customers.token == token_form.text.toString().trim() -> {
-                   showProgressBar(true)
+                    showProgressBar(true)
                     vmodel.postSalesToServer(
                         customers.rep_id,
                         currentlat,
@@ -117,7 +149,6 @@ class EntryHistory : BaseActivity() {
                         "Error",
                         "Invalid Customer Verification code"
                     )
-
                 }
             }
         }
@@ -125,24 +156,23 @@ class EntryHistory : BaseActivity() {
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
         recycler_view_complete!!.setHasFixedSize(true)
         recycler_view_complete.layoutManager = layoutManager
-
         vmodel.fecthAllSalesEntries().observe(this, observerOfSalesEntry)
         vmodel.OpenOutletObserver().observe(this, observeCloseOutlets)
+    }
+
+    private val RequestTokenObserver = Observer<sendTokenToSalesMonitor> {
+
     }
 
     private val observeCloseOutlets = Observer<AttendantParser> {
         when (it.status) {
             200 -> {
-
                 showProgressBar(false)
                 customeSuccessDialog()
-
             }
             else -> {
-
                 btn_complete.visibility = View.VISIBLE
                 btn_complete_forground.visibility = View.INVISIBLE
-
                 showProgressBar(false)
                 showMessageDialogWithoutIntent(this, "Outlet Close Error", it.notis)
             }
@@ -190,4 +220,19 @@ class EntryHistory : BaseActivity() {
         }
     }
 
+
+
+    private fun countBargeData() {
+        val references =    database.getReference("/defaulttoken/${customers.urno}")
+        references.addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {}
+            override fun onDataChange(p0: DataSnapshot) {
+                if(p0.exists()){
+                    println("VIEWDATA 2")
+                   // val token = p0.getValue(GetRequestToken::class.java)
+                    //println("VIEWDATA ${token!!.token} 1")
+                }else{ }
+            }
+        })
+    }
 }

@@ -103,10 +103,8 @@ class MainActivity : BaseActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun processLogin() {
-        val permit = checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
         val username: String = et_email.text.toString()
         val password: String = et_password.text.toString()
-        val tel = getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
         if (username.isEmpty() && password.isEmpty()) {
             showProgressBar(false)
             showMessageDialogWithoutIntent(
@@ -114,27 +112,19 @@ class MainActivity : BaseActivity() {
                 "Form Error",
                 "Please enter both username and password"
             )
-        } else if (permit == PackageManager.PERMISSION_DENIED) {
-            imeiRequest()
         } else {
             //vmodel.Login("pQlQu3x", "3736", "351736103791228", date, getCurrentTokenFromDevice)
             vmodel.Login(
                 username,
                 password,
-                tel.getImei(0),
+                "",
                 date,
                 getCurrentTokenFromDevice
             )
         }
     }
 
-    private fun imeiRequest() {
-        ActivityCompat.requestPermissions(
-            this,
-            arrayOf(Manifest.permission.READ_PHONE_STATE), DEVICE_STATE_PERMISSION
-        )
-    }
-
+  
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,

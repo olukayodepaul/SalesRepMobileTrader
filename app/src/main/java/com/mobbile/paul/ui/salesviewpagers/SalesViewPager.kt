@@ -85,6 +85,7 @@ class SalesViewPager : DaggerAppCompatActivity() {
 
         settings_btn.visibility = View.INVISIBLE
         dadgecounter.visibility = View.INVISIBLE
+
         confirmNewMessages()
         listenForMessages()
 
@@ -114,6 +115,7 @@ class SalesViewPager : DaggerAppCompatActivity() {
                 settings_btn.visibility = View.INVISIBLE
             }
         })
+
 
         settings_btn.setOnClickListener {
             showProgressBar(true, base_progress_bar_s)

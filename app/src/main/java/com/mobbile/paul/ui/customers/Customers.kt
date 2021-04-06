@@ -264,9 +264,12 @@ class Customers: DaggerFragment() {
             stoplocation()
             val checkCustomerOutlet: Boolean = setGeoFencing(location.latitude, location.longitude, dataFromAdapter.latitude, dataFromAdapter.longitude, 2)
             if (!checkCustomerOutlet) {
-                showProgressBar(false, base_progress_bar)
-                closeOutletRebounce ="1"
-                showMessageDialogWithoutIntent(this.requireContext(), "Location Error", "You are not at the corresponding outlet. Thanks!")
+//                showProgressBar(false, base_progress_bar)
+//                closeOutletRebounce ="1"
+//                showMessageDialogWithoutIntent(this.requireContext(), "Location Error", "You are not at the corresponding outlet. Thanks!")
+
+                vmodel.validateOutletSequence(1, dataFromAdapter.sequenceno, location.latitude, location.longitude).observe(this, observeVisitSequence)
+
             } else {
                 vmodel.validateOutletSequence(1, dataFromAdapter.sequenceno, location.latitude, location.longitude).observe(this, observeVisitSequence)
             }
@@ -315,15 +318,24 @@ class Customers: DaggerFragment() {
                 )
             }
             else -> {
-                if(mode==2){
-                    closeOutletRebounce ="1"
-                }
+
+                //remove this
                 showProgressBar(false, base_progress_bar)
-                showMessageDialogWithoutIntent(
-                    this.requireContext(),
-                    "Attendant Error",
-                    "Please resume and clock out before you proceed"
-                )
+                val intent = Intent(this.requireContext(), Entries::class.java)
+                intent.putExtra("extra_item", dataFromAdapter)
+                intent.putExtra("currentlat", it.currentLat.toString()) //current lat
+                intent.putExtra("currentlng", it.currentLng.toString())
+                startActivity(intent)
+
+//                if(mode==2){
+//                    closeOutletRebounce ="1"
+//                }
+//                showProgressBar(false, base_progress_bar)
+//                showMessageDialogWithoutIntent(
+//                    this.requireContext(),
+//                    "Attendant Error",
+//                    "Please resume and clock out before you proceed"
+//                )
             }
         }
     }

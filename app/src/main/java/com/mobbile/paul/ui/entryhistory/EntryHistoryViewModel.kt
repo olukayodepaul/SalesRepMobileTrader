@@ -8,6 +8,8 @@ import com.mobbile.paul.model.*
 import com.mobbile.paul.provider.Repository
 import com.mobbile.paul.util.ParserModel.AttendanExchange
 import com.mobbile.paul.util.Util.getTime
+import io.reactivex.Single
+import retrofit2.http.Query
 import javax.inject.Inject
 
 class EntryHistoryViewModel @Inject constructor(private var repository: Repository) : ViewModel() {
@@ -103,6 +105,17 @@ class EntryHistoryViewModel @Inject constructor(private var repository: Reposito
         }, {
             AttendanExchange(atresponse, 400, it.message.toString())
         }).isDisposed
+    }
+
+    fun RefreshTokenRequest(urno: Int, employee_id: Int, curlocation: String, region: Int): LiveData<sendTokenToSalesMonitor> {
+        val mResult = MutableLiveData<sendTokenToSalesMonitor>()
+        repository.requestTokenFromSalesMonitor(urno, employee_id, curlocation, region)
+            .subscribe({
+                mResult.postValue(it.body())
+            }, {
+                mResult.postValue(null)
+            }).isDisposed
+        return mResult
     }
 
 }
