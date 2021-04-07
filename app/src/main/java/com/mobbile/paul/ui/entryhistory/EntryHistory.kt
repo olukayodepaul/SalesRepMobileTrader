@@ -161,7 +161,7 @@ class EntryHistory : BaseActivity() {
     }
 
     private val RequestTokenObserver = Observer<sendTokenToSalesMonitor> {
-
+        Toast.makeText(this, it.msg, Toast.LENGTH_LONG).show()
     }
 
     private val observeCloseOutlets = Observer<AttendantParser> {
@@ -220,19 +220,18 @@ class EntryHistory : BaseActivity() {
         }
     }
 
-
-
     private fun countBargeData() {
         val references =    database.getReference("/defaulttoken/${customers.urno}")
         references.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {}
             override fun onDataChange(p0: DataSnapshot) {
                 if(p0.exists()){
-                    println("VIEWDATA 2")
-                   // val token = p0.getValue(GetRequestToken::class.java)
-                    //println("VIEWDATA ${token!!.token} 1")
-                }else{ }
+                    val vToken = p0.getValue(GetRequestToken::class.java)
+                    token_form.setText(vToken!!.token)
+                }
             }
         })
     }
+
+
 }

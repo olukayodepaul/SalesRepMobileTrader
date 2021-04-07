@@ -601,10 +601,7 @@ data class sendTokenToSalesMonitor(
 )
 
 data class GetRequestToken(
-    val status: String? = null,
-    val time: String? = null,
-    val token: String? = null,
-    val urno: String? = null
+    val token: String? = null
 )
 
 
