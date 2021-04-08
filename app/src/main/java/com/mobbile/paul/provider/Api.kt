@@ -86,7 +86,6 @@ interface Api {
         @Body datas: postToServer
     ): Single<Response<Attendant>>
 
-
     @Headers("Connection:close")
     @POST("/api/rep_sales_details")
     fun getSalesDetails(
@@ -183,8 +182,5 @@ interface Api {
         @Query("curlocation") curlocation: String,
         @Query("region") region: Int
     ): Single<Response<sendTokenToSalesMonitor>>
-
-
-
 }
 
