@@ -234,6 +234,7 @@ class MapNewOutlet : BaseActivity() {
             }
         }
     }
+    @SuppressLint("MissingPermission")
     fun startLocationUpdates() {
 
         locationRequest = LocationRequest()

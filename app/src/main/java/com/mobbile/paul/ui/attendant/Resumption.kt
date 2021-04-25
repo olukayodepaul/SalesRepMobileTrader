@@ -1,6 +1,7 @@
 package com.mobbile.paul.ui.attendant
 
 
+import android.annotation.SuppressLint
 import android.location.Location
 import android.os.Bundle
 import android.os.Looper
@@ -134,6 +135,7 @@ class Resumption : BaseActivity() {
         }
     }
 
+    @SuppressLint("MissingPermission")
     fun startLocationUpdates() {
 
         locationRequest = LocationRequest()
@@ -166,11 +168,8 @@ class Resumption : BaseActivity() {
             stoplocation()
             startLocationUpdates()
         } else {
-
             stoplocation()
-
             val checkCustomerOutlet: Boolean = setGeoFencing(location.latitude, location.longitude, outletlat, outletlng, 1)
-
             if (!checkCustomerOutlet) {
                 showProgressBar(false)
                 showMessageDialogWithoutIntent(this,"Location Error","You are not at the DEPOT. Thanks!")
