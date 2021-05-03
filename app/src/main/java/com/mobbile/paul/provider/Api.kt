@@ -20,7 +20,7 @@ interface Api {
 //tokenlogin
 
     @Headers("Connection:close")
-    @POST("/api/users/login")
+    @POST("/api/users/logi")
     fun Login(
         @Query("username") username: String,
         @Query("password") password: String,
