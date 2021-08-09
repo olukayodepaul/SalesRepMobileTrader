@@ -182,5 +182,11 @@ interface Api {
         @Query("curlocation") curlocation: String,
         @Query("region") region: Int
     ): Single<Response<sendTokenToSalesMonitor>>
+
+    @Headers("Connection:close")
+    @GET("/api/agentlist")
+    fun getAllAgent(
+        @Query("rep_id") rep_id: Int
+    ): Single<Response<agentRoute>>
 }
 

@@ -5,14 +5,14 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
-import android.media.RingtoneManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Build
+import android.telephony.TelephonyManager
+import android.text.TextUtils
 import android.view.View
 import androidx.lifecycle.MutableLiveData
-import com.mobbile.paul.model.NotificationData
 import com.mobbile.paul.salesrepmobiletrader.R
 import java.text.SimpleDateFormat
 import java.util.*
@@ -20,6 +20,7 @@ import kotlin.math.PI
 import kotlin.math.abs
 import kotlin.math.cos
 import kotlin.math.sqrt
+
 
 object Util {
 

@@ -15,9 +15,7 @@ import com.mobbile.paul.ui.attendant.Banks
 import com.mobbile.paul.ui.attendant.Close
 import com.mobbile.paul.ui.attendant.Resumption
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.outlet_adapter.*
 import kotlinx.android.synthetic.main.outlet_adapter.view.*
-import kotlinx.android.synthetic.main.outlet_adapter.view.icons_images
 import kotlin.reflect.KFunction2
 
 
@@ -56,19 +54,19 @@ class CustomersAdapter(
             val generator = ColorGenerator.MATERIAL
             val drawable = TextDrawable.builder()
                 .buildRound(letter, generator.getRandomColor())
-            containerView.imageView.setImageDrawable(drawable)
+            containerView.outletImageView.setImageDrawable(drawable)
 
-            containerView.tv_name.text = item.outletname
+            containerView.tv_cust_name.text = item.outletname
             containerView.tv_titles.text = ("URNO: ${item.urno}, VCL: ${item.volumeclass}")
             containerView.tv_sequence.text = "${item.sequenceno - 1}"
             containerView.timeago.text = item.entry_time
 
-            containerView.icons_images.setOnClickListener {
+            containerView.cust_icons.setOnClickListener {
                 showPopup(containerView, item, itemClickListener)
             }
 
             if(item.sort==1) {
-                containerView.icons_images.visibility = View.GONE
+                containerView.cust_icons.visibility = View.GONE
                 containerView.tv_titles.text = item.notice
                 containerView.tv_sequence.visibility = View.GONE
             }
@@ -78,13 +76,13 @@ class CustomersAdapter(
             }
 
             if(item.sort==3) {
-                containerView.icons_images.visibility = View.GONE
+                containerView.cust_icons.visibility = View.GONE
                 containerView.tv_sequence.visibility = View.GONE
                 containerView.tv_titles.text = item.notice
             }
 
             if(item.sort==4) {
-                containerView.icons_images.visibility = View.GONE
+                containerView.cust_icons.visibility = View.GONE
                 containerView.tv_sequence.visibility = View.GONE
                 containerView.tv_titles.text = item.notice
             }
@@ -138,7 +136,7 @@ class CustomersAdapter(
             itemClickListener: KFunction2<@ParameterName(name = "partItem") customersEntity, @ParameterName(name = "separator") Int, Unit>
         ) {
 
-            val popupMenu = PopupMenu(context, view.icons_images)
+            val popupMenu = PopupMenu(context, view.cust_icons)
             val inflater = popupMenu.menuInflater
             inflater.inflate(R.menu.floatingcontextmenu, popupMenu.menu)
 

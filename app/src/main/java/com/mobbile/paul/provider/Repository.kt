@@ -303,4 +303,11 @@ constructor(private val appDao: AppDao, private val api: Api) {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .map {it}
+
+    fun getAgentDetails(rep_id: Int): Single<Response<agentRoute>> =
+        api.getAllAgent(rep_id)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map{it}
+
 }

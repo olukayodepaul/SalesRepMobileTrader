@@ -27,7 +27,7 @@ import kotlinx.android.synthetic.main.customersorders.view.*
 import javax.inject.Inject
 
 
-class xOrders : BaseActivity() {
+class Orders : BaseActivity() {
 
     @Inject
     internal lateinit var modelFactory: ViewModelProvider.Factory

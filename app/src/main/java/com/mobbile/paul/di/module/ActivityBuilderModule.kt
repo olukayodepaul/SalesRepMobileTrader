@@ -26,6 +26,7 @@ import com.mobbile.paul.di.subcomponent.salesfragment.SalesFragentViewPager
 import com.mobbile.paul.di.subcomponent.salesfragment.commission.CommissionModules
 import com.mobbile.paul.di.subcomponent.salesfragment.customers.CustomerModules
 import com.mobbile.paul.di.subcomponent.salesfragment.viewpagermodule.ViewPagerModules
+import com.mobbile.paul.ui.attendant.Agent
 import com.mobbile.paul.ui.attendant.Banks
 import com.mobbile.paul.ui.attendant.Close
 import com.mobbile.paul.ui.attendant.Resumption
@@ -97,6 +98,14 @@ abstract class ActivityBuilderModule {
         ]
     )
     abstract fun contributeBanksAndroidInjector(): Banks
+
+    @AttendantScope
+    @ContributesAndroidInjector(
+        modules = [
+            AttendantModule::class
+        ]
+    )
+    abstract fun contributeAgentAndroidInjector(): Agent
 
     @AttendantScope
     @ContributesAndroidInjector(

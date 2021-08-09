@@ -62,7 +62,7 @@ class modulesAdapter(private var notify: Int, private var contexts: Context, var
 
             database = FirebaseDatabase.getInstance()
 
-            containerView.tv_name.text = item.name
+            containerView.tv_cust_name.text = item.name
 
             containerView.tv_count.visibility = View.INVISIBLE
 
@@ -78,7 +78,7 @@ class modulesAdapter(private var notify: Int, private var contexts: Context, var
             Glide.with(contexts)
                 .load(item.imageurl)
                 .override(50,50)
-                .into(containerView.imageView)
+                .into(containerView.agentImageIcon)
 
             containerView.setOnClickListener {
                 clickListener(item, containerView)

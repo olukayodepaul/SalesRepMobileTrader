@@ -604,4 +604,42 @@ data class GetRequestToken(
     val token: String? = null
 )
 
+data class agentRoute(
+    @SerializedName("status")
+    @Expose
+    var status: Int,
+    @SerializedName("message")
+    @Expose
+    var massage: String = "",
+    @SerializedName("agent")
+    @Expose
+    var agent: List<GetAllAgentDetailByRoute>? = null
+)
 
+data class GetAllAgentDetailByRoute(
+    @SerializedName("employee_id")
+    @Expose
+    var employee_id: Int = 0,
+    @SerializedName("route_id")
+    @Expose
+    var route_id: String = "",
+    @SerializedName("outletaddress")
+    @Expose
+    var outletaddress: String = "",
+    @SerializedName("latitude")
+    @Expose
+    var latitude: String = "",
+    @SerializedName("longitude")
+    @Expose
+    var longitude: String = "",
+    @SerializedName("contact")
+    @Expose
+    var contact: String = "",
+    @SerializedName("vehicle_id")
+    @Expose
+    var vehicle_id: Int = 0,
+    @SerializedName("outletname")
+    @Expose
+    var outletname: String = ""
+
+)

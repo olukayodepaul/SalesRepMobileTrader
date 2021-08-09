@@ -49,8 +49,8 @@ class OrdersAdapter(private var mItems: List<allCustomerProductOrder>, private v
             val generator = ColorGenerator.MATERIAL
             val drawable = TextDrawable.builder()
                 .buildRound(letter, generator.getRandomColor())
-            containerView.imageView.setImageDrawable(drawable)
-            containerView.tv_name.text = item.outletname
+            containerView.agentImageIcon.setImageDrawable(drawable)
+            containerView.tv_cust_name.text = item.outletname
             containerView.tv_titles.text = ("URNO: ${item.urno}")
             containerView.timeAgo.text = "${item.dates} ${item.trantime}"
             containerView.menu_icon.setOnClickListener {

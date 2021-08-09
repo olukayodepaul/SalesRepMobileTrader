@@ -10,6 +10,8 @@ import com.mobbile.paul.util.ParserModel.mBankDetails
 import com.mobbile.paul.util.ParserModel.mSalesDetails
 import com.mobbile.paul.util.ParserModel.repBaskets
 import com.mobbile.paul.util.Util.getTime
+import io.reactivex.Single
+import retrofit2.Response
 import javax.inject.Inject
 
 class AttendantViewModel @Inject constructor(private var repository: Repository): ViewModel() {
@@ -124,5 +126,14 @@ class AttendantViewModel @Inject constructor(private var repository: Repository)
         return mResult
     }
 
+    fun getAgentDetails(rep_id: Int): LiveData<Response<agentRoute>> {
+        val mResult = MutableLiveData<Response<agentRoute>>()
+        repository.getAgentDetails(rep_id)
+            .subscribe({
+                mResult.postValue(it)
+            }, {
 
+            }).isDisposed
+        return mResult
+    }
 }

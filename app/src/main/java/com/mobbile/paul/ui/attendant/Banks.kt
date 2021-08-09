@@ -1,6 +1,7 @@
 package com.mobbile.paul.ui.attendant
 
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -92,6 +93,13 @@ class Banks : BaseActivity() {
                 }
             }
         })
+
+        agent.setOnClickListener {
+            val intent = Intent(this, Agent::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            intent.putExtra("repid", repid)
+            startActivity(intent)
+        }
     }
 
     private val observeAttendant = Observer<AttendantParser> {
