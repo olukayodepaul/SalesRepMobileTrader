@@ -156,7 +156,10 @@ data class ApplicationCustomers(
     var notice: String = "",
     @SerializedName("entry_time")
     @Expose
-    var entry_time: String = ""
+    var entry_time: String = "",
+    @SerializedName("spec")
+    @Expose
+    var spec: Int = 0
 ): Parcelable
 
 data class InitBasket (
@@ -642,4 +645,13 @@ data class GetAllAgentDetailByRoute(
     @Expose
     var outletname: String = ""
 
+)
+
+data class StatusSpinners(
+    @SerializedName("status")
+    @Expose
+    var status: Int = 0,
+    @SerializedName("msg")
+    @Expose
+    var msg: String = ""
 )

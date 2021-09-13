@@ -53,7 +53,8 @@ data class customersEntity(
     var customer_code: String = "",
     var sort: Int = 0,
     var notice: String = "",
-    var entry_time: String = ""
+    var entry_time: String = "",
+    var spec: Int = 0
 ): Parcelable
 
 @Entity(tableName = "custometvisitsequence")

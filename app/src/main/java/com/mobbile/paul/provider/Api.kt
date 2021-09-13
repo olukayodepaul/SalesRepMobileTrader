@@ -188,5 +188,13 @@ interface Api {
     fun getAllAgent(
         @Query("rep_id") rep_id: Int
     ): Single<Response<agentRoute>>
+
+    @Headers("Connection:close")
+    @GET("/api/outletstatus")
+    fun addOutletsStatus(
+        @Query("employee_id") employee_id: Int,
+        @Query("urno") urno: Int,
+        @Query("status") status: String
+    ): Single<Response<StatusSpinners>>
 }
 

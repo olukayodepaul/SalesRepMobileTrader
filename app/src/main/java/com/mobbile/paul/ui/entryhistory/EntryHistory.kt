@@ -66,26 +66,18 @@ class EntryHistory : BaseActivity() {
 
     private fun initViews() {
         //countBargeData()
-        println(
-            "VIEWDATA ${customers.urno} ${customers.rep_id} ${
-                preferences!!.getInt(
-                    "preferencesEmployeeID",
-                    0
-                )
-            } ${customers.latitude},${customers.longitude} ${
-                preferences!!.getInt(
-                    "preferencesEmployeeRegionId",
-                    0
-                )
-            }"
-        )
+
         key_icons.setOnClickListener {
-            vmodel.RefreshTokenRequest(
-                customers.urno,
-                customers.rep_id,
-                "${customers.latitude},${customers.longitude}",
-                preferences!!.getInt("preferencesEmployeeRegionId", 0)
-            ).observe(this, RequestTokenObserver)
+            if(customers.spec==0) {
+                vmodel.RefreshTokenRequest(
+                    customers.urno,
+                    customers.rep_id,
+                    "${customers.latitude},${customers.longitude}",
+                    preferences!!.getInt("preferencesEmployeeRegionId", 0)
+                ).observe(this, RequestTokenObserver)
+            }else{
+                token_form.setText(customers.defaulttoken)
+            }
         }
 
         btn_complete_forground.visibility = View.GONE

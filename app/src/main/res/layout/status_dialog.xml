@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/clr_otp_bg">
+
+    <RelativeLayout
+        android:id="@+id/close_icon"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <include android:id="@+id/toolbar_id"
+            layout="@layout/tokentoolbar"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/close_icon"
+        android:layout_marginTop="20dp">
+        <TextView
+        android:id="@+id/vcode_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Oulet Status Report"
+        android:textColor="@color/clr_white_text"
+        android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/vnote_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="please select the outlet status."
+            android:textColor="@color/clr_grey_text"
+            android:textSize="15dp"
+            android:layout_below="@+id/vcode_tv"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp">
+        <Spinner
+            android:id="@+id/spinnesStatusid"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/spinners"/>
+
+        <Button
+            android:id="@+id/confirmStatusButtons"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/spinnesStatusid"
+            android:background="@drawable/design_login_btn"
+            android:text="Report"
+            android:textColor="@color/white"
+            android:layout_marginTop="10dp"
+            />
+
+        <Button
+            android:id="@+id/confirmStatusButtonswait"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/spinnesStatusid"
+            android:background="@color/white"
+            android:text="Please wait...Loading"
+            android:textColor="@color/blues_color"
+            android:layout_marginTop="10dp"
+            android:visibility="invisible"
+            />
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

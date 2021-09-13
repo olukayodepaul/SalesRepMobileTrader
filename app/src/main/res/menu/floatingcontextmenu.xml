@@ -25,5 +25,8 @@
     <item android:title="Sequence Error Correction"
         android:id="@+id/sq_error" />
 
+    <item android:title="Outlet Status"
+        android:id="@+id/outlet_status" />
+
 
 </menu>

@@ -218,6 +218,7 @@ class OutletUpdate : BaseActivity() {
             }
         }
     }
+    @SuppressLint("MissingPermission")
     fun startLocationUpdates() {
 
         locationRequest = LocationRequest()
@@ -256,6 +257,7 @@ class OutletUpdate : BaseActivity() {
             val contactName = contact_name_edit.text.toString()
             val address = address_edit.text.toString()
             val phones = phone_number_edit.text.toString()
+
             val outletClass = customerClassAdapter.getValueId(custClass.selectedItem.toString())
             val prefLang = preferedLangAdapter.getValueId(preflang.selectedItem.toString())
             val outletTypeId = outletTypeAdapter.getValueId(outlettypeedit.selectedItem.toString())

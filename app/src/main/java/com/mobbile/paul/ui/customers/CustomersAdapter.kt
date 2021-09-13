@@ -160,6 +160,9 @@ class CustomersAdapter(
                     R.id.details -> {
                         itemClickListener(item,600)
                     }
+                    R.id.outlet_status -> {
+                        itemClickListener(item,700)
+                    }
                 }
                 true
             }

@@ -69,8 +69,6 @@ class Modules : BaseActivity() {
         playSounds = MediaPlayer.create(this, R.raw.to_the_point)
     }
 
-
-
     fun initViews() {
         orderbadgecounter.visibility = View.INVISIBLE
         countBargeData()
@@ -84,7 +82,6 @@ class Modules : BaseActivity() {
         module_recycler.setHasFixedSize(true)
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
         module_recycler.layoutManager = layoutManager
-
     }
 
     private fun countBargeData() {

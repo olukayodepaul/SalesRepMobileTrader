@@ -6,6 +6,7 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Response
+import retrofit2.http.Query
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -309,5 +310,11 @@ constructor(private val appDao: AppDao, private val api: Api) {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .map{it}
+
+    fun recordOutletStatusDetails(employee_id: Int, urno: Int, status: String): Single<Response<StatusSpinners>> =
+        api.addOutletsStatus(employee_id,urno,  status)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map {it}
 
 }

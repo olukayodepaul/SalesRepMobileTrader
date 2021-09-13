@@ -154,6 +154,8 @@ class CustomerViewModel @Inject constructor(private var repo: Repository) : View
             ).isDisposed
     }
 
+
+
     fun UpdateCustomerInformation(allCustInfo:OutletAsyn, auto:Int){
         repo.updateIndividualCustomer(allCustInfo.outletclassid,allCustInfo.outletlanguageid,allCustInfo.outlettypeid,
             allCustInfo.outletname,allCustInfo.outletaddress,allCustInfo.contactname,allCustInfo.contactphone,allCustInfo.latitude.toDouble(),
@@ -175,6 +177,34 @@ class CustomerViewModel @Inject constructor(private var repo: Repository) : View
             },{
             }).isDisposed
     }
+
+    fun fetchStatus(): LiveData<List<spinersEntity>> {
+        val mResult = MutableLiveData<List<spinersEntity>>()
+        repo.fetchSpinners()
+            .subscribe({
+                mResult.postValue(it)
+            }, {
+                mResult.postValue(null)
+            }).isDisposed
+        return mResult
+    }
+
+    fun addStatus(employee_id: Int, urno: Int, status: String):  MutableLiveData<StatusSpinners> {
+        val resp = MutableLiveData<StatusSpinners>()
+        repo.recordOutletStatusDetails(employee_id,urno,  status)
+            .subscribe(
+                {
+                    resp.postValue(it.body()!!)
+                },{
+                    val rst = StatusSpinners()
+                    rst.msg = it.message!!
+                    rst.status = 400
+                    resp.postValue(rst)
+                }
+            ).isDisposed
+        return resp
+    }
+
 
     companion object{
         val TAG = "CustomerViewModel"

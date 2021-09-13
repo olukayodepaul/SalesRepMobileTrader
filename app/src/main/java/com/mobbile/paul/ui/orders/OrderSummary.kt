@@ -210,6 +210,8 @@ class OrderSummary : BaseActivity() {
             }
         }
 
+
+
         dialog.completeButton.setOnClickListener {
             val intentNavigation = Intent(this, Modules::class.java)
             intentNavigation.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP.or(Intent.FLAG_ACTIVITY_NEW_TASK)

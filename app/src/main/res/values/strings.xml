@@ -25,5 +25,11 @@
     <string name="sales_successfully">Sales Successfully posted to the server. please confirm the integrity of your sales using the details on the customer MENU.</string>
     <string name="sales_successfully_integrity">Please note that all your commission is a function of data integrity</string>
 
+    <string-array name="Weight">
+        <item>Kg</item>
+        <item>Gram</item>
+        <item>Tons</item>
+    </string-array>
+
 
 </resources>

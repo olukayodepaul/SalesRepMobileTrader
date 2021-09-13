@@ -16,7 +16,7 @@ fun ApplicationCustomers.toEntityAllOutletsList(): customersEntity {
     return customersEntity(
         auto,rep_id,urno,customerno,outletclassid,outletlanguageid,outlettypeid,outletname,outletaddress,
         contactname,contactphone,latitude,longitude,token,defaulttoken,sequenceno,distance,duration,mode,
-        dates,volumeclass,customer_code,sort,notice,entry_time
+        dates,volumeclass,customer_code,sort,notice,entry_time, spec
     )
 }
 

@@ -27,9 +27,6 @@ interface AppDao {
     @Query("SELECT * FROM modules")
     fun fetchModules(): List<modulesEntity>
 
-
-
-
     @Query("SELECT count(auto) from customers")
     fun getCustomersEntryCount():Int
 
