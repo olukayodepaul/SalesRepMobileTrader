@@ -1,229 +1,109 @@
 package com.mobbile.paul.ui.entryhistory
 
 
-import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.View
-import android.widget.TextView
-import android.widget.Toast
-import androidx.lifecycle.Observer
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.customview.customView
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import com.mobbile.paul.BaseActivity
-import com.mobbile.paul.model.*
 import com.mobbile.paul.salesrepmobiletrader.R
-import com.mobbile.paul.ui.salesviewpagers.SalesViewPager
-import com.mobbile.paul.util.Util.sharePrefenceDataSave
-import com.mobbile.paul.util.Util.showMessageDialogWithIntent
-import com.mobbile.paul.util.Util.showMessageDialogWithoutIntent
 import kotlinx.android.synthetic.main.activity_entry_history.*
-import kotlinx.android.synthetic.main.activity_entry_history.tv_outlet_name
-import kotlinx.android.synthetic.main.activity_modules.*
-import retrofit2.http.Query
-import java.math.RoundingMode
-import java.text.DecimalFormat
+import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
+import java.text.DecimalFormat
 
 class EntryHistory : BaseActivity() {
-
-    var currentlat: String = "0.0"
-    var currentlng: String = "0.0"
-    var uiid: String = ""
-    private lateinit var customers: customersEntity
 
     @Inject
     internal lateinit var modelFactory: ViewModelProvider.Factory
 
     lateinit var vmodel: EntryHistoryViewModel
 
-    private lateinit var mAdapter: EntryHistoryAdapter
-
-    private var preferences: SharedPreferences? = null
-
-    private lateinit var database: FirebaseDatabase
+    private lateinit var adapter: EntryHistoryAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_entry_history)
         vmodel = ViewModelProviders.of(this, modelFactory)[EntryHistoryViewModel::class.java]
-        preferences = getSharedPreferences(sharePrefenceDataSave, Context.MODE_PRIVATE)
-        customers = intent.extras!!.getParcelable("extra_item")!!
-        database = FirebaseDatabase.getInstance()
-        countBargeData()
-        initViews()
+        initAdapter()
+        vmodel.fetchAllSalesEntries()
+        fetchAllSalesEntries()
     }
 
+    private fun fetchAllSalesEntries() {
+        lifecycleScope.launchWhenResumed {
+            vmodel.entriesUiState.collect {
+                it.let {
+                    when(it){
+                        is PostEntryUiState.Empty->{ }
 
-    private fun initViews() {
-        //countBargeData()
+                        is PostEntryUiState.Error->{
+                            btn_complete_forground.isVisible = false
+                        }
 
-        key_icons.setOnClickListener {
-            if(customers.spec==0) {
-                vmodel.RefreshTokenRequest(
-                    customers.urno,
-                    customers.rep_id,
-                    "${customers.latitude},${customers.longitude}",
-                    preferences!!.getInt("preferencesEmployeeRegionId", 0)
-                ).observe(this, RequestTokenObserver)
-            }else{
-                token_form.setText(customers.defaulttoken)
-            }
-        }
+                        is PostEntryUiState.Loading->{
 
-        btn_complete_forground.visibility = View.GONE
+                        }
 
-        currentlat = intent.getStringExtra("currentlat")!!
-        currentlng = intent.getStringExtra("currentlng")!!
-        uiid = intent.getStringExtra("uiid")!!
-        tv_outlet_name.text = customers.outletname
+                        is PostEntryUiState.Success->{
 
-        back_btn.setOnClickListener {
-            onBackPressed()
-        }
+                            if(it.data.isNotEmpty()) {
 
-        btn_complete.setOnClickListener {
+                                val isTotalAmount = it.data.sumByDouble{
+                                        amount->amount.amount
+                                }
 
-            btn_complete.visibility = View.INVISIBLE
-            btn_complete_forground.visibility = View.VISIBLE
+                                val isTotalInventory = it.data.sumByDouble {
+                                    inventory->inventory.inventory.toDouble()
+                                }
 
-            when {
-                customers.token == token_form.text.toString().trim() -> {
-                    showProgressBar(true)
-                    vmodel.postSalesToServer(
-                        customers.rep_id,
-                        currentlat,
-                        currentlng,
-                        customers.latitude.toString(),
-                        customers.longitude.toString(),
-                        customers.distance,
-                        customers.duration,
-                        customers.urno,
-                        customers.sequenceno,
-                        customers.auto,
-                        token_form.text.toString().trim(),
-                        uiid
-                    )
-                }
-                customers.defaulttoken == token_form.text.toString().trim() -> {
-                    showProgressBar(true)
-                    vmodel.postSalesToServer(
-                        customers.rep_id,
-                        currentlat,
-                        currentlng,
-                        customers.latitude.toString(),
-                        customers.longitude.toString(),
-                        customers.distance,
-                        customers.duration,
-                        customers.urno,
-                        customers.sequenceno,
-                        customers.auto,
-                        token_form.text.toString().trim(),
-                        uiid
-                    )
-                }
-                else -> {
+                                val isTotalPricing = it.data.sumByDouble {
+                                    pricing->pricing.pricing.toDouble()
+                                }
 
-                    btn_complete.visibility = View.VISIBLE
-                    btn_complete_forground.visibility = View.INVISIBLE
+                                val isTotalOrder = it.data.sumByDouble {
+                                        orders->orders.orders.toDouble()
+                                }
 
-                    showMessageDialogWithoutIntent(
-                        this,
-                        "Error",
-                        "Invalid Customer Verification code"
-                    )
+
+                                adapter = EntryHistoryAdapter(it.data)
+                                adapter.notifyDataSetChanged()
+                                recycler_view_complete.setItemViewCacheSize(it.data.size)
+                                recycler_view_complete.adapter = adapter
+
+                                val df = DecimalFormat("#.#")
+                                s_s_pricing.text = String.format("%,.1f", (df.format(isTotalPricing)))
+                                s_s_invetory.text = String.format("%,.1f", (df.format(isTotalInventory)))
+                                s_s_order.text = String.format("%,.1f", (df.format(isTotalOrder)))
+                                s_s_amount.text = String.format("%,.1f", (df.format(isTotalAmount)))
+                                return@collect
+                            }
+                        }
+                    }
                 }
             }
         }
+    }
 
-        val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
-        recycler_view_complete!!.setHasFixedSize(true)
+    private fun initAdapter() {
+        val layoutManager = LinearLayoutManager(this)
         recycler_view_complete.layoutManager = layoutManager
-        vmodel.fecthAllSalesEntries().observe(this, observerOfSalesEntry)
-        vmodel.OpenOutletObserver().observe(this, observeCloseOutlets)
+        recycler_view_complete.setHasFixedSize(true)
     }
 
-    private val RequestTokenObserver = Observer<sendTokenToSalesMonitor> {
-        Toast.makeText(this, it.msg, Toast.LENGTH_LONG).show()
-    }
+//study the generic class
+//public inline fun <T> Iterable<T>.sumByDouble(selector: (T) -> Double): Double {
+//    var sum: Double = 0.0
+//    for (element in this) {
+//        sum += selector(element)
+//    }
+//    return sum
+//}
 
-    private val observeCloseOutlets = Observer<AttendantParser> {
-        when (it.status) {
-            200 -> {
-                showProgressBar(false)
-                customeSuccessDialog()
-            }
-            else -> {
-                btn_complete.visibility = View.VISIBLE
-                btn_complete_forground.visibility = View.INVISIBLE
-                showProgressBar(false)
-                showMessageDialogWithoutIntent(this, "Outlet Close Error", it.notis)
-            }
-        }
-    }
 
-    private fun customeSuccessDialog() {
-        val dialog = MaterialDialog(this)
-            .cancelOnTouchOutside(false)
-            .cancelable(false)
-            .customView(R.layout.dialogs)
-        dialog.findViewById<TextView>(R.id.positive_button).setOnClickListener {
-            val intent = Intent(this, SalesViewPager::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            startActivity(intent)
-            dialog.dismiss()
-        }
-        dialog.show()
-    }
 
-    private val observerOfSalesEntry = Observer<List<EntityGetSalesEntry>> {
-        if (it != null) {
-            val list: List<EntityGetSalesEntry> = it
-            mAdapter = EntryHistoryAdapter(list)
-            mAdapter.notifyDataSetChanged()
-            recycler_view_complete.adapter = mAdapter
-            recycler_view_complete.setItemViewCacheSize(list.size)
-            loadTotalSales()
-        }
-        showProgressBar(false)
-    }
-
-    private fun loadTotalSales() {
-        vmodel.SumAllTotalSalesEntry().observe(this, obserTotal)
-    }
-
-    private val obserTotal = Observer<SumSales> {
-        if (it != null) {
-            val df = DecimalFormat("#.#")
-            df.roundingMode = RoundingMode.FLOOR
-            s_s_pricing.text = String.format("%,.1f", (df.format(it.spricing).toDouble()))
-            s_s_invetory.text = String.format("%,.1f", (df.format(it.sinventory).toDouble()))
-            s_s_order.text = String.format("%,.1f", (df.format(it.sorder).toDouble()))
-            s_s_amount.text = String.format("%,.1f", (df.format(it.samount).toDouble()))
-        }
-    }
-
-    private fun countBargeData() {
-        val references =    database.getReference("/defaulttoken/${customers.urno}")
-        references.addValueEventListener(object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError) {}
-            override fun onDataChange(p0: DataSnapshot) {
-                if(p0.exists()){
-                    val vToken = p0.getValue(GetRequestToken::class.java)
-                    token_form.setText(vToken!!.token)
-                }
-            }
-        })
-    }
 
 
 }

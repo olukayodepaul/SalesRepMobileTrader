@@ -41,6 +41,7 @@ class Entries : BaseActivity() {
     private lateinit var customers: customersEntity
     var currentlat: String = "0.0"
     var currentlng: String = "0.0"
+    var uids: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,6 +63,7 @@ class Entries : BaseActivity() {
 
         currentlat = intent.getStringExtra("currentlat")!!
         currentlng = intent.getStringExtra("currentlng")!!
+        uids = intent.getStringExtra("uiid")!!
 
         vmodel.fetchSales(customers.customerno, customers.customer_code, customers.rep_id)
         vmodel.getSalesEntryExchage().observe(this,observeSalesEntry)
@@ -140,7 +142,7 @@ class Entries : BaseActivity() {
             intent.putExtra("extra_item", customers)
             intent.putExtra("currentlat",currentlat)
             intent.putExtra("currentlng", currentlng)
-            intent.putExtra("uiid",getDate()+"${customers.rep_id}"+UUID.randomUUID().toString())
+            intent.putExtra("uiid",uids)
             startActivity(intent)
         }else {
             showProgressBar(false)

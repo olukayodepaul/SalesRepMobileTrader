@@ -196,5 +196,14 @@ interface Api {
         @Query("urno") urno: Int,
         @Query("status") status: String
     ): Single<Response<StatusSpinners>>
+
+
+    @Headers("Connection:close")
+    @POST("/api/rep_open_outlet_on_sales")
+    suspend fun postSales(
+        @Body datas: postToServer
+    ): Attendant
+
+
 }
 

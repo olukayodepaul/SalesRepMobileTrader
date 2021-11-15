@@ -56,9 +56,6 @@ interface AppDao {
     @Query("SELECT count(id) FROM salesentries WHERE   controlpricing = '' OR controlinventory = '' OR controlorder = ''")
     fun validateSalesEntry() : Int
 
-    @Query("SELECT * FROM salesentries order by seperator asc")
-    fun fetchAllEntryPerDay(): List<EntityGetSalesEntry>
-
     @Query("SELECT  SUM(inventory) AS sinventory, SUM(pricing) AS spricing, SUM(orders) as sorder, SUM(amount) as samount FROM salesentries")
     fun SumAllTotalSalesEntry(): SumSales
 
@@ -73,9 +70,6 @@ interface AppDao {
 
     @Query("update custometvisitsequence set nexts=:nexts,self = (self || :self) where id = :id")
     fun UpdateSeque(id: Int,nexts:Int,self:String)
-
-    @Query("SELECT * FROM salesentries")
-    fun pullAllSalesEntry() : List<EntityGetSalesEntry>
 
     @Query("SELECT * FROM spiners")
     fun fetchSpinners() : List<spinersEntity>
@@ -94,5 +88,11 @@ interface AppDao {
 
     @Query("Update chatmessage set status = 2")
     fun MarkAsUnReadMessage()
+
+    @Query("SELECT * FROM salesentries WHERE  inventory != '0.0' OR pricing != '0' OR orders != '0.0'")
+    suspend fun pullAllSalesEntry() : List<EntityGetSalesEntry>
+
+    @Query("SELECT * FROM salesentries order by seperator asc")
+    suspend fun fetchAllEntryPerDay(): List<EntityGetSalesEntry>
 
 }

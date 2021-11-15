@@ -341,6 +341,7 @@ class Customers : DaggerFragment() {
                         intent.putExtra("extra_item", dataFromAdapter)
                         intent.putExtra("currentlat", it.currentLat.toString()) //current lat
                         intent.putExtra("currentlng", it.currentLng.toString())
+                        intent.putExtra("uiid", getDate() + "${dataFromAdapter.rep_id}" + UUID.randomUUID().toString())
                         startActivity(intent)
                     }
                     2 -> {

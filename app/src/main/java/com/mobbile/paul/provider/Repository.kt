@@ -124,11 +124,6 @@ constructor(private val appDao: AppDao, private val api: Api) {
         }.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
-    fun fetchAllEntryPerDaily(): Observable<List<EntityGetSalesEntry>> =
-        Observable.fromCallable {
-            appDao.fetchAllEntryPerDay()
-        }.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
 
     fun SumAllTotalSalesEntry(): Observable<SumSales> =
         Observable.fromCallable {
@@ -187,11 +182,7 @@ constructor(private val appDao: AppDao, private val api: Api) {
             .observeOn(AndroidSchedulers.mainThread())
             .map {it}
 
-    fun pullAllSalesEntry(): Single<List<EntityGetSalesEntry>> =
-        Single.fromCallable {
-            appDao.pullAllSalesEntry()
-        }.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+
 
     fun getSalesDetails(customer_code: String): Single<Response<SalesDetails>> =
         api.getSalesDetails(customer_code)

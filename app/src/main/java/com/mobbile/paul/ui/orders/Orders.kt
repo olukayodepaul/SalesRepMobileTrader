@@ -50,6 +50,7 @@ class Orders : BaseActivity() {
         vmodel = ViewModelProviders.of(this, modelFactory)[OrderViewModel::class.java]
         employId = preferences!!.getInt("preferencesEmployeeID",0)
         initView()
+
     }
 
     private fun initView() {
